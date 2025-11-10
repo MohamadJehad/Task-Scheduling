@@ -29,8 +29,8 @@ namespace TaskScheduling.Common
             // Summary table
             sb.AppendLine("ALGORITHM COMPARISON");
             sb.AppendLine("─────────────────────────────────────────────────────────────");
-            sb.AppendFormat("{0,-40} {1,10} {2,12} {3,12}\n", 
-                "Algorithm", "Makespan", "Time (ms)", "Approx Ratio");
+            sb.AppendFormat("{0,-40} {1,10} {2,12}\n", 
+                "Algorithm", "Makespan", "Approx Ratio");
             sb.AppendLine("─────────────────────────────────────────────────────────────");
 
             foreach (var result in results)
@@ -44,10 +44,9 @@ namespace TaskScheduling.Common
                     ratioStr = approxRatio.ToString("F3");
                 }
 
-                sb.AppendFormat("{0,-40} {1,10} {2,12} {3,12}\n",
+                sb.AppendFormat("{0,-40} {1,10} {2,12}\n",
                     result.AlgorithmName,
                     result.Makespan,
-                    result.ExecutionTimeMs,
                     ratioStr);
             }
             sb.AppendLine("─────────────────────────────────────────────────────────────");
@@ -59,7 +58,6 @@ namespace TaskScheduling.Common
                 sb.AppendLine($"DETAILED RESULT: {result.AlgorithmName}");
                 sb.AppendLine("─────────────────────────────────────────────────────────────");
                 sb.AppendLine($"Makespan: {result.Makespan}");
-                sb.AppendLine($"Execution Time: {result.ExecutionTimeMs} ms");
                 
                 double avgLoad = SchedulingMetrics.ComputeAverageLoad(result.Loads);
                 double imbalance = SchedulingMetrics.ComputeLoadImbalance(result.Loads);
@@ -103,8 +101,8 @@ namespace TaskScheduling.Common
             sb.AppendLine("═══════════════════════════════════════════════════════════════════════════════");
             sb.AppendLine("                         EXPERIMENT SUMMARY TABLE");
             sb.AppendLine("═══════════════════════════════════════════════════════════════════════════════");
-            sb.AppendFormat("{0,-15} {1,6} {2,6} {3,10} {4,12} {5,12} {6,10}\n",
-                "Instance", "Tasks", "TAs", "Optimal", "Greedy", "Greedy/Opt", "Time (ms)");
+            sb.AppendFormat("{0,-15} {1,6} {2,6} {3,10} {4,12} {5,12}\n",
+                "Instance", "Tasks", "TAs", "Optimal", "Greedy", "Greedy/Opt");
             sb.AppendLine("───────────────────────────────────────────────────────────────────────────────");
 
             foreach (var exp in experiments)
@@ -112,14 +110,13 @@ namespace TaskScheduling.Common
                 string optimalStr = exp.OptimalMakespan.HasValue ? exp.OptimalMakespan.Value.ToString() : "N/A";
                 string ratioStr = exp.ApproximationRatio.HasValue ? exp.ApproximationRatio.Value.ToString("F3") : "N/A";
 
-                sb.AppendFormat("{0,-15} {1,6} {2,6} {3,10} {4,12} {5,12} {6,10}\n",
+                sb.AppendFormat("{0,-15} {1,6} {2,6} {3,10} {4,12} {5,12}\n",
                     exp.InstanceName,
                     exp.NumTasks,
                     exp.NumTAs,
                     optimalStr,
                     exp.GreedyMakespan,
-                    ratioStr,
-                    exp.GreedyTimeMs);
+                    ratioStr);
             }
             sb.AppendLine("───────────────────────────────────────────────────────────────────────────────");
 
@@ -187,7 +184,6 @@ namespace TaskScheduling.Common
         public int NumTAs { get; set; }
         public int? OptimalMakespan { get; set; }
         public int GreedyMakespan { get; set; }
-        public long GreedyTimeMs { get; set; }
         public double? ApproximationRatio { get; set; }
     }
 }

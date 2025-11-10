@@ -37,14 +37,12 @@ namespace TaskScheduling.Common
         public Dictionary<string, string> Assignment { get; set; } = new(); // Task -> TA
         public Dictionary<string, int> Loads { get; set; } = new(); // TA -> Total Load
         public int Makespan { get; set; }
-        public long ExecutionTimeMs { get; set; }
         public string AlgorithmName { get; set; } = string.Empty;
 
         public override string ToString()
         {
             var result = $"Algorithm: {AlgorithmName}\n";
             result += $"Makespan: {Makespan}\n";
-            result += $"Execution Time: {ExecutionTimeMs} ms\n";
             result += "Task Assignments:\n";
             foreach (var kvp in Assignment.OrderBy(x => x.Key))
             {

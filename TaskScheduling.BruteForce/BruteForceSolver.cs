@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Linq;
 using TaskScheduling.Common;
 
@@ -48,8 +47,6 @@ namespace TaskScheduling.BruteForce
                 }
             }
 
-            var stopwatch = Stopwatch.StartNew();
-
             _tasks = problem.Tasks;
             _allTAs = problem.TAs;
             _bestMakespan = int.MaxValue;
@@ -57,8 +54,6 @@ namespace TaskScheduling.BruteForce
 
             var currentAssignment = new Dictionary<TaskInfo, TAInfo>();
             RecursiveEnumerate(0, currentAssignment);
-
-            stopwatch.Stop();
 
             // Convert TaskInfo->TAInfo assignment to string->string for compatibility
             var stringAssignment = new Dictionary<string, string>();
@@ -74,7 +69,6 @@ namespace TaskScheduling.BruteForce
                 Assignment = stringAssignment,
                 Loads = loads,
                 Makespan = _bestMakespan,
-                ExecutionTimeMs = stopwatch.ElapsedMilliseconds,
                 AlgorithmName = "Brute Force (Exact)"
             };
         }

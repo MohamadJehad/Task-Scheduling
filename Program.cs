@@ -57,16 +57,9 @@ namespace TaskScheduling
             var bfResult = bfSolver.Solve(problem);
             results.Add(bfResult);
 
-            // Greedy with different strategies
-            var greedySolver1 = new GreedySolver(GreedySortStrategy.MaxProcessingTime);
-            results.Add(greedySolver1.Solve(problem));
-
-            var greedySolver2 = new GreedySolver(GreedySortStrategy.MinProcessingTime);
-            results.Add(greedySolver2.Solve(problem));
-
-            // Greedy with local improvement
-            var improvedSolver = new GreedyWithLocalImprovement(GreedySortStrategy.MaxProcessingTime);
-            results.Add(improvedSolver.Solve(problem));
+            // Greedy
+            var greedySolver = new GreedySolver();
+            results.Add(greedySolver.Solve(problem));
 
             Console.WriteLine(ResultAnalyzer.CompareResults(problem, results, bfResult));
         }
@@ -96,16 +89,16 @@ namespace TaskScheduling
                 {
                     var bfSolver = new BruteForceSolver();
                     optimalResult = bfSolver.Solve(problem);
-                    Console.WriteLine($"Brute Force: Makespan = {optimalResult.Makespan}, Time = {optimalResult.ExecutionTimeMs} ms");
+                    Console.WriteLine($"Brute Force: Makespan = {optimalResult.Makespan}");
                 }
                 else
                 {
                     Console.WriteLine("Brute force skipped (too many assignments)");
                 }
 
-                var greedySolver = new GreedySolver(GreedySortStrategy.MaxProcessingTime);
+                var greedySolver = new GreedySolver();
                 var greedyResult = greedySolver.Solve(problem);
-                Console.WriteLine($"Greedy: Makespan = {greedyResult.Makespan}, Time = {greedyResult.ExecutionTimeMs} ms");
+                Console.WriteLine($"Greedy: Makespan = {greedyResult.Makespan}");
 
                 double? ratio = null;
                 if (optimalResult != null && optimalResult.Makespan > 0)
@@ -121,7 +114,6 @@ namespace TaskScheduling
                     NumTAs = problem.TACount,
                     OptimalMakespan = optimalResult?.Makespan,
                     GreedyMakespan = greedyResult.Makespan,
-                    GreedyTimeMs = greedyResult.ExecutionTimeMs,
                     ApproximationRatio = ratio
                 });
             }
@@ -146,20 +138,11 @@ namespace TaskScheduling
 
             var results = new List<SchedulingResult>();
 
-            // Compare different greedy strategies
-            foreach (GreedySortStrategy strategy in Enum.GetValues(typeof(GreedySortStrategy)))
-            {
-                var solver = new GreedySolver(strategy);
-                var result = solver.Solve(problem);
-                results.Add(result);
-                Console.WriteLine($"{strategy,-25}: Makespan = {result.Makespan,5}, Time = {result.ExecutionTimeMs,5} ms");
-            }
-
-            // Try with local improvement
-            var improvedSolver = new GreedyWithLocalImprovement(GreedySortStrategy.MaxProcessingTime);
-            var improvedResult = improvedSolver.Solve(problem);
-            results.Add(improvedResult);
-            Console.WriteLine($"{"With Local Improvement",-25}: Makespan = {improvedResult.Makespan,5}, Time = {improvedResult.ExecutionTimeMs,5} ms");
+            // Greedy
+            var greedySolver = new GreedySolver();
+            var greedyResult = greedySolver.Solve(problem);
+            results.Add(greedyResult);
+            Console.WriteLine($"{"Greedy",-25}: Makespan = {greedyResult.Makespan,5}");
 
             Console.WriteLine();
             Console.WriteLine("Best result: " + results.OrderBy(r => r.Makespan).First().AlgorithmName);
@@ -180,15 +163,10 @@ namespace TaskScheduling
             Console.WriteLine();
 
             // Test scalability
-            var solver1 = new GreedySolver(GreedySortStrategy.MaxProcessingTime);
-            var result1 = solver1.Solve(problem);
+            var solver = new GreedySolver();
+            var result = solver.Solve(problem);
 
-            var solver2 = new GreedyWithLocalImprovement(GreedySortStrategy.MaxProcessingTime, maxIterations: 50);
-            var result2 = solver2.Solve(problem);
-
-            Console.WriteLine($"Greedy (MaxProcessingTime): Makespan = {result1.Makespan}, Time = {result1.ExecutionTimeMs} ms");
-            Console.WriteLine($"Greedy + Local Improvement: Makespan = {result2.Makespan}, Time = {result2.ExecutionTimeMs} ms");
-            Console.WriteLine($"Improvement: {((double)result1.Makespan / result2.Makespan - 1) * 100:F2}%");
+            Console.WriteLine($"Greedy (MaxProcessingTime): Makespan = {result.Makespan}");
         }
 
         /// <summary>
@@ -232,7 +210,7 @@ namespace TaskScheduling
                     }
                 }
 
-                var greedySolver = new GreedySolver(GreedySortStrategy.MaxProcessingTime);
+                var greedySolver = new GreedySolver();
                 var greedyResult = greedySolver.Solve(problem);
                 Console.WriteLine($"  Greedy:  {greedyResult.Makespan}");
 
@@ -250,7 +228,6 @@ namespace TaskScheduling
                     NumTAs = problem.TACount,
                     OptimalMakespan = optimalResult?.Makespan,
                     GreedyMakespan = greedyResult.Makespan,
-                    GreedyTimeMs = greedyResult.ExecutionTimeMs,
                     ApproximationRatio = ratio
                 });
             }
@@ -313,7 +290,7 @@ namespace TaskScheduling
                         var bfSolver = new BruteForceSolver();
                         optimalResult = bfSolver.Solve(problem);
                         results.Add(optimalResult);
-                        Console.WriteLine($"  ✓ Brute Force: Makespan = {optimalResult.Makespan}, Time = {optimalResult.ExecutionTimeMs} ms");
+                        Console.WriteLine($"  ✓ Brute Force: Makespan = {optimalResult.Makespan}");
                     }
                     catch (Exception ex)
                     {
@@ -339,7 +316,7 @@ namespace TaskScheduling
                         ? (double)noSortResult.Makespan / optimalResult.Makespan 
                         : null;
                     string ratioStr = ratio.HasValue ? $" (Ratio: {ratio.Value:F3})" : "";
-                    Console.WriteLine($"  ✓ Greedy (No Sorting): Makespan = {noSortResult.Makespan}, Time = {noSortResult.ExecutionTimeMs} ms{ratioStr}");
+                    Console.WriteLine($"  ✓ Greedy (No Sorting): Makespan = {noSortResult.Makespan}{ratioStr}");
                 }
                 catch (Exception ex)
                 {
@@ -350,14 +327,14 @@ namespace TaskScheduling
                 try
                 {
                     Console.WriteLine("Running Greedy (Sort Loads Desc)...");
-                    var sortLoadsSolver = new GreedySolver(GreedySortStrategy.MaxProcessingTime);
+                    var sortLoadsSolver = new GreedySolver();
                     var sortLoadsResult = sortLoadsSolver.Solve(problem);
                     results.Add(sortLoadsResult);
                     double? ratio = optimalResult != null && optimalResult.Makespan > 0 
                         ? (double)sortLoadsResult.Makespan / optimalResult.Makespan 
                         : null;
                     string ratioStr = ratio.HasValue ? $" (Ratio: {ratio.Value:F3})" : "";
-                    Console.WriteLine($"  ✓ Greedy (Sort Loads Desc): Makespan = {sortLoadsResult.Makespan}, Time = {sortLoadsResult.ExecutionTimeMs} ms{ratioStr}");
+                    Console.WriteLine($"  ✓ Greedy (Sort Loads Desc): Makespan = {sortLoadsResult.Makespan}{ratioStr}");
                 }
                 catch (Exception ex)
                 {
@@ -375,7 +352,7 @@ namespace TaskScheduling
                         ? (double)sortLoadsTAsResult.Makespan / optimalResult.Makespan 
                         : null;
                     string ratioStr = ratio.HasValue ? $" (Ratio: {ratio.Value:F3})" : "";
-                    Console.WriteLine($"  ✓ Greedy (Sort Loads Desc, TAs Asc by Skills): Makespan = {sortLoadsTAsResult.Makespan}, Time = {sortLoadsTAsResult.ExecutionTimeMs} ms{ratioStr}");
+                    Console.WriteLine($"  ✓ Greedy (Sort Loads Desc, TAs Asc by Skills): Makespan = {sortLoadsTAsResult.Makespan}{ratioStr}");
                 }
                 catch (Exception ex)
                 {
@@ -519,53 +496,13 @@ namespace TaskScheduling
             sb.AppendLine();
 
             // ============================================================================
-            // SECTION 2: EXECUTION TIME COMPARISON
-            // ============================================================================
-            sb.AppendLine("═══════════════════════════════════════════════════════════════════════════════");
-            sb.AppendLine("SECTION 2: EXECUTION TIME (milliseconds)");
-            sb.AppendLine("═══════════════════════════════════════════════════════════════════════════════");
-            sb.AppendLine();
-
-            // Header
-            sb.AppendFormat("{0,-" + instanceColWidth + "}", "Instance");
-            foreach (var algo in orderedAlgorithms)
-            {
-                string shortName = algorithmAbbrev.ContainsKey(algo) ? algorithmAbbrev[algo] : algo.Length > algoColWidth - 1 ? algo.Substring(0, algoColWidth - 1) : algo;
-                sb.AppendFormat("{0," + algoColWidth + "}", shortName);
-            }
-            sb.AppendLine();
-            sb.AppendLine(new string('─', totalWidth));
-
-            // Data rows
-            foreach (var (instanceName, results, optimal) in allResults)
-            {
-                sb.AppendFormat("{0,-" + instanceColWidth + "}", instanceName.Length > instanceColWidth - 1 ? instanceName.Substring(0, instanceColWidth - 1) : instanceName);
-                foreach (var algo in orderedAlgorithms)
-                {
-                    var result = results.FirstOrDefault(r => r.AlgorithmName == algo);
-                    if (result != null)
-                    {
-                        sb.AppendFormat("{0," + algoColWidth + "}", result.ExecutionTimeMs);
-                    }
-                    else
-                    {
-                        sb.AppendFormat("{0," + algoColWidth + "}", "-");
-                    }
-                }
-                sb.AppendLine();
-            }
-
-            sb.AppendLine();
-            sb.AppendLine();
-
-            // ============================================================================
-            // SECTION 3: APPROXIMATION RATIOS (where optimal available)
+            // SECTION 2: APPROXIMATION RATIOS (where optimal available)
             // ============================================================================
             var instancesWithOptimal = allResults.Where(r => r.optimal != null).ToList();
             if (instancesWithOptimal.Any())
             {
                 sb.AppendLine("═══════════════════════════════════════════════════════════════════════════════");
-                sb.AppendLine("SECTION 3: APPROXIMATION RATIOS (vs Optimal Solution)");
+                sb.AppendLine("SECTION 2: APPROXIMATION RATIOS (vs Optimal Solution)");
                 sb.AppendLine("═══════════════════════════════════════════════════════════════════════════════");
                 sb.AppendLine();
 
@@ -608,10 +545,10 @@ namespace TaskScheduling
             }
 
             // ============================================================================
-            // SECTION 4: BEST ALGORITHM PER INSTANCE
+            // SECTION 3: BEST ALGORITHM PER INSTANCE
             // ============================================================================
             sb.AppendLine("═══════════════════════════════════════════════════════════════════════════════");
-            sb.AppendLine("SECTION 4: BEST ALGORITHM PER INSTANCE");
+            sb.AppendLine("SECTION 3: BEST ALGORITHM PER INSTANCE");
             sb.AppendLine("═══════════════════════════════════════════════════════════════════════════════");
             sb.AppendLine();
 
@@ -629,10 +566,10 @@ namespace TaskScheduling
             sb.AppendLine();
 
             // ============================================================================
-            // SECTION 5: STATISTICS SUMMARY
+            // SECTION 4: STATISTICS SUMMARY
             // ============================================================================
             sb.AppendLine("═══════════════════════════════════════════════════════════════════════════════");
-            sb.AppendLine("SECTION 5: STATISTICS SUMMARY");
+            sb.AppendLine("SECTION 4: STATISTICS SUMMARY");
             sb.AppendLine("═══════════════════════════════════════════════════════════════════════════════");
             sb.AppendLine();
 
