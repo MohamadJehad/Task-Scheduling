@@ -445,5 +445,80 @@ namespace TaskScheduling.Greedy
             };
         }
     }
+
+    /// <summary>
+    /// Greedy algorithm: Sort tasks by descending max processing time,
+    /// assign to TA with minimum load, tie-break by TA with fewer eligible tasks (ascending constraint count)
+    /// </summary>
+    public class GreedySortLoadsDescTAsAscBySkills
+    {
+        public SchedulingResult Solve(ProblemInstance problem)
+        {
+            if (!problem.IsValid())
+            {
+                throw new ArgumentException("Invalid problem instance");
+            }
+
+            var stopwatch = Stopwatch.StartNew();
+
+            // Initialize loads per TA
+            var loads = new Dictionary<string, int>();
+            foreach (var ta in problem.TAs)
+            {
+                loads[ta.Name] = 0;
+            }
+
+            // Compute TA constraint counts: number of tasks for which TA is eligible
+            var taConstraintCounts = new Dictionary<string, int>();
+            foreach (var ta in problem.TAs)
+            {
+                int count = problem.Tasks.Count(t => t.EligibleTAs.Any(e => e.Name == ta.Name));
+                taConstraintCounts[ta.Name] = count;
+            }
+
+            // Sort tasks by descending max processing time (loads desc)
+            var sortedTasks = problem.Tasks
+                .OrderByDescending(t => t.MaxProcessingTime)
+                .ToList();
+
+            // Assignment map
+            var assignment = new Dictionary<string, string>();
+
+            // Process sorted tasks
+            foreach (var task in sortedTasks)
+            {
+                var eligibleTAs = task.EligibleTAs.Select(x => x.Name).ToList();
+                if (eligibleTAs.Count == 0)
+                {
+                    throw new InvalidOperationException($"Task {task.Name} has no eligible TAs");
+                }
+
+                // Find minimum current load among eligible TAs
+                int minLoad = eligibleTAs.Min(tn => loads[tn]);
+                var tieBest = eligibleTAs.Where(tn => loads[tn] == minLoad).ToList();
+
+                // Tie-break: choose TA with minimum constraint count (fewer eligible tasks = ascending by skills)
+                string chosenTA = tieBest
+                    .OrderBy(tn => taConstraintCounts[tn])
+                    .First();
+
+                assignment[task.Name] = chosenTA;
+                loads[chosenTA] += task.ProcessingTimes[chosenTA];
+            }
+
+            stopwatch.Stop();
+
+            int makespan = SchedulingMetrics.ComputeMakespan(loads);
+
+            return new SchedulingResult
+            {
+                Assignment = assignment,
+                Loads = loads,
+                Makespan = makespan,
+                ExecutionTimeMs = stopwatch.ElapsedMilliseconds,
+                AlgorithmName = "Greedy (Sort Loads Desc, TAs Asc by Skills)"
+            };
+        }
+    }
 }
 

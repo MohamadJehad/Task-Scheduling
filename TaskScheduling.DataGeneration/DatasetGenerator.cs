@@ -10,18 +10,36 @@ namespace TaskScheduling.DataGeneration
     /// </summary>
     public class DatasetGenerator
     {
+        /// <summary>
+        /// Helper method to convert a list of TA names to TAInfo objects
+        /// </summary>
+        private static List<TAInfo> ToTAInfoList(List<string> names)
+        {
+            return names.Select(name => new TAInfo { Name = name }).ToList();
+        }
+
+        /// <summary>
+        /// Helper method to get TAInfo objects from a list by their names
+        /// </summary>
+        private static List<TAInfo> GetTAsByName(List<TAInfo> allTAs, List<string> names)
+        {
+            var taDict = allTAs.ToDictionary(ta => ta.Name);
+            return names.Select(name => taDict[name]).ToList();
+        }
 
         /// <summary>
         /// Creates a small test instance (suitable for brute force)
         /// </summary>
         public static ProblemInstance CreateSmallInstance(string name = "Small", int seed = 42)
         {
+            var tas = ToTAInfoList(new List<string> { "TA1", "TA2", "TA3" });
+            
             var tasks = new List<TaskInfo>
             {
                 new TaskInfo
                 {
                     Name = "Task1",
-                    EligibleTAs = new List<string> { "TA1", "TA2" },
+                    EligibleTAs = GetTAsByName(tas, new List<string> { "TA1", "TA2" }),
                     ProcessingTimes = new Dictionary<string, int>
                     {
                         { "TA1", 15 },
@@ -31,7 +49,7 @@ namespace TaskScheduling.DataGeneration
                 new TaskInfo
                 {
                     Name = "Task2",
-                    EligibleTAs = new List<string> { "TA2", "TA3" },
+                    EligibleTAs = GetTAsByName(tas, new List<string> { "TA2", "TA3" }),
                     ProcessingTimes = new Dictionary<string, int>
                     {
                         { "TA2", 25 },
@@ -41,7 +59,7 @@ namespace TaskScheduling.DataGeneration
                 new TaskInfo
                 {
                     Name = "Task3",
-                    EligibleTAs = new List<string> { "TA1", "TA3" },
+                    EligibleTAs = GetTAsByName(tas, new List<string> { "TA1", "TA3" }),
                     ProcessingTimes = new Dictionary<string, int>
                     {
                         { "TA1", 30 },
@@ -51,7 +69,7 @@ namespace TaskScheduling.DataGeneration
                 new TaskInfo
                 {
                     Name = "Task4",
-                    EligibleTAs = new List<string> { "TA1", "TA2" },
+                    EligibleTAs = GetTAsByName(tas, new List<string> { "TA1", "TA2" }),
                     ProcessingTimes = new Dictionary<string, int>
                     {
                         { "TA1", 12 },
@@ -61,7 +79,7 @@ namespace TaskScheduling.DataGeneration
                 new TaskInfo
                 {
                     Name = "Task5",
-                    EligibleTAs = new List<string> { "TA2", "TA3" },
+                    EligibleTAs = GetTAsByName(tas, new List<string> { "TA2", "TA3" }),
                     ProcessingTimes = new Dictionary<string, int>
                     {
                         { "TA2", 28 },
@@ -71,7 +89,7 @@ namespace TaskScheduling.DataGeneration
                 new TaskInfo
                 {
                     Name = "Task6",
-                    EligibleTAs = new List<string> { "TA1", "TA3" },
+                    EligibleTAs = GetTAsByName(tas, new List<string> { "TA1", "TA3" }),
                     ProcessingTimes = new Dictionary<string, int>
                     {
                         { "TA1", 19 },
@@ -81,7 +99,7 @@ namespace TaskScheduling.DataGeneration
                 new TaskInfo
                 {
                     Name = "Task7",
-                    EligibleTAs = new List<string> { "TA1", "TA2" },
+                    EligibleTAs = GetTAsByName(tas, new List<string> { "TA1", "TA2" }),
                     ProcessingTimes = new Dictionary<string, int>
                     {
                         { "TA1", 22 },
@@ -91,7 +109,7 @@ namespace TaskScheduling.DataGeneration
                 new TaskInfo
                 {
                     Name = "Task8",
-                    EligibleTAs = new List<string> { "TA2", "TA3" },
+                    EligibleTAs = GetTAsByName(tas, new List<string> { "TA2", "TA3" }),
                     ProcessingTimes = new Dictionary<string, int>
                     {
                         { "TA2", 14 },
@@ -104,7 +122,7 @@ namespace TaskScheduling.DataGeneration
             {
                 Name = name,
                 Tasks = tasks,
-                TAs = new List<string> { "TA1", "TA2", "TA3" },
+                TAs = tas,
                 Description = "Small static instance: 8 tasks, 3 TAs"
             };
         }
@@ -115,7 +133,8 @@ namespace TaskScheduling.DataGeneration
         public static ProblemInstance CreateMediumInstance(string name = "Medium", int seed = 42)
         {
             var tasks = new List<TaskInfo>();
-            var tas = new List<string> { "TA1", "TA2", "TA3", "TA4", "TA5" };
+            var tasNames = new List<string> { "TA1", "TA2", "TA3", "TA4", "TA5" };
+            var tas = ToTAInfoList(tasNames);
 
             // Create 30 predefined tasks with varying eligibility patterns
             for (int i = 1; i <= 30; i++)
@@ -151,7 +170,7 @@ namespace TaskScheduling.DataGeneration
                 tasks.Add(new TaskInfo
                 {
                     Name = $"Task{i}",
-                    EligibleTAs = eligibleTAs,
+                    EligibleTAs = GetTAsByName(tas, eligibleTAs),
                     ProcessingTimes = processingTimes
                 });
             }
@@ -171,7 +190,8 @@ namespace TaskScheduling.DataGeneration
         public static ProblemInstance CreateLargeInstance(string name = "Large", int seed = 42)
         {
             var tasks = new List<TaskInfo>();
-            var tas = new List<string> { "TA1", "TA2", "TA3", "TA4", "TA5", "TA6", "TA7", "TA8", "TA9", "TA10" };
+            var tasNames = new List<string> { "TA1", "TA2", "TA3", "TA4", "TA5", "TA6", "TA7", "TA8", "TA9", "TA10" };
+            var tas = ToTAInfoList(tasNames);
 
             // Create 100 predefined tasks with varying eligibility patterns
             for (int i = 1; i <= 100; i++)
@@ -262,8 +282,8 @@ namespace TaskScheduling.DataGeneration
                 tasks.Add(new TaskInfo
                 {
                     Name = $"Task{i}",
-                EligibleTAs = eligibleTAs,
-                ProcessingTimes = processingTimes
+                    EligibleTAs = GetTAsByName(tas, eligibleTAs),
+                    ProcessingTimes = processingTimes
                 });
             }
 
@@ -281,12 +301,14 @@ namespace TaskScheduling.DataGeneration
         /// </summary>
         public static ProblemInstance CreateLaTeXExample()
         {
+            var tas = ToTAInfoList(new List<string> { "A1", "A2", "A3" });
+            
             var tasks = new List<TaskInfo>
             {
                 new TaskInfo
                 {
                     Name = "A",
-                    EligibleTAs = new List<string> { "A1", "A3" },
+                    EligibleTAs = GetTAsByName(tas, new List<string> { "A1", "A3" }),
                     ProcessingTimes = new Dictionary<string, int>
                     {
                         { "A1", 10 },
@@ -296,7 +318,7 @@ namespace TaskScheduling.DataGeneration
                 new TaskInfo
                 {
                     Name = "B",
-                    EligibleTAs = new List<string> { "A2", "A3" },
+                    EligibleTAs = GetTAsByName(tas, new List<string> { "A2", "A3" }),
                     ProcessingTimes = new Dictionary<string, int>
                     {
                         { "A2", 8 },
@@ -309,7 +331,7 @@ namespace TaskScheduling.DataGeneration
             {
                 Name = "LaTeX Example",
                 Tasks = tasks,
-                TAs = new List<string> { "A1", "A2", "A3" },
+                TAs = tas,
                 Description = "Example from LaTeX document (Section 3)"
             };
         }
@@ -320,12 +342,14 @@ namespace TaskScheduling.DataGeneration
         public static ProblemInstance CreateWorstCaseInstance(string name = "WorstCase", int numTasks = 10, int numTAs = 3)
         {
             var tasks = new List<TaskInfo>();
-            var tas = new List<string>();
+            var tasNames = new List<string>();
             
             for (int i = 1; i <= numTAs; i++)
             {
-                tas.Add($"TA{i}");
+                tasNames.Add($"TA{i}");
             }
+            
+            var tas = ToTAInfoList(tasNames);
 
             // All tasks are eligible for all TAs
             for (int i = 1; i <= numTasks; i++)
@@ -333,15 +357,15 @@ namespace TaskScheduling.DataGeneration
                 var processingTimes = new Dictionary<string, int>();
                 int baseTime = 30 + (i * 5);
                 
-                foreach (var ta in tas)
+                foreach (var taName in tasNames)
                 {
-                    processingTimes[ta] = baseTime + (i % 3) * 10;
+                    processingTimes[taName] = baseTime + (i % 3) * 10;
                 }
 
                 tasks.Add(new TaskInfo
                 {
                     Name = $"Task{i}",
-                    EligibleTAs = new List<string>(tas),
+                    EligibleTAs = GetTAsByName(tas, new List<string>(tasNames)),
                     ProcessingTimes = processingTimes
                 });
             }
@@ -361,12 +385,14 @@ namespace TaskScheduling.DataGeneration
         public static ProblemInstance CreateConstrainedInstance(string name = "Constrained", int numTasks = 20, int numTAs = 5)
         {
             var tasks = new List<TaskInfo>();
-            var tas = new List<string>();
+            var tasNames = new List<string>();
             
             for (int i = 1; i <= numTAs; i++)
             {
-                tas.Add($"TA{i}");
+                tasNames.Add($"TA{i}");
             }
+            
+            var tas = ToTAInfoList(tasNames);
 
             // Each task has 1-2 eligible TAs
             for (int i = 1; i <= numTasks; i++)
@@ -375,13 +401,13 @@ namespace TaskScheduling.DataGeneration
                 var processingTimes = new Dictionary<string, int>();
                 
                 // Select 1 or 2 TAs in a round-robin fashion
-                string ta1 = tas[i % numTAs];
+                string ta1 = tasNames[i % numTAs];
                 eligibleTAs.Add(ta1);
                 processingTimes[ta1] = 40 + (i * 3);
                 
                 if (i % 2 == 0 && numTAs > 1)
                 {
-                    string ta2 = tas[(i + 1) % numTAs];
+                    string ta2 = tasNames[(i + 1) % numTAs];
                     eligibleTAs.Add(ta2);
                     processingTimes[ta2] = 45 + (i * 2);
                 }
@@ -389,7 +415,7 @@ namespace TaskScheduling.DataGeneration
                 tasks.Add(new TaskInfo
                 {
                     Name = $"Task{i}",
-                    EligibleTAs = eligibleTAs,
+                    EligibleTAs = GetTAsByName(tas, eligibleTAs),
                     ProcessingTimes = processingTimes
                 });
             }
@@ -409,12 +435,14 @@ namespace TaskScheduling.DataGeneration
         public static ProblemInstance CreateBalancedInstance(string name = "Balanced", int numTasks = 50, int numTAs = 8)
         {
             var tasks = new List<TaskInfo>();
-            var tas = new List<string>();
+            var tasNames = new List<string>();
             
             for (int i = 1; i <= numTAs; i++)
             {
-                tas.Add($"TA{i}");
+                tasNames.Add($"TA{i}");
             }
+            
+            var tas = ToTAInfoList(tasNames);
             
             // Create tasks where each TA is eligible for approximately the same number of tasks
             for (int i = 0; i < numTasks; i++)
@@ -422,29 +450,29 @@ namespace TaskScheduling.DataGeneration
                 // Make each task eligible for 2-3 TAs in a round-robin fashion
                 var eligibleTAs = new List<string>
                 {
-                    tas[i % numTAs],
-                    tas[(i + 1) % numTAs]
+                    tasNames[i % numTAs],
+                    tasNames[(i + 1) % numTAs]
                 };
 
                 if (i % 3 == 0 && numTAs > 2)
                 {
-                    eligibleTAs.Add(tas[(i + 2) % numTAs]);
+                    eligibleTAs.Add(tasNames[(i + 2) % numTAs]);
                 }
 
                 int baseDuration = 35 + (i % 20);
                 var processingTimes = new Dictionary<string, int>();
                 
                 int offset = 0;
-                foreach (var ta in eligibleTAs)
+                foreach (var taName in eligibleTAs)
                 {
-                    processingTimes[ta] = baseDuration + offset;
+                    processingTimes[taName] = baseDuration + offset;
                     offset += 5;
                 }
 
                 tasks.Add(new TaskInfo
                 {
                     Name = $"Task{i + 1}",
-                    EligibleTAs = eligibleTAs,
+                    EligibleTAs = GetTAsByName(tas, eligibleTAs),
                     ProcessingTimes = processingTimes
                 });
             }
