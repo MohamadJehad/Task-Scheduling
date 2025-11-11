@@ -77,9 +77,7 @@ namespace TaskScheduling.Greedy
     /// </summary>
     public class GreedySortLoadsDesc : GreedyNoSorting
     {
-#pragma warning disable CS0108 // Member hides inherited member; new keyword required
         public new SchedulingResult Solve(ProblemInstance problem)
-#pragma warning restore CS0108
         {
             if (!problem.IsValid())
             {

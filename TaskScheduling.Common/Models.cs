@@ -12,21 +12,11 @@ namespace TaskScheduling.Common
         public string Name { get; set; } = string.Empty;
         public List<TAInfo> EligibleTAs { get; set; } = new();
         public Dictionary<string, int> ProcessingTimes { get; set; } = new(); // p_{i,t}
-
+        
         /// <summary>
-        /// Returns the maximum processing time across all eligible TAs
+        /// Gets the maximum processing time across all eligible TAs
         /// </summary>
         public int MaxProcessingTime => ProcessingTimes.Count > 0 ? ProcessingTimes.Values.Max() : 0;
-
-        /// <summary>
-        /// Returns the minimum processing time across all eligible TAs
-        /// </summary>
-        public int MinProcessingTime => ProcessingTimes.Count > 0 ? ProcessingTimes.Values.Min() : 0;
-
-        /// <summary>
-        /// Returns the range of processing times (max - min)
-        /// </summary>
-        public int ProcessingTimeRange => MaxProcessingTime - MinProcessingTime;
     }
 
     /// <summary>
@@ -38,23 +28,6 @@ namespace TaskScheduling.Common
         public Dictionary<string, int> Loads { get; set; } = new(); // TA -> Total Load
         public int Makespan { get; set; }
         public string AlgorithmName { get; set; } = string.Empty;
-
-        public override string ToString()
-        {
-            var result = $"Algorithm: {AlgorithmName}\n";
-            result += $"Makespan: {Makespan}\n";
-            result += "Task Assignments:\n";
-            foreach (var kvp in Assignment.OrderBy(x => x.Key))
-            {
-                result += $"  {kvp.Key} → {kvp.Value}\n";
-            }
-            result += "TA Loads:\n";
-            foreach (var kvp in Loads.OrderBy(x => x.Key))
-            {
-                result += $"  {kvp.Key}: {kvp.Value}\n";
-            }
-            return result;
-        }
     }
 
     /// <summary>
@@ -63,9 +36,6 @@ namespace TaskScheduling.Common
     public class TAInfo
     {
         public string Name { get; set; } = string.Empty;
-        public int MaxCapacity { get; set; } = int.MaxValue; // Maximum workload capacity (optional constraint)
-        public List<string> Skills { get; set; } = new(); // Optional: skills or specializations
-        public bool IsAvailable { get; set; } = true; // Availability status
     }
 
     /// <summary>
@@ -163,25 +133,6 @@ namespace TaskScheduling.Common
             double avg = ComputeAverageLoad(loads);
             if (avg == 0) return 0;
             return ComputeMakespan(loads) / avg;
-        }
-
-        /// <summary>
-        /// Validates that an assignment is feasible
-        /// </summary>
-        public static bool IsAssignmentFeasible(
-            Dictionary<string, string> assignment,
-            List<TaskInfo> tasks)
-        {
-            foreach (var task in tasks)
-            {
-                if (!assignment.ContainsKey(task.Name))
-                    return false;
-
-                var assignedTA = assignment[task.Name];
-                if (!task.EligibleTAs.Any(ta => ta.Name == assignedTA))
-                    return false;
-            }
-            return true;
         }
     }
 }

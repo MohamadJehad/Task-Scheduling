@@ -17,9 +17,9 @@ namespace TaskScheduling.DataGeneration
         {
             var tas = new List<TAInfo>
             {
-                new TAInfo { Name = "A1", IsAvailable = true },
-                new TAInfo { Name = "A2", IsAvailable = true },
-                new TAInfo { Name = "A3", IsAvailable = true }
+                new TAInfo { Name = "A1" },
+                new TAInfo { Name = "A2" },
+                new TAInfo { Name = "A3" }
             };
 
             var tasks = new List<TaskInfo>

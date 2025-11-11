@@ -17,9 +17,9 @@ namespace TaskScheduling.DataGeneration
         {
             var tas = new List<TAInfo>
             {
-                new TAInfo { Name = "TA1", IsAvailable = true },
-                new TAInfo { Name = "TA2", IsAvailable = true },
-                new TAInfo { Name = "TA3", IsAvailable = true }
+                new TAInfo { Name = "TA1" },
+                new TAInfo { Name = "TA2" },
+                new TAInfo { Name = "TA3" }
             };
 
             var tasks = new List<TaskInfo>
@@ -122,9 +122,9 @@ namespace TaskScheduling.DataGeneration
         {
             var tas = new List<TAInfo>
             {
-                new TAInfo { Name = "TA1", IsAvailable = true },
-                new TAInfo { Name = "TA2", IsAvailable = true },
-                new TAInfo { Name = "TA3", IsAvailable = true }
+                new TAInfo { Name = "TA1" },
+                new TAInfo { Name = "TA2" },
+                new TAInfo { Name = "TA3" }
             };
 
             var tasks = new List<TaskInfo>
@@ -207,9 +207,9 @@ namespace TaskScheduling.DataGeneration
         {
             var tas = new List<TAInfo>
             {
-                new TAInfo { Name = "TA1", IsAvailable = true },
-                new TAInfo { Name = "TA2", IsAvailable = true },
-                new TAInfo { Name = "TA3", IsAvailable = true }
+                new TAInfo { Name = "TA1" },
+                new TAInfo { Name = "TA2" },
+                new TAInfo { Name = "TA3" }
             };
 
             var tasks = new List<TaskInfo>
@@ -300,7 +300,7 @@ namespace TaskScheduling.DataGeneration
         {
             var tasks = new List<TaskInfo>();
             var taNames = new List<string> { "TA1", "TA2", "TA3", "TA4", "TA5" };
-            var tas = taNames.Select(name => new TAInfo { Name = name, IsAvailable = true }).ToList();
+            var tas = taNames.Select(name => new TAInfo { Name = name }).ToList();
 
             // Create 30 predefined tasks with varying eligibility patterns
             for (int i = 1; i <= 30; i++)
@@ -357,7 +357,7 @@ namespace TaskScheduling.DataGeneration
         {
             var tasks = new List<TaskInfo>();
             var taNames = new List<string> { "TA1", "TA2", "TA3", "TA4", "TA5", "TA6", "TA7", "TA8", "TA9", "TA10" };
-            var tas = taNames.Select(name => new TAInfo { Name = name, IsAvailable = true }).ToList();
+            var tas = taNames.Select(name => new TAInfo { Name = name }).ToList();
 
             // Create 100 predefined tasks with varying eligibility patterns
             for (int i = 1; i <= 100; i++)

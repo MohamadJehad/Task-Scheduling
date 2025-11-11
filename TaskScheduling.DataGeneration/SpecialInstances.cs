@@ -24,7 +24,7 @@ namespace TaskScheduling.DataGeneration
                 taNames.Add($"TA{i}");
             }
 
-            var tas = taNames.Select(name => new TAInfo { Name = name, IsAvailable = true }).ToList();
+            var tas = taNames.Select(name => new TAInfo { Name = name }).ToList();
 
             // All tasks are eligible for all TAs
             for (int i = 1; i <= numTasks; i++)
@@ -68,7 +68,7 @@ namespace TaskScheduling.DataGeneration
                 taNames.Add($"TA{i}");
             }
 
-            var tas = taNames.Select(name => new TAInfo { Name = name, IsAvailable = true }).ToList();
+            var tas = taNames.Select(name => new TAInfo { Name = name }).ToList();
 
             // Each task has 1-2 eligible TAs
             for (int i = 1; i <= numTasks; i++)
@@ -119,7 +119,7 @@ namespace TaskScheduling.DataGeneration
                 taNames.Add($"TA{i}");
             }
 
-            var tas = taNames.Select(name => new TAInfo { Name = name, IsAvailable = true }).ToList();
+            var tas = taNames.Select(name => new TAInfo { Name = name }).ToList();
             
             // Create tasks where each TA is eligible for approximately the same number of tasks
             for (int i = 0; i < numTasks; i++)
