@@ -31,7 +31,7 @@ namespace TaskScheduling.DataGeneration
                     ProcessingTimes = new Dictionary<string, int>
                     {
                         { "A1", 10 },
-                        { "A3", 7 }
+                        { "A3", 10 }
                     }
                 },
                 new TaskInfo
@@ -40,8 +40,8 @@ namespace TaskScheduling.DataGeneration
                     EligibleTAs = new List<TAInfo> { tas[1], tas[2] },
                     ProcessingTimes = new Dictionary<string, int>
                     {
-                        { "A2", 8 },
-                        { "A3", 12 }
+                        { "A2", 10 },
+                        { "A3", 10 }
                     }
                 }
             };
@@ -76,7 +76,7 @@ namespace TaskScheduling.DataGeneration
                     ProcessingTimes = new Dictionary<string, int>
                     {
                         { "TA1", 15 },
-                        { "TA2", 20 }
+                        { "TA2", 15 }
                     }
                 },
                 new TaskInfo
@@ -85,8 +85,8 @@ namespace TaskScheduling.DataGeneration
                     EligibleTAs = new List<TAInfo> { tas[1], tas[2] },
                     ProcessingTimes = new Dictionary<string, int>
                     {
-                        { "TA2", 25 },
-                        { "TA3", 18 }
+                        { "TA2", 20 },
+                        { "TA3", 20 }
                     }
                 },
                 new TaskInfo
@@ -95,8 +95,8 @@ namespace TaskScheduling.DataGeneration
                     EligibleTAs = new List<TAInfo> { tas[0], tas[2] },
                     ProcessingTimes = new Dictionary<string, int>
                     {
-                        { "TA1", 30 },
-                        { "TA3", 22 }
+                        { "TA1", 25 },
+                        { "TA3", 25 }
                     }
                 },
                 new TaskInfo
@@ -105,8 +105,8 @@ namespace TaskScheduling.DataGeneration
                     EligibleTAs = new List<TAInfo> { tas[0], tas[1] },
                     ProcessingTimes = new Dictionary<string, int>
                     {
-                        { "TA1", 12 },
-                        { "TA2", 16 }
+                        { "TA1", 14 },
+                        { "TA2", 14 }
                     }
                 },
                 new TaskInfo
@@ -115,8 +115,8 @@ namespace TaskScheduling.DataGeneration
                     EligibleTAs = new List<TAInfo> { tas[1], tas[2] },
                     ProcessingTimes = new Dictionary<string, int>
                     {
-                        { "TA2", 28 },
-                        { "TA3", 24 }
+                        { "TA2", 26 },
+                        { "TA3", 26 }
                     }
                 },
                 new TaskInfo
@@ -125,8 +125,8 @@ namespace TaskScheduling.DataGeneration
                     EligibleTAs = new List<TAInfo> { tas[0], tas[2] },
                     ProcessingTimes = new Dictionary<string, int>
                     {
-                        { "TA1", 19 },
-                        { "TA3", 15 }
+                        { "TA1", 17 },
+                        { "TA3", 17 }
                     }
                 },
                 new TaskInfo
@@ -135,8 +135,8 @@ namespace TaskScheduling.DataGeneration
                     EligibleTAs = new List<TAInfo> { tas[0], tas[1] },
                     ProcessingTimes = new Dictionary<string, int>
                     {
-                        { "TA1", 22 },
-                        { "TA2", 18 }
+                        { "TA1", 20 },
+                        { "TA2", 20 }
                     }
                 },
                 new TaskInfo
@@ -145,8 +145,8 @@ namespace TaskScheduling.DataGeneration
                     EligibleTAs = new List<TAInfo> { tas[1], tas[2] },
                     ProcessingTimes = new Dictionary<string, int>
                     {
-                        { "TA2", 14 },
-                        { "TA3", 20 }
+                        { "TA2", 17 },
+                        { "TA3", 17 }
                     }
                 }
             };
@@ -174,33 +174,19 @@ namespace TaskScheduling.DataGeneration
             };
             var tasks = new List<TaskInfo>();
 
-            // 10 tasks with mix of 2-3 eligible TAs
+            // 10 tasks, each with exactly 2 eligible TAs with the same processing time
             for (int i = 1; i <= 10; i++)
             {
-                var eligibleTAs = new List<TAInfo>();
-                var processingTimes = new Dictionary<string, int>();
-                int baseTime = 20 + (i * 3);
-
-                if (i % 2 == 1)
+                int ta1Index = (i % 4);
+                int ta2Index = ((i + 1) % 4);
+                var eligibleTAs = new List<TAInfo> { tas[ta1Index], tas[ta2Index] };
+                int processingTime = 20 + (i * 3);
+                
+                var processingTimes = new Dictionary<string, int>
                 {
-                    // Odd tasks: 2 eligible TAs
-                    int ta1Index = (i % 4);
-                    int ta2Index = ((i + 1) % 4);
-                    eligibleTAs = new List<TAInfo> { tas[ta1Index], tas[ta2Index] };
-                    processingTimes[tas[ta1Index].Name] = baseTime;
-                    processingTimes[tas[ta2Index].Name] = baseTime + 5;
-                }
-                else
-                {
-                    // Even tasks: 3 eligible TAs
-                    int ta1Index = (i % 4);
-                    int ta2Index = ((i + 1) % 4);
-                    int ta3Index = ((i + 2) % 4);
-                    eligibleTAs = new List<TAInfo> { tas[ta1Index], tas[ta2Index], tas[ta3Index] };
-                    processingTimes[tas[ta1Index].Name] = baseTime;
-                    processingTimes[tas[ta2Index].Name] = baseTime + 5;
-                    processingTimes[tas[ta3Index].Name] = baseTime + 8;
-                }
+                    { tas[ta1Index].Name, processingTime },
+                    { tas[ta2Index].Name, processingTime }
+                };
 
                 tasks.Add(new TaskInfo
                 {
@@ -220,69 +206,9 @@ namespace TaskScheduling.DataGeneration
         }
 
         /// <summary>
-        /// Creates a medium-small test instance (suitable for brute force, ~200K-500K combinations)
-        /// </summary>
-        public static ProblemInstance Small_5(string name = "small_5", int seed = 42)
-        {
-            var tas = new List<TAInfo>
-            {
-                new TAInfo { Name = "TA1" },
-                new TAInfo { Name = "TA2" },
-                new TAInfo { Name = "TA3" },
-                new TAInfo { Name = "TA4" },
-                new TAInfo { Name = "TA5" }
-            };
-            var tasks = new List<TaskInfo>();
-
-            // 12 tasks with mix of 2-3 eligible TAs
-            for (int i = 1; i <= 12; i++)
-            {
-                var eligibleTAs = new List<TAInfo>();
-                var processingTimes = new Dictionary<string, int>();
-                int baseTime = 25 + (i * 2);
-
-                if (i % 3 == 0)
-                {
-                    // Every 3rd task: 3 eligible TAs
-                    int ta1Index = (i % 5);
-                    int ta2Index = ((i + 1) % 5);
-                    int ta3Index = ((i + 2) % 5);
-                    eligibleTAs = new List<TAInfo> { tas[ta1Index], tas[ta2Index], tas[ta3Index] };
-                    processingTimes[tas[ta1Index].Name] = baseTime;
-                    processingTimes[tas[ta2Index].Name] = baseTime + 4;
-                    processingTimes[tas[ta3Index].Name] = baseTime + 7;
-                }
-                else
-                {
-                    // Other tasks: 2 eligible TAs
-                    int ta1Index = (i % 5);
-                    int ta2Index = ((i + 1) % 5);
-                    eligibleTAs = new List<TAInfo> { tas[ta1Index], tas[ta2Index] };
-                    processingTimes[tas[ta1Index].Name] = baseTime;
-                    processingTimes[tas[ta2Index].Name] = baseTime + 6;
-                }
-
-                tasks.Add(new TaskInfo
-                {
-                    Name = $"Task{i}",
-                    EligibleTAs = eligibleTAs,
-                    ProcessingTimes = processingTimes
-                });
-            }
-
-            return new ProblemInstance
-            {
-                Name = name,
-                Tasks = tasks,
-                TAs = tas,
-                Description = "Medium-small static instance: 12 tasks, 5 TAs (mix of 2-3 eligible TAs per task)"
-            };
-        }
-
-        /// <summary>
         /// Creates a larger small test instance (suitable for brute force, ~500K-800K combinations)
         /// </summary>
-        public static ProblemInstance Small_6(string name = "small_6", int seed = 42)
+        public static ProblemInstance Small_5(string name = "small_5", int seed = 42)
         {
             var tas = new List<TAInfo>
             {
@@ -293,33 +219,19 @@ namespace TaskScheduling.DataGeneration
             };
             var tasks = new List<TaskInfo>();
 
-            // 15 tasks, mostly 2 eligible TAs (with a few 3s to add variety)
+            // 15 tasks, each with exactly 2 eligible TAs with the same processing time
             for (int i = 1; i <= 15; i++)
             {
-                var eligibleTAs = new List<TAInfo>();
-                var processingTimes = new Dictionary<string, int>();
-                int baseTime = 30 + (i * 2);
-
-                if (i % 5 == 0)
+                int ta1Index = (i % 4);
+                int ta2Index = ((i + 1) % 4);
+                var eligibleTAs = new List<TAInfo> { tas[ta1Index], tas[ta2Index] };
+                int processingTime = 30 + (i * 2);
+                
+                var processingTimes = new Dictionary<string, int>
                 {
-                    // Every 5th task: 3 eligible TAs
-                    int ta1Index = (i % 4);
-                    int ta2Index = ((i + 1) % 4);
-                    int ta3Index = ((i + 2) % 4);
-                    eligibleTAs = new List<TAInfo> { tas[ta1Index], tas[ta2Index], tas[ta3Index] };
-                    processingTimes[tas[ta1Index].Name] = baseTime;
-                    processingTimes[tas[ta2Index].Name] = baseTime + 5;
-                    processingTimes[tas[ta3Index].Name] = baseTime + 10;
-                }
-                else
-                {
-                    // Most tasks: 2 eligible TAs
-                    int ta1Index = (i % 4);
-                    int ta2Index = ((i + 1) % 4);
-                    eligibleTAs = new List<TAInfo> { tas[ta1Index], tas[ta2Index] };
-                    processingTimes[tas[ta1Index].Name] = baseTime;
-                    processingTimes[tas[ta2Index].Name] = baseTime + 7;
-                }
+                    { tas[ta1Index].Name, processingTime },
+                    { tas[ta2Index].Name, processingTime }
+                };
 
                 tasks.Add(new TaskInfo
                 {
@@ -342,7 +254,7 @@ namespace TaskScheduling.DataGeneration
         /// Creates a dataset designed to make TA constraint count sorting matter
         /// Multiple TAs will have identical processing times, forcing the constraint count tie-breaker to be used
         /// </summary>
-        public static ProblemInstance Small_7(string name = "small_7", int numTasks = 15, int numTAs = 5)
+        public static ProblemInstance Small_6(string name = "small_6", int numTasks = 15, int numTAs = 5)
         {
             var tasks = new List<TaskInfo>();
             var tas = new List<TAInfo>();
@@ -352,52 +264,20 @@ namespace TaskScheduling.DataGeneration
                 tas.Add(new TAInfo { Name = $"TA{i}" });
             }
 
-            // Tasks 1-10: All TAs eligible, all with SAME processing time (creates ties)
-            for (int i = 1; i <= 10; i++)
+            // All tasks: exactly 2 eligible TAs with the same processing time
+            for (int i = 1; i <= numTasks; i++)
             {
-                var processingTimes = new Dictionary<string, int>();
-                int baseTime = 30; // Same for all TAs - creates ties!
-                foreach (var ta in tas)
+                // Use round-robin to pair TAs
+                int ta1Index = (i - 1) % numTAs;
+                int ta2Index = (i % numTAs);
+                var eligibleTAs = new List<TAInfo> { tas[ta1Index], tas[ta2Index] };
+                int processingTime = 30 + (i % 20); // Vary processing time slightly
+
+                var processingTimes = new Dictionary<string, int>
                 {
-                    processingTimes[ta.Name] = baseTime;
-                }
-
-                tasks.Add(new TaskInfo
-                {
-                    Name = $"Task{i}",
-                    EligibleTAs = new List<TAInfo>(tas),
-                    ProcessingTimes = processingTimes
-                });
-            }
-
-            // Tasks 11-13: Only TA1, TA2, TA3 eligible (medium constraint count for TA3)
-            // All with SAME processing time
-            for (int i = 11; i <= 13; i++)
-            {
-                var processingTimes = new Dictionary<string, int>();
-                int baseTime = 35; // Same for all - creates ties!
-                var eligibleTAs = new List<TAInfo> { tas[0], tas[1], tas[2] };
-                processingTimes["TA1"] = baseTime;
-                processingTimes["TA2"] = baseTime;
-                processingTimes["TA3"] = baseTime;
-
-                tasks.Add(new TaskInfo
-                {
-                    Name = $"Task{i}",
-                    EligibleTAs = eligibleTAs,
-                    ProcessingTimes = processingTimes
-                });
-            }
-
-            // Tasks 14-15: Only TA4, TA5 eligible (low constraint count)
-            // All with SAME processing time
-            for (int i = 14; i <= numTasks; i++)
-            {
-                var processingTimes = new Dictionary<string, int>();
-                int baseTime = 40; // Same for both - creates ties!
-                var eligibleTAs = new List<TAInfo> { tas[3], tas[4] };
-                processingTimes["TA4"] = baseTime;
-                processingTimes["TA5"] = baseTime;
+                    { tas[ta1Index].Name, processingTime },
+                    { tas[ta2Index].Name, processingTime }
+                };
 
                 tasks.Add(new TaskInfo
                 {
@@ -432,21 +312,25 @@ namespace TaskScheduling.DataGeneration
 
             var tas = taNames.Select(n => new TAInfo { Name = n }).ToList();
 
-            // All tasks are eligible for all TAs
+            // All tasks: exactly 2 eligible TAs with the same processing time
             for (int i = 1; i <= numTasks; i++)
             {
-                var processingTimes = new Dictionary<string, int>();
-                int baseTime = 30 + (i * 5);
-                
-                foreach (var ta in taNames)
+                // Use round-robin to pair TAs
+                int ta1Index = (i - 1) % numTAs;
+                int ta2Index = (i % numTAs);
+                var eligibleTAs = new List<TAInfo> { tas[ta1Index], tas[ta2Index] };
+                int processingTime = 30 + (i * 5);
+
+                var processingTimes = new Dictionary<string, int>
                 {
-                    processingTimes[ta] = baseTime + (i % 3) * 10;
-                }
+                    { taNames[ta1Index], processingTime },
+                    { taNames[ta2Index], processingTime }
+                };
 
                 tasks.Add(new TaskInfo
                 {
                     Name = $"Task{i}",
-                    EligibleTAs = new List<TAInfo>(tas),
+                    EligibleTAs = eligibleTAs,
                     ProcessingTimes = processingTimes
                 });
             }
@@ -463,7 +347,7 @@ namespace TaskScheduling.DataGeneration
         /// <summary>
         /// Creates a worst-case instance variant (10 tasks, 3 TAs)
         /// </summary>
-        public static ProblemInstance Small_8(string name = "small_8", int numTasks = 10, int numTAs = 3)
+        public static ProblemInstance Small_7(string name = "small_7", int numTasks = 10, int numTAs = 3)
         {
             return Small_2(name, numTasks, numTAs);
         }
@@ -471,7 +355,7 @@ namespace TaskScheduling.DataGeneration
         /// <summary>
         /// Creates a worst-case instance variant (15 tasks, 5 TAs)
         /// </summary>
-        public static ProblemInstance Small_9(string name = "small_9", int numTasks = 15, int numTAs = 5)
+        public static ProblemInstance Small_8(string name = "small_8", int numTasks = 15, int numTAs = 5)
         {
             return Small_2(name, numTasks, numTAs);
         }
@@ -485,36 +369,20 @@ namespace TaskScheduling.DataGeneration
             var taNames = new List<string> { "TA1", "TA2", "TA3", "TA4", "TA5" };
             var tas = taNames.Select(name => new TAInfo { Name = name }).ToList();
 
-            // Create 30 predefined tasks with varying eligibility patterns
+            // Create 30 tasks, each with exactly 2 eligible TAs with the same processing time
             for (int i = 1; i <= 30; i++)
             {
-                var eligibleTAs = new List<TAInfo>();
-                var processingTimes = new Dictionary<string, int>();
+                // Use round-robin to pair TAs
+                int ta1Index = (i - 1) % 5;
+                int ta2Index = (i % 5);
+                var eligibleTAs = new List<TAInfo> { tas[ta1Index], tas[ta2Index] };
+                int processingTime = 20 + i;
 
-                // Distribute tasks across TAs in a balanced way
-                switch (i % 5)
+                var processingTimes = new Dictionary<string, int>
                 {
-                    case 0:
-                        eligibleTAs = new List<TAInfo> { tas[0], tas[1], tas[2] };
-                        processingTimes = new Dictionary<string, int> { { "TA1", 20 + i }, { "TA2", 25 + i }, { "TA3", 18 + i } };
-                        break;
-                    case 1:
-                        eligibleTAs = new List<TAInfo> { tas[1], tas[2], tas[3] };
-                        processingTimes = new Dictionary<string, int> { { "TA2", 30 + i }, { "TA3", 22 + i }, { "TA4", 28 + i } };
-                        break;
-                    case 2:
-                        eligibleTAs = new List<TAInfo> { tas[2], tas[3], tas[4] };
-                        processingTimes = new Dictionary<string, int> { { "TA3", 15 + i }, { "TA4", 20 + i }, { "TA5", 25 + i } };
-                        break;
-                    case 3:
-                        eligibleTAs = new List<TAInfo> { tas[0], tas[3], tas[4] };
-                        processingTimes = new Dictionary<string, int> { { "TA1", 35 + i }, { "TA4", 30 + i }, { "TA5", 28 + i } };
-                        break;
-                    case 4:
-                        eligibleTAs = new List<TAInfo> { tas[0], tas[1] };
-                        processingTimes = new Dictionary<string, int> { { "TA1", 40 + i }, { "TA2", 38 + i } };
-                        break;
-                }
+                    { tas[ta1Index].Name, processingTime },
+                    { tas[ta2Index].Name, processingTime }
+                };
 
                 tasks.Add(new TaskInfo
                 {
@@ -549,30 +417,20 @@ namespace TaskScheduling.DataGeneration
 
             var tas = taNames.Select(n => new TAInfo { Name = n }).ToList();
             
-            // Create tasks where each TA is eligible for approximately the same number of tasks
+            // Create tasks, each with exactly 2 eligible TAs with the same processing time
             for (int i = 0; i < numTasks; i++)
             {
-                // Make each task eligible for 2-3 TAs in a round-robin fashion
-                var eligibleTAs = new List<TAInfo>
+                // Use round-robin to pair TAs
+                int ta1Index = i % numTAs;
+                int ta2Index = (i + 1) % numTAs;
+                var eligibleTAs = new List<TAInfo> { tas[ta1Index], tas[ta2Index] };
+                int processingTime = 35 + (i % 20);
+
+                var processingTimes = new Dictionary<string, int>
                 {
-                    tas[i % numTAs],
-                    tas[(i + 1) % numTAs]
+                    { tas[ta1Index].Name, processingTime },
+                    { tas[ta2Index].Name, processingTime }
                 };
-
-                if (i % 3 == 0 && numTAs > 2)
-                {
-                    eligibleTAs.Add(tas[(i + 2) % numTAs]);
-                }
-
-                int baseDuration = 35 + (i % 20);
-                var processingTimes = new Dictionary<string, int>();
-                
-                int offset = 0;
-                foreach (var ta in eligibleTAs)
-                {
-                    processingTimes[ta.Name] = baseDuration + offset;
-                    offset += 5;
-                }
 
                 tasks.Add(new TaskInfo
                 {
@@ -607,23 +465,20 @@ namespace TaskScheduling.DataGeneration
 
             var tas = taNames.Select(n => new TAInfo { Name = n }).ToList();
 
-            // Each task has 1-2 eligible TAs
+            // Each task has exactly 2 eligible TAs with the same processing time
             for (int i = 1; i <= numTasks; i++)
             {
-                var eligibleTAs = new List<TAInfo>();
-                var processingTimes = new Dictionary<string, int>();
-                
-                // Select 1 or 2 TAs in a round-robin fashion
-                string ta1 = taNames[i % numTAs];
-                eligibleTAs.Add(tas[i % numTAs]);
-                processingTimes[ta1] = 40 + (i * 3);
-                
-                if (i % 2 == 0 && numTAs > 1)
+                // Use round-robin to pair TAs
+                int ta1Index = (i - 1) % numTAs;
+                int ta2Index = i % numTAs;
+                var eligibleTAs = new List<TAInfo> { tas[ta1Index], tas[ta2Index] };
+                int processingTime = 40 + (i * 3);
+
+                var processingTimes = new Dictionary<string, int>
                 {
-                    string ta2 = taNames[(i + 1) % numTAs];
-                    eligibleTAs.Add(tas[(i + 1) % numTAs]);
-                    processingTimes[ta2] = 45 + (i * 2);
-                }
+                    { taNames[ta1Index], processingTime },
+                    { taNames[ta2Index], processingTime }
+                };
 
                 tasks.Add(new TaskInfo
                 {
@@ -651,91 +506,20 @@ namespace TaskScheduling.DataGeneration
             var taNames = new List<string> { "TA1", "TA2", "TA3", "TA4", "TA5", "TA6", "TA7", "TA8", "TA9", "TA10" };
             var tas = taNames.Select(name => new TAInfo { Name = name }).ToList();
 
-            // Create 100 predefined tasks with varying eligibility patterns
+            // Create 100 tasks, each with exactly 2 eligible TAs with the same processing time
             for (int i = 1; i <= 100; i++)
             {
-                var eligibleTAs = new List<TAInfo>();
-                var processingTimes = new Dictionary<string, int>();
+                // Use round-robin to pair TAs
+                int ta1Index = (i - 1) % 10;
+                int ta2Index = i % 10;
+                var eligibleTAs = new List<TAInfo> { tas[ta1Index], tas[ta2Index] };
+                int processingTime = 50 + (i % 30);
 
-                // Create different patterns of eligibility
-                int pattern = i % 10;
-                int baseTime = 50 + (i % 30);
-
-                switch (pattern)
+                var processingTimes = new Dictionary<string, int>
                 {
-                    case 0:
-                        eligibleTAs = new List<TAInfo> { tas[0], tas[1], tas[2], tas[3] };
-                        processingTimes = new Dictionary<string, int> { 
-                            { "TA1", baseTime + 10 }, { "TA2", baseTime + 15 }, 
-                            { "TA3", baseTime + 5 }, { "TA4", baseTime + 20 } 
-                        };
-                        break;
-                    case 1:
-                        eligibleTAs = new List<TAInfo> { tas[1], tas[2], tas[4] };
-                        processingTimes = new Dictionary<string, int> { 
-                            { "TA2", baseTime + 12 }, { "TA3", baseTime + 8 }, 
-                            { "TA5", baseTime + 18 } 
-                        };
-                        break;
-                    case 2:
-                        eligibleTAs = new List<TAInfo> { tas[3], tas[5], tas[6], tas[7] };
-                        processingTimes = new Dictionary<string, int> { 
-                            { "TA4", baseTime + 25 }, { "TA6", baseTime + 15 }, 
-                            { "TA7", baseTime + 10 }, { "TA8", baseTime + 20 } 
-                        };
-                        break;
-                    case 3:
-                        eligibleTAs = new List<TAInfo> { tas[0], tas[4], tas[8] };
-                        processingTimes = new Dictionary<string, int> { 
-                            { "TA1", baseTime + 30 }, { "TA5", baseTime + 22 }, 
-                            { "TA9", baseTime + 18 } 
-                        };
-                        break;
-                    case 4:
-                        eligibleTAs = new List<TAInfo> { tas[2], tas[6], tas[9] };
-                        processingTimes = new Dictionary<string, int> { 
-                            { "TA3", baseTime + 14 }, { "TA7", baseTime + 16 }, 
-                            { "TA10", baseTime + 12 } 
-                        };
-                        break;
-                    case 5:
-                        eligibleTAs = new List<TAInfo> { tas[1], tas[3], tas[5], tas[7], tas[9] };
-                        processingTimes = new Dictionary<string, int> { 
-                            { "TA2", baseTime + 35 }, { "TA4", baseTime + 28 }, 
-                            { "TA6", baseTime + 30 }, { "TA8", baseTime + 25 }, 
-                            { "TA10", baseTime + 32 } 
-                        };
-                        break;
-                    case 6:
-                        eligibleTAs = new List<TAInfo> { tas[0], tas[2], tas[4], tas[6], tas[8] };
-                        processingTimes = new Dictionary<string, int> { 
-                            { "TA1", baseTime + 20 }, { "TA3", baseTime + 18 }, 
-                            { "TA5", baseTime + 22 }, { "TA7", baseTime + 15 }, 
-                            { "TA9", baseTime + 25 } 
-                        };
-                        break;
-                    case 7:
-                        eligibleTAs = new List<TAInfo> { tas[4], tas[5], tas[6] };
-                        processingTimes = new Dictionary<string, int> { 
-                            { "TA5", baseTime + 40 }, { "TA6", baseTime + 38 }, 
-                            { "TA7", baseTime + 35 } 
-                        };
-                        break;
-                    case 8:
-                        eligibleTAs = new List<TAInfo> { tas[7], tas[8], tas[9] };
-                        processingTimes = new Dictionary<string, int> { 
-                            { "TA8", baseTime + 28 }, { "TA9", baseTime + 32 }, 
-                            { "TA10", baseTime + 30 } 
-                        };
-                        break;
-                    case 9:
-                        eligibleTAs = new List<TAInfo> { tas[0], tas[3], tas[6], tas[9] };
-                        processingTimes = new Dictionary<string, int> { 
-                            { "TA1", baseTime + 45 }, { "TA4", baseTime + 40 }, 
-                            { "TA7", baseTime + 42 }, { "TA10", baseTime + 38 } 
-                        };
-                        break;
-                }
+                    { taNames[ta1Index], processingTime },
+                    { taNames[ta2Index], processingTime }
+                };
 
                 tasks.Add(new TaskInfo
                 {
@@ -755,8 +539,170 @@ namespace TaskScheduling.DataGeneration
         }
 
         /// <summary>
-        /// Gets all available problem instances in order
+        /// Creates a large test instance where each task can be performed by exactly 2 TAs with the same processing time
         /// </summary>
+        public static ProblemInstance Big_2(string name = "big_2", int seed = 42)
+        {
+            var random = new Random(seed);
+            var tasks = new List<TaskInfo>();
+            var taNames = new List<string> { "TA1", "TA2", "TA3", "TA4", "TA5", "TA6", "TA7", "TA8", "TA9", "TA10" };
+            var tas = taNames.Select(n => new TAInfo { Name = n }).ToList();
+
+            // Create 100 tasks, each with exactly 2 eligible TAs with the same processing time
+            for (int i = 1; i <= 100; i++)
+            {
+                // Randomly select 2 different TAs
+                var selectedTAs = tas.OrderBy(x => random.Next()).Take(2).ToList();
+                int processingTime = 30 + random.Next(1, 51); // Processing time between 30-80
+
+                var task = new TaskInfo
+                {
+                    Name = $"Task{i}",
+                    EligibleTAs = selectedTAs,
+                    ProcessingTimes = new Dictionary<string, int>
+                    {
+                        { selectedTAs[0].Name, processingTime },
+                        { selectedTAs[1].Name, processingTime }
+                    }
+                };
+                tasks.Add(task);
+            }
+
+            return new ProblemInstance
+            {
+                Name = name,
+                Tasks = tasks,
+                TAs = tas,
+                Description = "Large instance with 100 tasks, each task has exactly 2 eligible TAs with identical processing times"
+            };
+        }
+
+        /// <summary>
+        /// Creates a large test instance where each task can be performed by exactly 2 TAs with the same processing time
+        /// Uses sequential TA pairs for more structured patterns
+        /// </summary>
+        public static ProblemInstance Big_3(string name = "big_3", int seed = 42)
+        {
+            var random = new Random(seed);
+            var tasks = new List<TaskInfo>();
+            var taNames = new List<string> { "TA1", "TA2", "TA3", "TA4", "TA5", "TA6", "TA7", "TA8", "TA9", "TA10" };
+            var tas = taNames.Select(n => new TAInfo { Name = n }).ToList();
+
+            // Create 100 tasks with structured TA pairs
+            for (int i = 1; i <= 100; i++)
+            {
+                // Use sequential pairs with some variation
+                int ta1Index = (i - 1) % (tas.Count - 1);
+                int ta2Index = (ta1Index + 1 + (i / 10) % (tas.Count - 1)) % tas.Count;
+                
+                var selectedTAs = new List<TAInfo> { tas[ta1Index], tas[ta2Index] };
+                int processingTime = 40 + (i % 40); // Processing time between 40-79
+
+                var task = new TaskInfo
+                {
+                    Name = $"Task{i}",
+                    EligibleTAs = selectedTAs,
+                    ProcessingTimes = new Dictionary<string, int>
+                    {
+                        { selectedTAs[0].Name, processingTime },
+                        { selectedTAs[1].Name, processingTime }
+                    }
+                };
+                tasks.Add(task);
+            }
+
+            return new ProblemInstance
+            {
+                Name = name,
+                Tasks = tasks,
+                TAs = tas,
+                Description = "Large instance with 100 tasks, each task has exactly 2 eligible TAs (sequential pairs) with identical processing times"
+            };
+        }
+
+        /// <summary>
+        /// Creates a large test instance where each task can be performed by exactly 2 TAs with the same processing time
+        /// Uses complementary TA pairs (opposite ends of the list)
+        /// </summary>
+        public static ProblemInstance Big_4(string name = "big_4", int seed = 42)
+        {
+            var random = new Random(seed);
+            var tasks = new List<TaskInfo>();
+            var taNames = new List<string> { "TA1", "TA2", "TA3", "TA4", "TA5", "TA6", "TA7", "TA8", "TA9", "TA10" };
+            var tas = taNames.Select(n => new TAInfo { Name = n }).ToList();
+
+            // Create 100 tasks with complementary TA pairs
+            for (int i = 1; i <= 100; i++)
+            {
+                // Pair TAs from opposite ends: first half with second half
+                int ta1Index = (i - 1) % (tas.Count / 2);
+                int ta2Index = (tas.Count / 2) + ((i - 1) % (tas.Count / 2));
+                
+                var selectedTAs = new List<TAInfo> { tas[ta1Index], tas[ta2Index] };
+                int processingTime = 50 + random.Next(1, 31); // Processing time between 50-80
+
+                var task = new TaskInfo
+                {
+                    Name = $"Task{i}",
+                    EligibleTAs = selectedTAs,
+                    ProcessingTimes = new Dictionary<string, int>
+                    {
+                        { selectedTAs[0].Name, processingTime },
+                        { selectedTAs[1].Name, processingTime }
+                    }
+                };
+                tasks.Add(task);
+            }
+
+            return new ProblemInstance
+            {
+                Name = name,
+                Tasks = tasks,
+                TAs = tas,
+                Description = "Large instance with 100 tasks, each task has exactly 2 eligible TAs (complementary pairs) with identical processing times"
+            };
+        }
+
+        /// <summary>
+        /// Creates a large test instance where each task can be performed by exactly 2 TAs with the same processing time
+        /// Uses random pairs with higher processing times
+        /// </summary>
+        public static ProblemInstance Big_5(string name = "big_5", int seed = 42)
+        {
+            var random = new Random(seed);
+            var tasks = new List<TaskInfo>();
+            var taNames = new List<string> { "TA1", "TA2", "TA3", "TA4", "TA5", "TA6", "TA7", "TA8", "TA9", "TA10" };
+            var tas = taNames.Select(n => new TAInfo { Name = n }).ToList();
+
+            // Create 100 tasks with random TA pairs and higher processing times
+            for (int i = 1; i <= 100; i++)
+            {
+                // Randomly select 2 different TAs
+                var selectedTAs = tas.OrderBy(x => random.Next()).Take(2).ToList();
+                int processingTime = 60 + random.Next(1, 41); // Processing time between 60-100
+
+                var task = new TaskInfo
+                {
+                    Name = $"Task{i}",
+                    EligibleTAs = selectedTAs,
+                    ProcessingTimes = new Dictionary<string, int>
+                    {
+                        { selectedTAs[0].Name, processingTime },
+                        { selectedTAs[1].Name, processingTime }
+                    }
+                };
+                tasks.Add(task);
+            }
+
+            return new ProblemInstance
+            {
+                Name = name,
+                Tasks = tasks,
+                TAs = tas,
+                Description = "Large instance with 100 tasks, each task has exactly 2 eligible TAs with identical processing times (higher processing times)"
+            };
+        }
+
         public static IEnumerable<ProblemInstance> GetAllInstances()
         {
             yield return Small_0();
@@ -767,11 +713,14 @@ namespace TaskScheduling.DataGeneration
             yield return Small_6();
             yield return Small_7();
             yield return Small_8();
-            yield return Small_9();
             yield return Medium_1();
             yield return Medium_2();
             yield return Medium_3();
             yield return Big_1();
+            yield return Big_2();
+            yield return Big_3();
+            yield return Big_4();
+            yield return Big_5();
         }
     }
 }
