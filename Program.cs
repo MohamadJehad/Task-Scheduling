@@ -206,10 +206,10 @@ namespace TaskScheduling
                 .ToList();
 
             // ============================================================================
-            // SECTION 1: MAKESPAN COMPARISON
+            // SECTION 1: MAX LOAD COMPARISON
             // ============================================================================
             sb.AppendLine("═══════════════════════════════════════════════════════════════════════════════");
-            sb.AppendLine("SECTION 1: MAKESPAN COMPARISON");
+            sb.AppendLine("SECTION 1: MAX LOAD COMPARISON");
             sb.AppendLine("═══════════════════════════════════════════════════════════════════════════════");
             sb.AppendLine();
 
