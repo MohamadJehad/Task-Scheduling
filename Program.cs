@@ -327,6 +327,44 @@ namespace TaskScheduling
                 sb.AppendLine();
                 sb.AppendLine("Note: Ratio = Heuristic MaxLoad / Optimal MaxLoad (lower is better, 1.000 = optimal)");
                 sb.AppendLine();
+                
+                // Calculate average and worst approximation ratios for each algorithm
+                var algorithmRatios = new Dictionary<string, List<double>>();
+                foreach (var algo in heuristicAlgorithms)
+                {
+                    algorithmRatios[algo] = new List<double>();
+                }
+                
+                foreach (var (instanceName, results, optimal) in instancesWithOptimal)
+                {
+                    foreach (var algo in heuristicAlgorithms)
+                    {
+                        var result = results.FirstOrDefault(r => r.AlgorithmName == algo);
+                        if (result != null && optimal != null && optimal.MaxLoad > 0)
+                        {
+                            double ratio = (double)result.MaxLoad / optimal.MaxLoad;
+                            algorithmRatios[algo].Add(ratio);
+                        }
+                    }
+                }
+                
+                // Calculate and log average and worst ratios
+                sb.AppendLine("═══════════════════════════════════════════════════════════════════════════════");
+                sb.AppendLine("APPROXIMATION RATIO SUMMARY");
+                sb.AppendLine("═══════════════════════════════════════════════════════════════════════════════");
+                sb.AppendLine();
+                
+                foreach (var algo in heuristicAlgorithms)
+                {
+                    if (algorithmRatios[algo].Any())
+                    {
+                        double avgRatio = algorithmRatios[algo].Average();
+                        double worstRatio = algorithmRatios[algo].Max();
+                        string shortName = algorithmAbbrev.ContainsKey(algo) ? algorithmAbbrev[algo] : algo;
+                        sb.AppendLine($"{shortName,-30} Average: {avgRatio:F3}  Worst: {worstRatio:F3}");
+                    }
+                }
+                sb.AppendLine();
             }
 
             string summaryFile = Path.Combine(reportsDir, $"MasterSummary_{DateTime.Now:yyyyMMdd_HHmmss}.txt");
