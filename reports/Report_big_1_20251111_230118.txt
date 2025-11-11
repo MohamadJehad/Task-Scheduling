@@ -1,0 +1,99 @@
+═══════════════════════════════════════════════════════════════
+  PROBLEM INSTANCE: big_1
+═══════════════════════════════════════════════════════════════
+Tasks: 100, TAs: 10
+Description: Large test instance: 100 tasks, 10 TAs
+
+ALGORITHM COMPARISON
+─────────────────────────────────────────────────────────────
+Algorithm                                   MaxLoad Approx Ratio
+─────────────────────────────────────────────────────────────
+Greedy (No Sorting)                             664          N/A
+Greedy (Sort Loads Desc)                        677          N/A
+Greedy (Sort Loads Desc, TAs Asc by Skills)        677          N/A
+─────────────────────────────────────────────────────────────
+
+DETAILED RESULT: Greedy (No Sorting)
+─────────────────────────────────────────────────────────────
+MaxLoad: 664
+
+TA Loads:
+  TA8          664 ██████████████████████████████████████████████████
+  TA1          654 ██████████████████████████████████████████████████
+  TA7          654 ██████████████████████████████████████████████████
+  TA10         653 ██████████████████████████████████████████████████
+  TA6          644 ██████████████████████████████████████████████████
+  TA5          634 ██████████████████████████████████████████████████
+  TA4          624 ██████████████████████████████████████████████████
+  TA9          615 ██████████████████████████████████████████████████
+  TA3          614 ██████████████████████████████████████████████████
+  TA2          604 ██████████████████████████████████████████████████
+
+Task Assignments by TA:
+  TA1: Task1, Task11, Task21, Task31, Task40, Task50, Task60, Task70, Task80, Task90, Task100
+  TA10: Task10, Task20, Task30, Task39, Task49, Task59, Task69, Task79, Task89, Task99
+  TA2: Task2, Task12, Task22, Task32, Task41, Task51, Task61, Task71, Task81, Task91
+  TA3: Task3, Task13, Task23, Task33, Task42, Task52, Task62, Task72, Task82, Task92
+  TA4: Task4, Task14, Task24, Task34, Task43, Task53, Task63, Task73, Task83, Task93
+  TA5: Task5, Task15, Task25, Task35, Task44, Task54, Task64, Task74, Task84, Task94
+  TA6: Task6, Task16, Task26, Task36, Task45, Task55, Task65, Task75, Task85, Task95
+  TA7: Task7, Task17, Task27, Task37, Task46, Task56, Task66, Task76, Task86, Task96
+  TA8: Task8, Task18, Task28, Task38, Task47, Task57, Task67, Task77, Task87, Task97
+  TA9: Task9, Task19, Task29, Task48, Task58, Task68, Task78, Task88, Task98
+
+DETAILED RESULT: Greedy (Sort Loads Desc)
+─────────────────────────────────────────────────────────────
+MaxLoad: 677
+
+TA Loads:
+  TA10         677 ██████████████████████████████████████████████████
+  TA2          671 ██████████████████████████████████████████████████
+  TA1          669 ██████████████████████████████████████████████████
+  TA6          650 ██████████████████████████████████████████████████
+  TA5          640 ██████████████████████████████████████████████████
+  TA4          630 ██████████████████████████████████████████████████
+  TA3          620 ██████████████████████████████████████████████████
+  TA7          603 ██████████████████████████████████████████████████
+  TA8          601 ██████████████████████████████████████████████████
+  TA9          599 ██████████████████████████████████████████████████
+
+Task Assignments by TA:
+  TA1: Task21, Task51, Task81, Task80, Task11, Task41, Task70, Task1, Task31, Task61, Task91
+  TA10: Task59, Task20, Task50, Task49, Task10, Task40, Task100, Task69, Task30, Task60, Task90
+  TA2: Task22, Task52, Task82, Task12, Task42, Task72, Task71, Task2, Task32, Task62, Task92
+  TA3: Task23, Task53, Task83, Task13, Task43, Task73, Task3, Task33, Task63, Task93
+  TA4: Task24, Task54, Task84, Task14, Task44, Task74, Task4, Task34, Task64, Task94
+  TA5: Task25, Task55, Task85, Task15, Task45, Task75, Task5, Task35, Task65, Task95
+  TA6: Task26, Task56, Task86, Task16, Task46, Task76, Task6, Task36, Task66, Task96
+  TA7: Task27, Task57, Task87, Task17, Task47, Task77, Task7, Task37, Task97
+  TA8: Task28, Task58, Task88, Task18, Task78, Task8, Task38, Task68, Task67
+  TA9: Task29, Task89, Task19, Task79, Task48, Task9, Task39, Task99, Task98
+
+DETAILED RESULT: Greedy (Sort Loads Desc, TAs Asc by Skills)
+─────────────────────────────────────────────────────────────
+MaxLoad: 677
+
+TA Loads:
+  TA10         677 ██████████████████████████████████████████████████
+  TA2          671 ██████████████████████████████████████████████████
+  TA1          669 ██████████████████████████████████████████████████
+  TA6          650 ██████████████████████████████████████████████████
+  TA5          640 ██████████████████████████████████████████████████
+  TA4          630 ██████████████████████████████████████████████████
+  TA3          620 ██████████████████████████████████████████████████
+  TA7          603 ██████████████████████████████████████████████████
+  TA8          601 ██████████████████████████████████████████████████
+  TA9          599 ██████████████████████████████████████████████████
+
+Task Assignments by TA:
+  TA1: Task21, Task51, Task81, Task80, Task11, Task41, Task70, Task1, Task31, Task61, Task91
+  TA10: Task59, Task20, Task50, Task49, Task10, Task40, Task100, Task69, Task30, Task60, Task90
+  TA2: Task22, Task52, Task82, Task12, Task42, Task72, Task71, Task2, Task32, Task62, Task92
+  TA3: Task23, Task53, Task83, Task13, Task43, Task73, Task3, Task33, Task63, Task93
+  TA4: Task24, Task54, Task84, Task14, Task44, Task74, Task4, Task34, Task64, Task94
+  TA5: Task25, Task55, Task85, Task15, Task45, Task75, Task5, Task35, Task65, Task95
+  TA6: Task26, Task56, Task86, Task16, Task46, Task76, Task6, Task36, Task66, Task96
+  TA7: Task27, Task57, Task87, Task17, Task47, Task77, Task7, Task37, Task97
+  TA8: Task28, Task58, Task88, Task18, Task78, Task8, Task38, Task68, Task67
+  TA9: Task29, Task89, Task19, Task79, Task48, Task9, Task39, Task99, Task98
+

@@ -318,63 +318,6 @@ namespace TaskScheduling
                 sb.AppendLine();
             }
 
-            // ============================================================================
-            // SECTION 3: BEST ALGORITHM PER INSTANCE
-            // ============================================================================
-            sb.AppendLine("═══════════════════════════════════════════════════════════════════════════════");
-            sb.AppendLine("SECTION 3: BEST ALGORITHM PER INSTANCE");
-            sb.AppendLine("═══════════════════════════════════════════════════════════════════════════════");
-            sb.AppendLine();
-
-            foreach (var (instanceName, results, optimal) in allResults)
-            {
-                if (results.Any())
-                {
-                    var best = results.OrderBy(r => r.MaxLoad).First();
-                    string optimalNote = optimal != null && best.MaxLoad == optimal.MaxLoad ? " [OPTIMAL]" : "";
-                    string algoDisplayName = algorithmAbbrev.ContainsKey(best.AlgorithmName) 
-                        ? algorithmAbbrev[best.AlgorithmName] 
-                        : best.AlgorithmName;
-                    sb.AppendLine($"  {instanceName,-25} → {algoDisplayName,-35} (MaxLoad: {best.MaxLoad,5}){optimalNote}");
-                }
-            }
-
-            sb.AppendLine();
-            sb.AppendLine();
-
-            // ============================================================================
-            // SECTION 4: STATISTICS SUMMARY
-            // ============================================================================
-            sb.AppendLine("═══════════════════════════════════════════════════════════════════════════════");
-            sb.AppendLine("SECTION 4: STATISTICS SUMMARY");
-            sb.AppendLine("═══════════════════════════════════════════════════════════════════════════════");
-            sb.AppendLine();
-
-            // Count wins per algorithm
-            var winCounts = new Dictionary<string, int>();
-            foreach (var (instanceName, results, optimal) in allResults)
-            {
-                if (results.Any())
-                {
-                    var best = results.OrderBy(r => r.MaxLoad).First();
-                    if (!winCounts.ContainsKey(best.AlgorithmName))
-                        winCounts[best.AlgorithmName] = 0;
-                    winCounts[best.AlgorithmName]++;
-                }
-            }
-
-            sb.AppendLine("Number of Best Results per Algorithm:");
-            foreach (var kvp in winCounts.OrderByDescending(x => x.Value))
-            {
-                string algoDisplayName = algorithmAbbrev.ContainsKey(kvp.Key) 
-                    ? algorithmAbbrev[kvp.Key] 
-                    : kvp.Key;
-                sb.AppendLine($"  {algoDisplayName,-45} : {kvp.Value,2} wins");
-            }
-
-            sb.AppendLine();
-            sb.AppendLine("═══════════════════════════════════════════════════════════════════════════════");
-
             string summaryFile = Path.Combine(reportsDir, $"MasterSummary_{DateTime.Now:yyyyMMdd_HHmmss}.txt");
             File.WriteAllText(summaryFile, sb.ToString());
             Console.WriteLine($"\n📊 Master summary report saved to: {Path.GetFileName(summaryFile)}");

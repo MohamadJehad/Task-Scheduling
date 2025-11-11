@@ -1,0 +1,80 @@
+═══════════════════════════════════════════════════════════════
+  PROBLEM INSTANCE: small_9
+═══════════════════════════════════════════════════════════════
+Tasks: 12, TAs: 4
+Description: Small test instance: 12 tasks, 4 TAs
+
+ALGORITHM COMPARISON
+─────────────────────────────────────────────────────────────
+Algorithm                                   MaxLoad Approx Ratio
+─────────────────────────────────────────────────────────────
+Brute Force (Exact)                              87        1.000
+Greedy (No Sorting)                              93        1.069
+Greedy (Sort Loads Desc)                         87        1.000
+Greedy (Sort Loads Desc, TAs Asc by Skills)         87        1.000
+─────────────────────────────────────────────────────────────
+
+DETAILED RESULT: Brute Force (Exact)
+─────────────────────────────────────────────────────────────
+MaxLoad: 87
+
+TA Loads:
+  TA2           87 ███████████████████████████████████████████
+  TA3           85 ██████████████████████████████████████████
+  TA4           83 █████████████████████████████████████████
+  TA1           81 ████████████████████████████████████████
+
+Task Assignments by TA:
+  TA1: Task1, Task5, Task12
+  TA2: Task2, Task9, Task10
+  TA3: Task3, Task6, Task11
+  TA4: Task4, Task7, Task8
+
+DETAILED RESULT: Greedy (No Sorting)
+─────────────────────────────────────────────────────────────
+MaxLoad: 93
+
+TA Loads:
+  TA4           93 ██████████████████████████████████████████████
+  TA3           87 ███████████████████████████████████████████
+  TA2           81 ████████████████████████████████████████
+  TA1           75 █████████████████████████████████████
+
+Task Assignments by TA:
+  TA1: Task1, Task5, Task9
+  TA2: Task2, Task6, Task10
+  TA3: Task3, Task7, Task11
+  TA4: Task4, Task8, Task12
+
+DETAILED RESULT: Greedy (Sort Loads Desc)
+─────────────────────────────────────────────────────────────
+MaxLoad: 87
+
+TA Loads:
+  TA2           87 ███████████████████████████████████████████
+  TA3           85 ██████████████████████████████████████████
+  TA4           83 █████████████████████████████████████████
+  TA1           81 ████████████████████████████████████████
+
+Task Assignments by TA:
+  TA1: Task9, Task8, Task1
+  TA2: Task10, Task6, Task5
+  TA3: Task11, Task7, Task2
+  TA4: Task12, Task4, Task3
+
+DETAILED RESULT: Greedy (Sort Loads Desc, TAs Asc by Skills)
+─────────────────────────────────────────────────────────────
+MaxLoad: 87
+
+TA Loads:
+  TA2           87 ███████████████████████████████████████████
+  TA3           85 ██████████████████████████████████████████
+  TA4           83 █████████████████████████████████████████
+  TA1           81 ████████████████████████████████████████
+
+Task Assignments by TA:
+  TA1: Task9, Task8, Task1
+  TA2: Task10, Task6, Task5
+  TA3: Task11, Task7, Task2
+  TA4: Task12, Task4, Task3
+
