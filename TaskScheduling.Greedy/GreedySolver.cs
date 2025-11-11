@@ -30,13 +30,13 @@ namespace TaskScheduling.Greedy
                 loads[chosenTA] += task.ProcessingTimes[chosenTA];
             }
 
-            int makespan = SchedulingMetrics.ComputeMakespan(loads);
+            int maxLoad = SchedulingMetrics.ComputeMaxLoad(loads);
 
             return new SchedulingResult
             {
                 Assignment = assignment,
                 Loads = loads,
-                Makespan = makespan,
+                MaxLoad = maxLoad,
                 AlgorithmName = "Greedy (No Sorting)"
             };
         }
@@ -101,13 +101,13 @@ namespace TaskScheduling.Greedy
                 loads[chosenTA] += task.ProcessingTimes[chosenTA];
             }
 
-            int makespan = SchedulingMetrics.ComputeMakespan(loads);
+            int maxLoad = SchedulingMetrics.ComputeMaxLoad(loads);
 
             return new SchedulingResult
             {
                 Assignment = assignment,
                 Loads = loads,
-                Makespan = makespan,
+                MaxLoad = maxLoad,
                 AlgorithmName = "Greedy (Sort Loads Desc)"
             };
         }
@@ -157,13 +157,13 @@ namespace TaskScheduling.Greedy
                 loads[chosenTA] += task.ProcessingTimes[chosenTA];
             }
 
-            int makespan = SchedulingMetrics.ComputeMakespan(loads);
+            int maxLoad = SchedulingMetrics.ComputeMaxLoad(loads);
 
             return new SchedulingResult
             {
                 Assignment = assignment,
                 Loads = loads,
-                Makespan = makespan,
+                MaxLoad = maxLoad,
                 AlgorithmName = "Greedy (Sort Loads Desc, TAs Asc by Skills)"
             };
         }

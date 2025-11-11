@@ -89,7 +89,7 @@ namespace TaskScheduling
                 {
                     var bfSolver = new BruteForceSolver();
                     optimalResult = bfSolver.Solve(problem);
-                    Console.WriteLine($"Brute Force: Makespan = {optimalResult.Makespan}");
+                    Console.WriteLine($"Brute Force: MaxLoad = {optimalResult.MaxLoad}");
                 }
                 else
                 {
@@ -98,12 +98,12 @@ namespace TaskScheduling
 
                 var greedySolver = new GreedySortLoadsDesc();
                 var greedyResult = greedySolver.Solve(problem);
-                Console.WriteLine($"Greedy: Makespan = {greedyResult.Makespan}");
+                Console.WriteLine($"Greedy: MaxLoad = {greedyResult.MaxLoad}");
 
                 double? ratio = null;
-                if (optimalResult != null && optimalResult.Makespan > 0)
+                if (optimalResult != null && optimalResult.MaxLoad > 0)
                 {
-                    ratio = (double)greedyResult.Makespan / optimalResult.Makespan;
+                    ratio = (double)greedyResult.MaxLoad / optimalResult.MaxLoad;
                     Console.WriteLine($"Approximation Ratio: {ratio:F3}");
                 }
 
@@ -112,8 +112,8 @@ namespace TaskScheduling
                     InstanceName = problem.Name,
                     NumTasks = problem.TaskCount,
                     NumTAs = problem.TACount,
-                    OptimalMakespan = optimalResult?.Makespan,
-                    GreedyMakespan = greedyResult.Makespan,
+                    OptimalMaxLoad = optimalResult?.MaxLoad,
+                    GreedyMaxLoad = greedyResult.MaxLoad,
                     ApproximationRatio = ratio
                 });
             }
@@ -142,10 +142,10 @@ namespace TaskScheduling
             var greedySolver = new GreedySortLoadsDesc();
             var greedyResult = greedySolver.Solve(problem);
             results.Add(greedyResult);
-            Console.WriteLine($"{"Greedy",-25}: Makespan = {greedyResult.Makespan,5}");
+            Console.WriteLine($"{"Greedy",-25}: MaxLoad = {greedyResult.MaxLoad,5}");
 
             Console.WriteLine();
-            Console.WriteLine("Best result: " + results.OrderBy(r => r.Makespan).First().AlgorithmName);
+            Console.WriteLine("Best result: " + results.OrderBy(r => r.MaxLoad).First().AlgorithmName);
         }
 
         /// <summary>
@@ -166,7 +166,7 @@ namespace TaskScheduling
             var solver = new GreedySortLoadsDesc();
             var result = solver.Solve(problem);
 
-            Console.WriteLine($"Greedy (MaxProcessingTime): Makespan = {result.Makespan}");
+            Console.WriteLine($"Greedy (MaxProcessingTime): MaxLoad = {result.MaxLoad}");
         }
 
         /// <summary>
@@ -202,7 +202,7 @@ namespace TaskScheduling
                     {
                         var bfSolver = new BruteForceSolver();
                         optimalResult = bfSolver.Solve(problem);
-                        Console.WriteLine($"  Optimal: {optimalResult.Makespan}");
+                        Console.WriteLine($"  Optimal: {optimalResult.MaxLoad}");
                     }
                     catch (Exception ex)
                     {
@@ -212,12 +212,12 @@ namespace TaskScheduling
 
                 var greedySolver = new GreedySortLoadsDesc();
                 var greedyResult = greedySolver.Solve(problem);
-                Console.WriteLine($"  Greedy:  {greedyResult.Makespan}");
+                Console.WriteLine($"  Greedy:  {greedyResult.MaxLoad}");
 
                 double? ratio = null;
-                if (optimalResult != null && optimalResult.Makespan > 0)
+                if (optimalResult != null && optimalResult.MaxLoad > 0)
                 {
-                    ratio = (double)greedyResult.Makespan / optimalResult.Makespan;
+                    ratio = (double)greedyResult.MaxLoad / optimalResult.MaxLoad;
                     Console.WriteLine($"  Ratio:   {ratio:F3}");
                 }
 
@@ -226,8 +226,8 @@ namespace TaskScheduling
                     InstanceName = problem.Name,
                     NumTasks = problem.TaskCount,
                     NumTAs = problem.TACount,
-                    OptimalMakespan = optimalResult?.Makespan,
-                    GreedyMakespan = greedyResult.Makespan,
+                    OptimalMaxLoad = optimalResult?.MaxLoad,
+                    GreedyMaxLoad = greedyResult.MaxLoad,
                     ApproximationRatio = ratio
                 });
             }
@@ -290,7 +290,7 @@ namespace TaskScheduling
                         var bfSolver = new BruteForceSolver();
                         optimalResult = bfSolver.Solve(problem);
                         results.Add(optimalResult);
-                        Console.WriteLine($"  ✓ Brute Force: Makespan = {optimalResult.Makespan}");
+                        Console.WriteLine($"  ✓ Brute Force: MaxLoad = {optimalResult.MaxLoad}");
                     }
                     catch (Exception ex)
                     {
@@ -312,11 +312,11 @@ namespace TaskScheduling
                     var noSortSolver = new GreedyNoSorting();
                     var noSortResult = noSortSolver.Solve(problem);
                     results.Add(noSortResult);
-                    double? ratio = optimalResult != null && optimalResult.Makespan > 0 
-                        ? (double)noSortResult.Makespan / optimalResult.Makespan 
+                    double? ratio = optimalResult != null && optimalResult.MaxLoad > 0 
+                        ? (double)noSortResult.MaxLoad / optimalResult.MaxLoad 
                         : null;
                     string ratioStr = ratio.HasValue ? $" (Ratio: {ratio.Value:F3})" : "";
-                    Console.WriteLine($"  ✓ Greedy (No Sorting): Makespan = {noSortResult.Makespan}{ratioStr}");
+                    Console.WriteLine($"  ✓ Greedy (No Sorting): MaxLoad = {noSortResult.MaxLoad}{ratioStr}");
                 }
                 catch (Exception ex)
                 {
@@ -330,11 +330,11 @@ namespace TaskScheduling
                     var sortLoadsSolver = new GreedySortLoadsDesc();
                     var sortLoadsResult = sortLoadsSolver.Solve(problem);
                     results.Add(sortLoadsResult);
-                    double? ratio = optimalResult != null && optimalResult.Makespan > 0 
-                        ? (double)sortLoadsResult.Makespan / optimalResult.Makespan 
+                    double? ratio = optimalResult != null && optimalResult.MaxLoad > 0 
+                        ? (double)sortLoadsResult.MaxLoad / optimalResult.MaxLoad 
                         : null;
                     string ratioStr = ratio.HasValue ? $" (Ratio: {ratio.Value:F3})" : "";
-                    Console.WriteLine($"  ✓ Greedy (Sort Loads Desc): Makespan = {sortLoadsResult.Makespan}{ratioStr}");
+                    Console.WriteLine($"  ✓ Greedy (Sort Loads Desc): MaxLoad = {sortLoadsResult.MaxLoad}{ratioStr}");
                 }
                 catch (Exception ex)
                 {
@@ -348,11 +348,11 @@ namespace TaskScheduling
                     var sortLoadsTAsSolver = new GreedySortLoadsDescTAsAscBySkills();
                     var sortLoadsTAsResult = sortLoadsTAsSolver.Solve(problem);
                     results.Add(sortLoadsTAsResult);
-                    double? ratio = optimalResult != null && optimalResult.Makespan > 0 
-                        ? (double)sortLoadsTAsResult.Makespan / optimalResult.Makespan 
+                    double? ratio = optimalResult != null && optimalResult.MaxLoad > 0 
+                        ? (double)sortLoadsTAsResult.MaxLoad / optimalResult.MaxLoad 
                         : null;
                     string ratioStr = ratio.HasValue ? $" (Ratio: {ratio.Value:F3})" : "";
-                    Console.WriteLine($"  ✓ Greedy (Sort Loads Desc, TAs Asc by Skills): Makespan = {sortLoadsTAsResult.Makespan}{ratioStr}");
+                    Console.WriteLine($"  ✓ Greedy (Sort Loads Desc, TAs Asc by Skills): MaxLoad = {sortLoadsTAsResult.MaxLoad}{ratioStr}");
                 }
                 catch (Exception ex)
                 {
@@ -430,7 +430,7 @@ namespace TaskScheduling
             // Table formatting constants
             const int instanceColWidth = 25;
             const int algoColWidth = 20;
-            const int makespanColWidth = 12;
+            const int maxLoadColWidth = 12;
 
             // Build header row
             sb.AppendFormat("{0,-" + instanceColWidth + "}", "Instance");
@@ -440,12 +440,12 @@ namespace TaskScheduling
                 // Truncate if too long
                 if (shortName.Length > algoColWidth - 1)
                     shortName = shortName.Substring(0, algoColWidth - 1);
-                sb.AppendFormat("{0," + makespanColWidth + "}", shortName);
+                sb.AppendFormat("{0," + maxLoadColWidth + "}", shortName);
             }
             sb.AppendLine();
 
             // Separator line
-            int totalWidth = instanceColWidth + orderedAlgorithms.Count * makespanColWidth;
+            int totalWidth = instanceColWidth + orderedAlgorithms.Count * maxLoadColWidth;
             sb.AppendLine(new string('─', totalWidth));
 
             // Data rows
@@ -462,11 +462,11 @@ namespace TaskScheduling
                     var result = results.FirstOrDefault(r => r.AlgorithmName == algo);
                     if (result != null)
                     {
-                        sb.AppendFormat("{0," + makespanColWidth + "}", result.Makespan);
+                        sb.AppendFormat("{0," + maxLoadColWidth + "}", result.MaxLoad);
                     }
                     else
                     {
-                        sb.AppendFormat("{0," + makespanColWidth + "}", "-");
+                        sb.AppendFormat("{0," + maxLoadColWidth + "}", "-");
                     }
                 }
                 sb.AppendLine();
@@ -495,12 +495,12 @@ namespace TaskScheduling
                     string shortName = algorithmAbbrev.ContainsKey(algo) ? algorithmAbbrev[algo] : algo;
                     if (shortName.Length > algoColWidth - 1)
                         shortName = shortName.Substring(0, algoColWidth - 1);
-                    sb.AppendFormat("{0," + makespanColWidth + "}", shortName);
+                    sb.AppendFormat("{0," + maxLoadColWidth + "}", shortName);
                 }
                 sb.AppendLine();
 
                 // Separator line
-                int heuristicWidth = instanceColWidth + heuristicAlgorithms.Count * makespanColWidth;
+                int heuristicWidth = instanceColWidth + heuristicAlgorithms.Count * maxLoadColWidth;
                 sb.AppendLine(new string('─', heuristicWidth));
 
                 // Data rows
@@ -514,21 +514,21 @@ namespace TaskScheduling
                     foreach (var algo in heuristicAlgorithms)
                     {
                         var result = results.FirstOrDefault(r => r.AlgorithmName == algo);
-                        if (result != null && optimal != null && optimal.Makespan > 0)
+                        if (result != null && optimal != null && optimal.MaxLoad > 0)
                         {
-                            double ratio = (double)result.Makespan / optimal.Makespan;
-                            sb.AppendFormat("{0," + makespanColWidth + ":F3}", ratio);
+                            double ratio = (double)result.MaxLoad / optimal.MaxLoad;
+                            sb.AppendFormat("{0," + maxLoadColWidth + ":F3}", ratio);
                         }
                         else
                         {
-                            sb.AppendFormat("{0," + makespanColWidth + "}", "-");
+                            sb.AppendFormat("{0," + maxLoadColWidth + "}", "-");
                         }
                     }
                     sb.AppendLine();
                 }
 
                 sb.AppendLine();
-                sb.AppendLine("Note: Ratio = Heuristic Makespan / Optimal Makespan (lower is better, 1.000 = optimal)");
+                sb.AppendLine("Note: Ratio = Heuristic MaxLoad / Optimal MaxLoad (lower is better, 1.000 = optimal)");
                 sb.AppendLine();
             }
 
@@ -544,12 +544,12 @@ namespace TaskScheduling
             {
                 if (results.Any())
                 {
-                    var best = results.OrderBy(r => r.Makespan).First();
-                    string optimalNote = optimal != null && best.Makespan == optimal.Makespan ? " [OPTIMAL]" : "";
+                    var best = results.OrderBy(r => r.MaxLoad).First();
+                    string optimalNote = optimal != null && best.MaxLoad == optimal.MaxLoad ? " [OPTIMAL]" : "";
                     string algoDisplayName = algorithmAbbrev.ContainsKey(best.AlgorithmName) 
                         ? algorithmAbbrev[best.AlgorithmName] 
                         : best.AlgorithmName;
-                    sb.AppendLine($"  {instanceName,-25} → {algoDisplayName,-35} (Makespan: {best.Makespan,5}){optimalNote}");
+                    sb.AppendLine($"  {instanceName,-25} → {algoDisplayName,-35} (MaxLoad: {best.MaxLoad,5}){optimalNote}");
                 }
             }
 
@@ -570,7 +570,7 @@ namespace TaskScheduling
             {
                 if (results.Any())
                 {
-                    var best = results.OrderBy(r => r.Makespan).First();
+                    var best = results.OrderBy(r => r.MaxLoad).First();
                     if (!winCounts.ContainsKey(best.AlgorithmName))
                         winCounts[best.AlgorithmName] = 0;
                     winCounts[best.AlgorithmName]++;

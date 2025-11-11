@@ -12,14 +12,14 @@ namespace TaskScheduling.BruteForce
     /// </summary>
     public class BruteForceSolver
     {
-        private int _bestMakespan;
+        private int _bestMaxLoad;
         private Dictionary<TaskInfo, TAInfo> _bestAssignment; // Task -> TA
         private List<TaskInfo> _tasks;
         private List<TAInfo> _allTAs;
 
         public BruteForceSolver()
         {
-            _bestMakespan = int.MaxValue;
+            _bestMaxLoad = int.MaxValue;
             _bestAssignment = new Dictionary<TaskInfo, TAInfo>();
             _tasks = new List<TaskInfo>();
             _allTAs = new List<TAInfo>();
@@ -49,7 +49,7 @@ namespace TaskScheduling.BruteForce
 
             _tasks = problem.Tasks;
             _allTAs = problem.TAs;
-            _bestMakespan = int.MaxValue;
+            _bestMaxLoad = int.MaxValue;
             _bestAssignment = new Dictionary<TaskInfo, TAInfo>();
 
             var currentAssignment = new Dictionary<TaskInfo, TAInfo>();
@@ -68,7 +68,7 @@ namespace TaskScheduling.BruteForce
             {
                 Assignment = stringAssignment,
                 Loads = loads,
-                Makespan = _bestMakespan,
+                MaxLoad = _bestMaxLoad,
                 AlgorithmName = "Brute Force (Exact)"
             };
         }
@@ -108,11 +108,11 @@ namespace TaskScheduling.BruteForce
             }
 
             var loads = SchedulingMetrics.ComputeLoads(stringAssignment, _tasks, _allTAs);
-            int makespan = SchedulingMetrics.ComputeMakespan(loads);
+            int maxLoad = SchedulingMetrics.ComputeMaxLoad(loads);
 
-            if (makespan < _bestMakespan)
+            if (maxLoad < _bestMaxLoad)
             {
-                _bestMakespan = makespan;
+                _bestMaxLoad = maxLoad;
                 _bestAssignment = new Dictionary<TaskInfo, TAInfo>(assignment);
             }
         }

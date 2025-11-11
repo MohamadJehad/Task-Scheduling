@@ -110,9 +110,9 @@ namespace TaskScheduling.Common
         }
 
         /// <summary>
-        /// Computes the makespan (maximum load) from loads dictionary
+        /// Computes the maximum load from loads dictionary
         /// </summary>
-        public static int ComputeMakespan(Dictionary<string, int> loads)
+        public static int ComputeMaxLoad(Dictionary<string, int> loads)
         {
             return loads.Count > 0 ? loads.Values.Max() : 0;
         }

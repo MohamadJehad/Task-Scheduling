@@ -30,7 +30,7 @@ namespace TaskScheduling.Common
             sb.AppendLine("ALGORITHM COMPARISON");
             sb.AppendLine("─────────────────────────────────────────────────────────────");
             sb.AppendFormat("{0,-40} {1,10} {2,12}\n", 
-                "Algorithm", "Makespan", "Approx Ratio");
+                "Algorithm", "MaxLoad", "Approx Ratio");
             sb.AppendLine("─────────────────────────────────────────────────────────────");
 
             foreach (var result in results)
@@ -38,15 +38,15 @@ namespace TaskScheduling.Common
                 double approxRatio = 1.0;
                 string ratioStr = "N/A";
 
-                if (optimalResult != null && optimalResult.Makespan > 0)
+                if (optimalResult != null && optimalResult.MaxLoad > 0)
                 {
-                    approxRatio = (double)result.Makespan / optimalResult.Makespan;
+                    approxRatio = (double)result.MaxLoad / optimalResult.MaxLoad;
                     ratioStr = approxRatio.ToString("F3");
                 }
 
                 sb.AppendFormat("{0,-40} {1,10} {2,12}\n",
                     result.AlgorithmName,
-                    result.Makespan,
+                    result.MaxLoad,
                     ratioStr);
             }
             sb.AppendLine("─────────────────────────────────────────────────────────────");
@@ -57,7 +57,7 @@ namespace TaskScheduling.Common
             {
                 sb.AppendLine($"DETAILED RESULT: {result.AlgorithmName}");
                 sb.AppendLine("─────────────────────────────────────────────────────────────");
-                sb.AppendLine($"Makespan: {result.Makespan}");
+                sb.AppendLine($"MaxLoad: {result.MaxLoad}");
                 
                 
                 sb.AppendLine();
@@ -103,7 +103,7 @@ namespace TaskScheduling.Common
 
             foreach (var exp in experiments)
             {
-                string optimalStr = exp.OptimalMakespan.HasValue ? exp.OptimalMakespan.Value.ToString() : "N/A";
+                string optimalStr = exp.OptimalMaxLoad.HasValue ? exp.OptimalMaxLoad.Value.ToString() : "N/A";
                 string ratioStr = exp.ApproximationRatio.HasValue ? exp.ApproximationRatio.Value.ToString("F3") : "N/A";
 
                 sb.AppendFormat("{0,-15} {1,6} {2,6} {3,10} {4,12} {5,12}\n",
@@ -111,7 +111,7 @@ namespace TaskScheduling.Common
                     exp.NumTasks,
                     exp.NumTAs,
                     optimalStr,
-                    exp.GreedyMakespan,
+                    exp.GreedyMaxLoad,
                     ratioStr);
             }
             sb.AppendLine("───────────────────────────────────────────────────────────────────────────────");
@@ -178,8 +178,8 @@ namespace TaskScheduling.Common
         public string InstanceName { get; set; } = string.Empty;
         public int NumTasks { get; set; }
         public int NumTAs { get; set; }
-        public int? OptimalMakespan { get; set; }
-        public int GreedyMakespan { get; set; }
+        public int? OptimalMaxLoad { get; set; }
+        public int GreedyMaxLoad { get; set; }
         public double? ApproximationRatio { get; set; }
     }
 }

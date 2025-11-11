@@ -67,7 +67,7 @@ namespace TaskScheduling.Common
                 // Algorithm Info
                 sb.AppendLine("Algorithm Information:");
                 sb.AppendLine($"  Algorithm: {result.AlgorithmName}");
-                sb.AppendLine($"  Makespan: {result.Makespan}");
+                sb.AppendLine($"  MaxLoad: {result.MaxLoad}");
                 sb.AppendLine();
 
                 // Assignments Table
@@ -107,26 +107,26 @@ namespace TaskScheduling.Common
             sb.AppendLine();
 
             var summaryTable = CreateTextTable(
-                new[] { "Algorithm", "Makespan", "Status" },
-                results.OrderBy(r => r.Makespan).Select((r, idx) =>
+                new[] { "Algorithm", "MaxLoad", "Status" },
+                results.OrderBy(r => r.MaxLoad).Select((r, idx) =>
                 {
                     string status = idx == 0 ? "★ BEST" : "";
-                    return new[] { r.AlgorithmName, r.Makespan.ToString(), status };
+                    return new[] { r.AlgorithmName, r.MaxLoad.ToString(), status };
                 }).ToList()
             );
             sb.AppendLine(summaryTable);
             sb.AppendLine();
 
-            var best = results.OrderBy(r => r.Makespan).First();
-            sb.AppendLine($"✓ Best Algorithm: {best.AlgorithmName} with Makespan = {best.Makespan}");
+            var best = results.OrderBy(r => r.MaxLoad).First();
+            sb.AppendLine($"✓ Best Algorithm: {best.AlgorithmName} with MaxLoad = {best.MaxLoad}");
             sb.AppendLine();
 
             // Statistics
             sb.AppendLine("STATISTICS");
             sb.AppendLine("─────────────────────────────────────────────────────────────");
-            sb.AppendLine($"Average Makespan: {results.Average(r => r.Makespan):F2}");
-            sb.AppendLine($"Best Makespan: {results.Min(r => r.Makespan)}");
-            sb.AppendLine($"Worst Makespan: {results.Max(r => r.Makespan)}");
+            sb.AppendLine($"Average MaxLoad: {results.Average(r => r.MaxLoad):F2}");
+            sb.AppendLine($"Best MaxLoad: {results.Min(r => r.MaxLoad)}");
+            sb.AppendLine($"Worst MaxLoad: {results.Max(r => r.MaxLoad)}");
             sb.AppendLine();
 
             // Write to file
@@ -194,20 +194,20 @@ namespace TaskScheduling.Common
         {
             var summaryRows = new List<string[]>();
             
-            foreach (var result in results.OrderBy(r => r.Makespan))
+            foreach (var result in results.OrderBy(r => r.MaxLoad))
             {
                 summaryRows.Add(new[] 
                 { 
                     result.AlgorithmName, 
-                    result.Makespan.ToString()
+                    result.MaxLoad.ToString()
                 });
             }
 
-            var table = CreateTextTable(new[] { "Algorithm", "Makespan" }, summaryRows);
+            var table = CreateTextTable(new[] { "Algorithm", "MaxLoad" }, summaryRows);
             Console.WriteLine(table);
 
-            var best = results.OrderBy(r => r.Makespan).First();
-            Console.WriteLine($"\n✓ Best Algorithm: {best.AlgorithmName} with Makespan = {best.Makespan}");
+            var best = results.OrderBy(r => r.MaxLoad).First();
+            Console.WriteLine($"\n✓ Best Algorithm: {best.AlgorithmName} with MaxLoad = {best.MaxLoad}");
         }
     }
 }
