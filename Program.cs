@@ -321,6 +321,39 @@ namespace TaskScheduling
             string summaryFile = Path.Combine(reportsDir, $"MasterSummary_{DateTime.Now:yyyyMMdd_HHmmss}.txt");
             File.WriteAllText(summaryFile, sb.ToString());
             Console.WriteLine($"\n📊 Master summary report saved to: {Path.GetFileName(summaryFile)}");
+            
+            // Display the master summary report in console for easy viewing in Replit
+            Console.WriteLine("\n" + new string('=', 70));
+            Console.WriteLine("MASTER SUMMARY REPORT (Displayed Below)");
+            Console.WriteLine(new string('=', 70) + "\n");
+            Console.WriteLine(sb.ToString());
+            
+            // List all report files for easy access
+            Console.WriteLine("\n" + new string('=', 70));
+            Console.WriteLine("ALL REPORT FILES:");
+            Console.WriteLine(new string('=', 70));
+            if (Directory.Exists(reportsDir))
+            {
+                var reportFiles = Directory.GetFiles(reportsDir, "*.txt")
+                    .OrderBy(f => File.GetCreationTime(f))
+                    .ToList();
+                
+                if (reportFiles.Any())
+                {
+                    foreach (var file in reportFiles)
+                    {
+                        var fileInfo = new FileInfo(file);
+                        Console.WriteLine($"  📄 {Path.GetFileName(file)} ({fileInfo.Length:N0} bytes)");
+                    }
+                    Console.WriteLine($"\n  📁 Reports directory: {reportsDir}");
+                    Console.WriteLine($"  💡 In Replit: Click the 'Files' icon in the left sidebar to view/download these files");
+                }
+                else
+                {
+                    Console.WriteLine("  No report files found.");
+                }
+            }
+            Console.WriteLine(new string('=', 70));
         }
     }
 }
