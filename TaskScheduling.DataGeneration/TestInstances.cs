@@ -11,9 +11,54 @@ namespace TaskScheduling.DataGeneration
     public static class TestInstances
     {
         /// <summary>
+        /// Creates the example from the LaTeX document (Section 3)
+        /// </summary>
+        public static ProblemInstance Small_0(string name = "small_0", int seed = 42)
+        {
+            var tas = new List<TAInfo>
+            {
+                new TAInfo { Name = "A1" },
+                new TAInfo { Name = "A2" },
+                new TAInfo { Name = "A3" }
+            };
+
+            var tasks = new List<TaskInfo>
+            {
+                new TaskInfo
+                {
+                    Name = "A",
+                    EligibleTAs = new List<TAInfo> { tas[0], tas[2] },
+                    ProcessingTimes = new Dictionary<string, int>
+                    {
+                        { "A1", 10 },
+                        { "A3", 7 }
+                    }
+                },
+                new TaskInfo
+                {
+                    Name = "B",
+                    EligibleTAs = new List<TAInfo> { tas[1], tas[2] },
+                    ProcessingTimes = new Dictionary<string, int>
+                    {
+                        { "A2", 8 },
+                        { "A3", 12 }
+                    }
+                }
+            };
+
+            return new ProblemInstance
+            {
+                Name = name,
+                Tasks = tasks,
+                TAs = tas,
+                Description = "Example from LaTeX document (Section 3) - 2 tasks, 3 TAs"
+            };
+        }
+
+        /// <summary>
         /// Creates a small test instance (suitable for brute force)
         /// </summary>
-        public static ProblemInstance Small(string name = "Small", int seed = 42)
+        public static ProblemInstance Small_1(string name = "small", int seed = 42)
         {
             var tas = new List<TAInfo>
             {
@@ -116,187 +161,53 @@ namespace TaskScheduling.DataGeneration
         }
 
         /// <summary>
-        /// Creates a small test instance variant (balanced eligibility)
+        /// Creates a worst-case instance where all tasks are eligible for all TAs
+        /// This creates the maximum search space for brute force algorithms
         /// </summary>
-        public static ProblemInstance SmallVariant1(string name = "Small-V1", int seed = 42)
+        public static ProblemInstance Small_2(string name = "small_2", int numTasks = 10, int numTAs = 3)
         {
-            var tas = new List<TAInfo>
+            var tasks = new List<TaskInfo>();
+            var taNames = new List<string>();
+            
+            for (int i = 1; i <= numTAs; i++)
             {
-                new TAInfo { Name = "TA1" },
-                new TAInfo { Name = "TA2" },
-                new TAInfo { Name = "TA3" }
-            };
+                taNames.Add($"TA{i}");
+            }
 
-            var tasks = new List<TaskInfo>
+            var tas = taNames.Select(n => new TAInfo { Name = n }).ToList();
+
+            // All tasks are eligible for all TAs
+            for (int i = 1; i <= numTasks; i++)
             {
-                new TaskInfo
+                var processingTimes = new Dictionary<string, int>();
+                int baseTime = 30 + (i * 5);
+                
+                foreach (var ta in taNames)
                 {
-                    Name = "Task1",
-                    EligibleTAs = new List<TAInfo> { tas[0], tas[1] },
-                    ProcessingTimes = new Dictionary<string, int>
-                    {
-                        { "TA1", 10 },
-                        { "TA2", 15 }
-                    }
-                },
-                new TaskInfo
-                {
-                    Name = "Task2",
-                    EligibleTAs = new List<TAInfo> { tas[0], tas[2] },
-                    ProcessingTimes = new Dictionary<string, int>
-                    {
-                        { "TA1", 12 },
-                        { "TA3", 10 }
-                    }
-                },
-                new TaskInfo
-                {
-                    Name = "Task3",
-                    EligibleTAs = new List<TAInfo> { tas[1], tas[2] },
-                    ProcessingTimes = new Dictionary<string, int>
-                    {
-                        { "TA2", 18 },
-                        { "TA3", 14 }
-                    }
-                },
-                new TaskInfo
-                {
-                    Name = "Task4",
-                    EligibleTAs = new List<TAInfo> { tas[0], tas[1] },
-                    ProcessingTimes = new Dictionary<string, int>
-                    {
-                        { "TA1", 16 },
-                        { "TA2", 13 }
-                    }
-                },
-                new TaskInfo
-                {
-                    Name = "Task5",
-                    EligibleTAs = new List<TAInfo> { tas[1], tas[2] },
-                    ProcessingTimes = new Dictionary<string, int>
-                    {
-                        { "TA2", 11 },
-                        { "TA3", 9 }
-                    }
-                },
-                new TaskInfo
-                {
-                    Name = "Task6",
-                    EligibleTAs = new List<TAInfo> { tas[0], tas[2] },
-                    ProcessingTimes = new Dictionary<string, int>
-                    {
-                        { "TA1", 20 },
-                        { "TA3", 17 }
-                    }
+                    processingTimes[ta] = baseTime + (i % 3) * 10;
                 }
-            };
+
+                tasks.Add(new TaskInfo
+                {
+                    Name = $"Task{i}",
+                    EligibleTAs = new List<TAInfo>(tas),
+                    ProcessingTimes = processingTimes
+                });
+            }
 
             return new ProblemInstance
             {
                 Name = name,
                 Tasks = tasks,
                 TAs = tas,
-                Description = "Small variant 1: 6 tasks, 3 TAs (balanced)"
-            };
-        }
-
-        /// <summary>
-        /// Creates a small test instance variant (constrained)
-        /// </summary>
-        public static ProblemInstance SmallVariant2(string name = "Small-V2", int seed = 42)
-        {
-            var tas = new List<TAInfo>
-            {
-                new TAInfo { Name = "TA1" },
-                new TAInfo { Name = "TA2" },
-                new TAInfo { Name = "TA3" }
-            };
-
-            var tasks = new List<TaskInfo>
-            {
-                new TaskInfo
-                {
-                    Name = "Task1",
-                    EligibleTAs = new List<TAInfo> { tas[0] },
-                    ProcessingTimes = new Dictionary<string, int>
-                    {
-                        { "TA1", 25 }
-                    }
-                },
-                new TaskInfo
-                {
-                    Name = "Task2",
-                    EligibleTAs = new List<TAInfo> { tas[0], tas[1] },
-                    ProcessingTimes = new Dictionary<string, int>
-                    {
-                        { "TA1", 20 },
-                        { "TA2", 15 }
-                    }
-                },
-                new TaskInfo
-                {
-                    Name = "Task3",
-                    EligibleTAs = new List<TAInfo> { tas[1], tas[2] },
-                    ProcessingTimes = new Dictionary<string, int>
-                    {
-                        { "TA2", 12 },
-                        { "TA3", 18 }
-                    }
-                },
-                new TaskInfo
-                {
-                    Name = "Task4",
-                    EligibleTAs = new List<TAInfo> { tas[2] },
-                    ProcessingTimes = new Dictionary<string, int>
-                    {
-                        { "TA3", 22 }
-                    }
-                },
-                new TaskInfo
-                {
-                    Name = "Task5",
-                    EligibleTAs = new List<TAInfo> { tas[0], tas[1], tas[2] },
-                    ProcessingTimes = new Dictionary<string, int>
-                    {
-                        { "TA1", 14 },
-                        { "TA2", 16 },
-                        { "TA3", 13 }
-                    }
-                },
-                new TaskInfo
-                {
-                    Name = "Task6",
-                    EligibleTAs = new List<TAInfo> { tas[0], tas[2] },
-                    ProcessingTimes = new Dictionary<string, int>
-                    {
-                        { "TA1", 19 },
-                        { "TA3", 21 }
-                    }
-                },
-                new TaskInfo
-                {
-                    Name = "Task7",
-                    EligibleTAs = new List<TAInfo> { tas[1] },
-                    ProcessingTimes = new Dictionary<string, int>
-                    {
-                        { "TA2", 17 }
-                    }
-                }
-            };
-
-            return new ProblemInstance
-            {
-                Name = name,
-                Tasks = tasks,
-                TAs = tas,
-                Description = "Small variant 2: 7 tasks, 3 TAs (highly constrained)"
+                Description = $"Worst-case instance: {numTasks} tasks, {numTAs} TAs (all tasks eligible for all TAs)"
             };
         }
 
         /// <summary>
         /// Creates a medium test instance
         /// </summary>
-        public static ProblemInstance Medium(string name = "Medium", int seed = 42)
+        public static ProblemInstance Medium_1(string name = "medium", int seed = 42)
         {
             var tasks = new List<TaskInfo>();
             var taNames = new List<string> { "TA1", "TA2", "TA3", "TA4", "TA5" };
@@ -351,9 +262,118 @@ namespace TaskScheduling.DataGeneration
         }
 
         /// <summary>
+        /// Creates a balanced instance with uniform task distribution across TAs
+        /// This tests load balancing capabilities of algorithms
+        /// </summary>
+        public static ProblemInstance Medium_2(string name = "medium_2", int numTasks = 50, int numTAs = 8)
+        {
+            var tasks = new List<TaskInfo>();
+            var taNames = new List<string>();
+            
+            for (int i = 1; i <= numTAs; i++)
+            {
+                taNames.Add($"TA{i}");
+            }
+
+            var tas = taNames.Select(n => new TAInfo { Name = n }).ToList();
+            
+            // Create tasks where each TA is eligible for approximately the same number of tasks
+            for (int i = 0; i < numTasks; i++)
+            {
+                // Make each task eligible for 2-3 TAs in a round-robin fashion
+                var eligibleTAs = new List<TAInfo>
+                {
+                    tas[i % numTAs],
+                    tas[(i + 1) % numTAs]
+                };
+
+                if (i % 3 == 0 && numTAs > 2)
+                {
+                    eligibleTAs.Add(tas[(i + 2) % numTAs]);
+                }
+
+                int baseDuration = 35 + (i % 20);
+                var processingTimes = new Dictionary<string, int>();
+                
+                int offset = 0;
+                foreach (var ta in eligibleTAs)
+                {
+                    processingTimes[ta.Name] = baseDuration + offset;
+                    offset += 5;
+                }
+
+                tasks.Add(new TaskInfo
+                {
+                    Name = $"Task{i + 1}",
+                    EligibleTAs = eligibleTAs,
+                    ProcessingTimes = processingTimes
+                });
+            }
+
+            return new ProblemInstance
+            {
+                Name = name,
+                Tasks = tasks,
+                TAs = tas,
+                Description = $"Balanced instance: {numTasks} tasks, {numTAs} TAs (uniform distribution)"
+            };
+        }
+
+        /// <summary>
+        /// Creates a highly constrained instance where each task has minimal eligible TAs
+        /// This tests algorithms under high constraint scenarios
+        /// </summary>
+        public static ProblemInstance Medium_3(string name = "medium_3", int numTasks = 20, int numTAs = 5)
+        {
+            var tasks = new List<TaskInfo>();
+            var taNames = new List<string>();
+            
+            for (int i = 1; i <= numTAs; i++)
+            {
+                taNames.Add($"TA{i}");
+            }
+
+            var tas = taNames.Select(n => new TAInfo { Name = n }).ToList();
+
+            // Each task has 1-2 eligible TAs
+            for (int i = 1; i <= numTasks; i++)
+            {
+                var eligibleTAs = new List<TAInfo>();
+                var processingTimes = new Dictionary<string, int>();
+                
+                // Select 1 or 2 TAs in a round-robin fashion
+                string ta1 = taNames[i % numTAs];
+                eligibleTAs.Add(tas[i % numTAs]);
+                processingTimes[ta1] = 40 + (i * 3);
+                
+                if (i % 2 == 0 && numTAs > 1)
+                {
+                    string ta2 = taNames[(i + 1) % numTAs];
+                    eligibleTAs.Add(tas[(i + 1) % numTAs]);
+                    processingTimes[ta2] = 45 + (i * 2);
+                }
+
+                tasks.Add(new TaskInfo
+                {
+                    Name = $"Task{i}",
+                    EligibleTAs = eligibleTAs,
+                    ProcessingTimes = processingTimes
+                });
+            }
+
+            return new ProblemInstance
+            {
+                Name = name,
+                Tasks = tasks,
+                TAs = tas,
+                Description = $"Constrained instance: {numTasks} tasks, {numTAs} TAs (1-2 eligible TAs per task)"
+            };
+        }
+
+        /// <summary>
         /// Creates a large test instance
         /// </summary>
-        public static ProblemInstance Large(string name = "Large", int seed = 42)
+        public static ProblemInstance Big_1(string name = "big", int seed = 42)
         {
             var tasks = new List<TaskInfo>();
             var taNames = new List<string> { "TA1", "TA2", "TA3", "TA4", "TA5", "TA6", "TA7", "TA8", "TA9", "TA10" };
@@ -460,6 +480,20 @@ namespace TaskScheduling.DataGeneration
                 TAs = tas,
                 Description = "Large test instance: 100 tasks, 10 TAs"
             };
+        }
+
+        /// <summary>
+        /// Gets all available problem instances
+        /// </summary>
+        public static IEnumerable<ProblemInstance> GetAllInstances()
+        {
+            yield return Small_0();
+            yield return Small_1();
+            yield return Small_2();
+            yield return Medium_1();
+            yield return Medium_2();
+            yield return Medium_3();
+            yield return Big_1();
         }
     }
 }

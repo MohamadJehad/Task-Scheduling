@@ -169,8 +169,8 @@ namespace TaskScheduling.Greedy
         }
 
         /// <summary>
-        /// Selects the TA using constraint count as primary criterion, then load minimization
-        /// Note: We don't re-sort all TAs here - we only select from eligible TAs based on criteria
+        /// Selects the TA using load minimization as primary, with constraint count as tie-breaker
+        /// This matches the base algorithm but breaks ties by preferring specialized TAs
         /// </summary>
         protected override string SelectBestTA(TaskInfo task, Dictionary<string, int> loads)
         {
@@ -180,11 +180,11 @@ namespace TaskScheduling.Greedy
                 throw new InvalidOperationException($"Task {task.Name} has no eligible TAs");
             }
 
-            // Select based on load (primary) and constraint count (secondary)
-            // TAs were already sorted at the beginning - here we just use the criteria for selection
+            // PRIMARY: Load (ascending) - minimize resulting load (same as base algorithm)
+            // SECONDARY: Constraint count (ascending) - prefer specialized TAs when loads are equal
             return eligibleTAs
-                .OrderBy(tn => loads[tn] + task.ProcessingTimes[tn])  // Primary: descending by resulting load
-                .ThenBy(tn => taConstraintCounts![tn])  // Secondary: ascending by constraint count
+                .OrderBy(tn => loads[tn] + task.ProcessingTimes[tn])  // Primary: minimize resulting load
+                .ThenBy(tn => taConstraintCounts![tn])  // Secondary: prefer TAs with fewer eligible tasks (tie-breaker)
                 .First();
         }
 

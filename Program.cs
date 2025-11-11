@@ -76,7 +76,7 @@ namespace TaskScheduling
 
             for (int i = 0; i < 3; i++)
             {
-                var problem = DatasetGenerator.CreateSmallInstance($"Small-{i + 1}", seed: 100 + i);
+                var problem = DatasetGenerator.CreateSmallInstance($"small_{i + 1}", seed: 100 + i);
 
                 Console.WriteLine($"\nProcessing {problem.Name}: {problem.TaskCount} tasks, {problem.TACount} TAs");
 
@@ -182,10 +182,10 @@ namespace TaskScheduling
             // Test various instance types
             var instanceGenerators = new List<(string name, Func<ProblemInstance> generator)>
             {
-                ("Balanced-20", () => DatasetGenerator.CreateBalancedInstance("Balanced", 20, 5)),
-                ("Constrained-20", () => DatasetGenerator.CreateConstrainedInstance("Constrained", 20, 5)),
-                ("WorstCase-10", () => DatasetGenerator.CreateWorstCaseInstance("WorstCase", 10, 3)),
-                ("LaTeX-Example", () => DatasetGenerator.CreateLaTeXExample())
+                ("medium_1", () => DatasetGenerator.CreateBalancedInstance("medium_1", 20, 5)),
+                ("medium_3", () => DatasetGenerator.CreateConstrainedInstance("medium_3", 20, 5)),
+                ("small_8", () => DatasetGenerator.CreateWorstCaseInstance("small_8", 10, 3)),
+                ("small_0", () => DatasetGenerator.CreateLaTeXExample())
             };
 
             foreach (var (name, genFunc) in instanceGenerators)
@@ -249,18 +249,19 @@ namespace TaskScheduling
             // Define all problem instances
             var instances = new List<(string name, Func<ProblemInstance> generator)>
             {
-                ("LaTeX-Example", () => DatasetGenerator.CreateLaTeXExample()),
-                ("Small", () => DatasetGenerator.CreateSmallInstance()),
-                ("SmallMedium", () => DatasetGenerator.CreateSmallMediumInstance()),
-                ("MediumSmall", () => DatasetGenerator.CreateMediumSmallInstance()),
-                ("LargeSmall", () => DatasetGenerator.CreateLargeSmallInstance()),
-                ("Medium", () => DatasetGenerator.CreateMediumInstance()),
-                ("Large", () => DatasetGenerator.CreateLargeInstance()),
-                ("Balanced-20-5", () => DatasetGenerator.CreateBalancedInstance("Balanced-20-5", 20, 5)),
-                ("Balanced-50-8", () => DatasetGenerator.CreateBalancedInstance("Balanced-50-8", 50, 8)),
-                ("Constrained-20-5", () => DatasetGenerator.CreateConstrainedInstance("Constrained-20-5", 20, 5)),
-                ("WorstCase-10-3", () => DatasetGenerator.CreateWorstCaseInstance("WorstCase-10-3", 10, 3)),
-                ("WorstCase-15-5", () => DatasetGenerator.CreateWorstCaseInstance("WorstCase-15-5", 15, 5))
+                ("small_0", () => DatasetGenerator.CreateLaTeXExample()),
+                ("small", () => DatasetGenerator.CreateSmallInstance()),
+                ("small_4", () => DatasetGenerator.CreateSmallMediumInstance()),
+                ("small_5", () => DatasetGenerator.CreateMediumSmallInstance()),
+                ("small_6", () => DatasetGenerator.CreateLargeSmallInstance()),
+                ("small_7", () => DatasetGenerator.CreateTASortingMattersInstance()),
+                ("medium", () => DatasetGenerator.CreateMediumInstance()),
+                ("big", () => DatasetGenerator.CreateLargeInstance()),
+                ("medium_1", () => DatasetGenerator.CreateBalancedInstance("medium_1", 20, 5)),
+                ("medium_2", () => DatasetGenerator.CreateBalancedInstance("medium_2", 50, 8)),
+                ("medium_3", () => DatasetGenerator.CreateConstrainedInstance("medium_3", 20, 5)),
+                ("small_8", () => DatasetGenerator.CreateWorstCaseInstance("small_8", 10, 3)),
+                ("small_9", () => DatasetGenerator.CreateWorstCaseInstance("small_9", 15, 5))
             };
 
             var allResults = new List<(string instanceName, List<SchedulingResult> results, SchedulingResult? optimal)>();

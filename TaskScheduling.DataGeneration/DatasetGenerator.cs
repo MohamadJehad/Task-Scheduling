@@ -30,7 +30,7 @@ namespace TaskScheduling.DataGeneration
         /// <summary>
         /// Creates a small test instance (suitable for brute force)
         /// </summary>
-        public static ProblemInstance CreateSmallInstance(string name = "Small", int seed = 42)
+        public static ProblemInstance CreateSmallInstance(string name = "small", int seed = 42)
         {
             var tas = ToTAInfoList(new List<string> { "TA1", "TA2", "TA3" });
             
@@ -130,7 +130,7 @@ namespace TaskScheduling.DataGeneration
         /// <summary>
         /// Creates a small-medium test instance (suitable for brute force, ~50K-100K combinations)
         /// </summary>
-        public static ProblemInstance CreateSmallMediumInstance(string name = "SmallMedium", int seed = 42)
+        public static ProblemInstance CreateSmallMediumInstance(string name = "small_4", int seed = 42)
         {
             var tas = ToTAInfoList(new List<string> { "TA1", "TA2", "TA3", "TA4" });
             var tasks = new List<TaskInfo>();
@@ -179,7 +179,7 @@ namespace TaskScheduling.DataGeneration
         /// <summary>
         /// Creates a medium test instance (suitable for brute force, ~200K-500K combinations)
         /// </summary>
-        public static ProblemInstance CreateMediumSmallInstance(string name = "MediumSmall", int seed = 42)
+        public static ProblemInstance CreateMediumSmallInstance(string name = "small_5", int seed = 42)
         {
             var tas = ToTAInfoList(new List<string> { "TA1", "TA2", "TA3", "TA4", "TA5" });
             var tasks = new List<TaskInfo>();
@@ -227,7 +227,7 @@ namespace TaskScheduling.DataGeneration
         /// <summary>
         /// Creates a larger small test instance (suitable for brute force, ~500K-800K combinations)
         /// </summary>
-        public static ProblemInstance CreateLargeSmallInstance(string name = "LargeSmall", int seed = 42)
+        public static ProblemInstance CreateLargeSmallInstance(string name = "small_6", int seed = 42)
         {
             var tas = ToTAInfoList(new List<string> { "TA1", "TA2", "TA3", "TA4" });
             var tasks = new List<TaskInfo>();
@@ -273,9 +273,92 @@ namespace TaskScheduling.DataGeneration
         }
 
         /// <summary>
+        /// Creates a dataset designed to make TA constraint count sorting matter
+        /// Multiple TAs will have identical processing times, forcing the constraint count tie-breaker to be used
+        /// </summary>
+        public static ProblemInstance CreateTASortingMattersInstance(string name = "small_7", int numTasks = 15, int numTAs = 5)
+        {
+            var tasks = new List<TaskInfo>();
+            var tasNames = new List<string>();
+            
+            for (int i = 1; i <= numTAs; i++)
+            {
+                tasNames.Add($"TA{i}");
+            }
+            
+            var tas = ToTAInfoList(tasNames);
+
+            // Create TAs with very different constraint counts:
+            // TA1, TA2: eligible for many tasks (high constraint count = less specialized)
+            // TA3: eligible for medium number of tasks
+            // TA4, TA5: eligible for few tasks (low constraint count = more specialized)
+
+            // Tasks 1-10: All TAs eligible, all with SAME processing time (creates ties)
+            for (int i = 1; i <= 10; i++)
+            {
+                var processingTimes = new Dictionary<string, int>();
+                int baseTime = 30; // Same for all TAs - creates ties!
+                foreach (var taName in tasNames)
+                {
+                    processingTimes[taName] = baseTime;
+                }
+
+                tasks.Add(new TaskInfo
+                {
+                    Name = $"Task{i}",
+                    EligibleTAs = GetTAsByName(tas, new List<string>(tasNames)),
+                    ProcessingTimes = processingTimes
+                });
+            }
+
+            // Tasks 11-13: Only TA1, TA2, TA3 eligible (medium constraint count for TA3)
+            // All with SAME processing time
+            for (int i = 11; i <= 13; i++)
+            {
+                var processingTimes = new Dictionary<string, int>();
+                int baseTime = 35; // Same for all - creates ties!
+                processingTimes["TA1"] = baseTime;
+                processingTimes["TA2"] = baseTime;
+                processingTimes["TA3"] = baseTime;
+
+                tasks.Add(new TaskInfo
+                {
+                    Name = $"Task{i}",
+                    EligibleTAs = GetTAsByName(tas, new List<string> { "TA1", "TA2", "TA3" }),
+                    ProcessingTimes = processingTimes
+                });
+            }
+
+            // Tasks 14-15: Only TA4, TA5 eligible (low constraint count)
+            // All with SAME processing time
+            for (int i = 14; i <= numTasks; i++)
+            {
+                var processingTimes = new Dictionary<string, int>();
+                int baseTime = 40; // Same for both - creates ties!
+                processingTimes["TA4"] = baseTime;
+                processingTimes["TA5"] = baseTime;
+
+                tasks.Add(new TaskInfo
+                {
+                    Name = $"Task{i}",
+                    EligibleTAs = GetTAsByName(tas, new List<string> { "TA4", "TA5" }),
+                    ProcessingTimes = processingTimes
+                });
+            }
+
+            return new ProblemInstance
+            {
+                Name = name,
+                Tasks = tasks,
+                TAs = tas,
+                Description = $"TA sorting matters instance: {numTasks} tasks, {numTAs} TAs (designed with identical processing times to force constraint count tie-breaking)"
+            };
+        }
+
+        /// <summary>
         /// Creates a medium test instance
         /// </summary>
-        public static ProblemInstance CreateMediumInstance(string name = "Medium", int seed = 42)
+        public static ProblemInstance CreateMediumInstance(string name = "medium", int seed = 42)
         {
             var tasks = new List<TaskInfo>();
             var tasNames = new List<string> { "TA1", "TA2", "TA3", "TA4", "TA5" };
@@ -332,7 +415,7 @@ namespace TaskScheduling.DataGeneration
         /// <summary>
         /// Creates a large test instance
         /// </summary>
-        public static ProblemInstance CreateLargeInstance(string name = "Large", int seed = 42)
+        public static ProblemInstance CreateLargeInstance(string name = "big", int seed = 42)
         {
             var tasks = new List<TaskInfo>();
             var tasNames = new List<string> { "TA1", "TA2", "TA3", "TA4", "TA5", "TA6", "TA7", "TA8", "TA9", "TA10" };
@@ -474,7 +557,7 @@ namespace TaskScheduling.DataGeneration
 
             return new ProblemInstance
             {
-                Name = "LaTeX Example",
+                Name = "small_0",
                 Tasks = tasks,
                 TAs = tas,
                 Description = "Example from LaTeX document (Section 3)"
@@ -484,7 +567,7 @@ namespace TaskScheduling.DataGeneration
         /// <summary>
         /// Creates a worst-case instance where all tasks eligible for all TAs
         /// </summary>
-        public static ProblemInstance CreateWorstCaseInstance(string name = "WorstCase", int numTasks = 10, int numTAs = 3)
+        public static ProblemInstance CreateWorstCaseInstance(string name = "small_8", int numTasks = 10, int numTAs = 3)
         {
             var tasks = new List<TaskInfo>();
             var tasNames = new List<string>();
@@ -527,7 +610,7 @@ namespace TaskScheduling.DataGeneration
         /// <summary>
         /// Creates a highly constrained instance where each task has minimal eligible TAs
         /// </summary>
-        public static ProblemInstance CreateConstrainedInstance(string name = "Constrained", int numTasks = 20, int numTAs = 5)
+        public static ProblemInstance CreateConstrainedInstance(string name = "medium_3", int numTasks = 20, int numTAs = 5)
         {
             var tasks = new List<TaskInfo>();
             var tasNames = new List<string>();
@@ -577,7 +660,7 @@ namespace TaskScheduling.DataGeneration
         /// <summary>
         /// Creates a balanced instance with uniform task distribution
         /// </summary>
-        public static ProblemInstance CreateBalancedInstance(string name = "Balanced", int numTasks = 50, int numTAs = 8)
+        public static ProblemInstance CreateBalancedInstance(string name = "medium_2", int numTasks = 50, int numTAs = 8)
         {
             var tasks = new List<TaskInfo>();
             var tasNames = new List<string>();
