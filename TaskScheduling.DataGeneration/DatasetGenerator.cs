@@ -128,6 +128,151 @@ namespace TaskScheduling.DataGeneration
         }
 
         /// <summary>
+        /// Creates a small-medium test instance (suitable for brute force, ~50K-100K combinations)
+        /// </summary>
+        public static ProblemInstance CreateSmallMediumInstance(string name = "SmallMedium", int seed = 42)
+        {
+            var tas = ToTAInfoList(new List<string> { "TA1", "TA2", "TA3", "TA4" });
+            var tasks = new List<TaskInfo>();
+
+            // 10 tasks with mix of 2-3 eligible TAs
+            // Pattern: alternating between 2 and 3 eligible TAs to keep combinations manageable
+            for (int i = 1; i <= 10; i++)
+            {
+                var eligibleTAs = new List<string>();
+                var processingTimes = new Dictionary<string, int>();
+                int baseTime = 20 + (i * 3);
+
+                if (i % 2 == 1)
+                {
+                    // Odd tasks: 2 eligible TAs
+                    eligibleTAs = new List<string> { $"TA{(i % 4) + 1}", $"TA{((i + 1) % 4) + 1}" };
+                    processingTimes[eligibleTAs[0]] = baseTime;
+                    processingTimes[eligibleTAs[1]] = baseTime + 5;
+                }
+                else
+                {
+                    // Even tasks: 3 eligible TAs
+                    eligibleTAs = new List<string> { $"TA{(i % 4) + 1}", $"TA{((i + 1) % 4) + 1}", $"TA{((i + 2) % 4) + 1}" };
+                    processingTimes[eligibleTAs[0]] = baseTime;
+                    processingTimes[eligibleTAs[1]] = baseTime + 5;
+                    processingTimes[eligibleTAs[2]] = baseTime + 8;
+                }
+
+                tasks.Add(new TaskInfo
+                {
+                    Name = $"Task{i}",
+                    EligibleTAs = GetTAsByName(tas, eligibleTAs),
+                    ProcessingTimes = processingTimes
+                });
+            }
+
+            return new ProblemInstance
+            {
+                Name = name,
+                Tasks = tasks,
+                TAs = tas,
+                Description = "Small-medium static instance: 10 tasks, 4 TAs (mix of 2-3 eligible TAs per task)"
+            };
+        }
+
+        /// <summary>
+        /// Creates a medium test instance (suitable for brute force, ~200K-500K combinations)
+        /// </summary>
+        public static ProblemInstance CreateMediumSmallInstance(string name = "MediumSmall", int seed = 42)
+        {
+            var tas = ToTAInfoList(new List<string> { "TA1", "TA2", "TA3", "TA4", "TA5" });
+            var tasks = new List<TaskInfo>();
+
+            // 12 tasks with mix of 2-3 eligible TAs
+            for (int i = 1; i <= 12; i++)
+            {
+                var eligibleTAs = new List<string>();
+                var processingTimes = new Dictionary<string, int>();
+                int baseTime = 25 + (i * 2);
+
+                if (i % 3 == 0)
+                {
+                    // Every 3rd task: 3 eligible TAs
+                    eligibleTAs = new List<string> { $"TA{(i % 5) + 1}", $"TA{((i + 1) % 5) + 1}", $"TA{((i + 2) % 5) + 1}" };
+                    processingTimes[eligibleTAs[0]] = baseTime;
+                    processingTimes[eligibleTAs[1]] = baseTime + 4;
+                    processingTimes[eligibleTAs[2]] = baseTime + 7;
+                }
+                else
+                {
+                    // Other tasks: 2 eligible TAs
+                    eligibleTAs = new List<string> { $"TA{(i % 5) + 1}", $"TA{((i + 1) % 5) + 1}" };
+                    processingTimes[eligibleTAs[0]] = baseTime;
+                    processingTimes[eligibleTAs[1]] = baseTime + 6;
+                }
+
+                tasks.Add(new TaskInfo
+                {
+                    Name = $"Task{i}",
+                    EligibleTAs = GetTAsByName(tas, eligibleTAs),
+                    ProcessingTimes = processingTimes
+                });
+            }
+
+            return new ProblemInstance
+            {
+                Name = name,
+                Tasks = tasks,
+                TAs = tas,
+                Description = "Medium-small static instance: 12 tasks, 5 TAs (mix of 2-3 eligible TAs per task)"
+            };
+        }
+
+        /// <summary>
+        /// Creates a larger small test instance (suitable for brute force, ~500K-800K combinations)
+        /// </summary>
+        public static ProblemInstance CreateLargeSmallInstance(string name = "LargeSmall", int seed = 42)
+        {
+            var tas = ToTAInfoList(new List<string> { "TA1", "TA2", "TA3", "TA4" });
+            var tasks = new List<TaskInfo>();
+
+            // 15 tasks, mostly 2 eligible TAs (with a few 3s to add variety)
+            for (int i = 1; i <= 15; i++)
+            {
+                var eligibleTAs = new List<string>();
+                var processingTimes = new Dictionary<string, int>();
+                int baseTime = 30 + (i * 2);
+
+                if (i % 5 == 0)
+                {
+                    // Every 5th task: 3 eligible TAs
+                    eligibleTAs = new List<string> { $"TA{(i % 4) + 1}", $"TA{((i + 1) % 4) + 1}", $"TA{((i + 2) % 4) + 1}" };
+                    processingTimes[eligibleTAs[0]] = baseTime;
+                    processingTimes[eligibleTAs[1]] = baseTime + 5;
+                    processingTimes[eligibleTAs[2]] = baseTime + 10;
+                }
+                else
+                {
+                    // Most tasks: 2 eligible TAs
+                    eligibleTAs = new List<string> { $"TA{(i % 4) + 1}", $"TA{((i + 1) % 4) + 1}" };
+                    processingTimes[eligibleTAs[0]] = baseTime;
+                    processingTimes[eligibleTAs[1]] = baseTime + 7;
+                }
+
+                tasks.Add(new TaskInfo
+                {
+                    Name = $"Task{i}",
+                    EligibleTAs = GetTAsByName(tas, eligibleTAs),
+                    ProcessingTimes = processingTimes
+                });
+            }
+
+            return new ProblemInstance
+            {
+                Name = name,
+                Tasks = tasks,
+                TAs = tas,
+                Description = "Large-small static instance: 15 tasks, 4 TAs (mostly 2 eligible TAs per task, some with 3)"
+            };
+        }
+
+        /// <summary>
         /// Creates a medium test instance
         /// </summary>
         public static ProblemInstance CreateMediumInstance(string name = "Medium", int seed = 42)

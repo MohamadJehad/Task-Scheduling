@@ -251,13 +251,16 @@ namespace TaskScheduling
             {
                 ("LaTeX-Example", () => DatasetGenerator.CreateLaTeXExample()),
                 ("Small", () => DatasetGenerator.CreateSmallInstance()),
+                ("SmallMedium", () => DatasetGenerator.CreateSmallMediumInstance()),
+                ("MediumSmall", () => DatasetGenerator.CreateMediumSmallInstance()),
+                ("LargeSmall", () => DatasetGenerator.CreateLargeSmallInstance()),
                 ("Medium", () => DatasetGenerator.CreateMediumInstance()),
                 ("Large", () => DatasetGenerator.CreateLargeInstance()),
                 ("Balanced-20-5", () => DatasetGenerator.CreateBalancedInstance("Balanced-20-5", 20, 5)),
                 ("Balanced-50-8", () => DatasetGenerator.CreateBalancedInstance("Balanced-50-8", 50, 8)),
                 ("Constrained-20-5", () => DatasetGenerator.CreateConstrainedInstance("Constrained-20-5", 20, 5)),
                 ("WorstCase-10-3", () => DatasetGenerator.CreateWorstCaseInstance("WorstCase-10-3", 10, 3)),
-                ("WorstCase-15-5", () => DatasetGenerator.CreateWorstCaseInstance("WorstCase-15-5", 15, 5)),
+                ("WorstCase-15-5", () => DatasetGenerator.CreateWorstCaseInstance("WorstCase-15-5", 15, 5))
             };
 
             var allResults = new List<(string instanceName, List<SchedulingResult> results, SchedulingResult? optimal)>();
