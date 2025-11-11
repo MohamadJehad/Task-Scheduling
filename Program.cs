@@ -58,7 +58,7 @@ namespace TaskScheduling
             results.Add(bfResult);
 
             // Greedy
-            var greedySolver = new GreedySolver();
+            var greedySolver = new GreedySortLoadsDesc();
             results.Add(greedySolver.Solve(problem));
 
             Console.WriteLine(ResultAnalyzer.CompareResults(problem, results, bfResult));
@@ -96,7 +96,7 @@ namespace TaskScheduling
                     Console.WriteLine("Brute force skipped (too many assignments)");
                 }
 
-                var greedySolver = new GreedySolver();
+                var greedySolver = new GreedySortLoadsDesc();
                 var greedyResult = greedySolver.Solve(problem);
                 Console.WriteLine($"Greedy: Makespan = {greedyResult.Makespan}");
 
@@ -139,7 +139,7 @@ namespace TaskScheduling
             var results = new List<SchedulingResult>();
 
             // Greedy
-            var greedySolver = new GreedySolver();
+            var greedySolver = new GreedySortLoadsDesc();
             var greedyResult = greedySolver.Solve(problem);
             results.Add(greedyResult);
             Console.WriteLine($"{"Greedy",-25}: Makespan = {greedyResult.Makespan,5}");
@@ -163,7 +163,7 @@ namespace TaskScheduling
             Console.WriteLine();
 
             // Test scalability
-            var solver = new GreedySolver();
+            var solver = new GreedySortLoadsDesc();
             var result = solver.Solve(problem);
 
             Console.WriteLine($"Greedy (MaxProcessingTime): Makespan = {result.Makespan}");
@@ -210,7 +210,7 @@ namespace TaskScheduling
                     }
                 }
 
-                var greedySolver = new GreedySolver();
+                var greedySolver = new GreedySortLoadsDesc();
                 var greedyResult = greedySolver.Solve(problem);
                 Console.WriteLine($"  Greedy:  {greedyResult.Makespan}");
 
@@ -257,7 +257,7 @@ namespace TaskScheduling
                 ("Balanced-50-8", () => DatasetGenerator.CreateBalancedInstance("Balanced-50-8", 50, 8)),
                 ("Constrained-20-5", () => DatasetGenerator.CreateConstrainedInstance("Constrained-20-5", 20, 5)),
                 ("WorstCase-10-3", () => DatasetGenerator.CreateWorstCaseInstance("WorstCase-10-3", 10, 3)),
-                ("WorstCase-15-5", () => DatasetGenerator.CreateWorstCaseInstance("WorstCase-15-5", 15, 5))
+                ("WorstCase-15-5", () => DatasetGenerator.CreateWorstCaseInstance("WorstCase-15-5", 15, 5)),
             };
 
             var allResults = new List<(string instanceName, List<SchedulingResult> results, SchedulingResult? optimal)>();
@@ -327,7 +327,7 @@ namespace TaskScheduling
                 try
                 {
                     Console.WriteLine("Running Greedy (Sort Loads Desc)...");
-                    var sortLoadsSolver = new GreedySolver();
+                    var sortLoadsSolver = new GreedySortLoadsDesc();
                     var sortLoadsResult = sortLoadsSolver.Solve(problem);
                     results.Add(sortLoadsResult);
                     double? ratio = optimalResult != null && optimalResult.Makespan > 0 
@@ -390,13 +390,13 @@ namespace TaskScheduling
             sb.AppendLine($"Generated: {DateTime.Now:yyyy-MM-dd HH:mm:ss}");
             sb.AppendLine();
 
-            // Create algorithm name mapping for shorter display names
+            // Create algorithm name mapping for shorter display names (matching actual algorithm names)
             var algorithmAbbrev = new Dictionary<string, string>
             {
-                { "Brute Force (Exact)", "1. Brute Force" },
-                { "Greedy (No Sorting)", "2. No Sorting" },
-                { "Greedy (MaxProcessingTime)", "3. Sort Loads Desc" },
-                { "Greedy (Sort Loads Desc, TAs Asc by Skills)", "4. Sort Loads Desc + TAs Asc" }
+                { "Brute Force (Exact)", "Brute Force" },
+                { "Greedy (No Sorting)", "No Sorting" },
+                { "Greedy (Sort Loads Desc)", "Sort Loads Desc" },
+                { "Greedy (Sort Loads Desc, TAs Asc by Skills)", "Sort Loads Desc + TAs Asc" }
             };
 
             // Get all unique algorithm names and order them correctly
@@ -406,22 +406,18 @@ namespace TaskScheduling
                 .Distinct()
                 .ToList();
 
-            // Order algorithms in the desired order
+            // Order algorithms in the desired order (fixing the actual algorithm names)
             var algorithmOrder = new Dictionary<string, int>
             {
                 { "Brute Force (Exact)", 1 },
                 { "Greedy (No Sorting)", 2 },
-                { "Greedy (MaxProcessingTime)", 3 },
+                { "Greedy (Sort Loads Desc)", 3 },
                 { "Greedy (Sort Loads Desc, TAs Asc by Skills)", 4 }
             };
 
-            allAlgorithms = allAlgorithms.OrderBy(a => algorithmOrder.ContainsKey(a) ? algorithmOrder[a] : 999).ToList();
-
-            // Group algorithms logically (only 4 algorithms now)
-            var exactAlgorithms = allAlgorithms.Where(a => a.Contains("Brute Force")).ToList();
-            var greedyAlgorithms = allAlgorithms.Where(a => !a.Contains("Brute Force")).ToList();
-            var improvedAlgorithms = new List<string>();
-            var otherAlgorithms = new List<string>();
+            var orderedAlgorithms = allAlgorithms
+                .OrderBy(a => algorithmOrder.ContainsKey(a) ? algorithmOrder[a] : 999)
+                .ToList();
 
             // ============================================================================
             // SECTION 1: MAKESPAN COMPARISON
@@ -431,62 +427,46 @@ namespace TaskScheduling
             sb.AppendLine("═══════════════════════════════════════════════════════════════════════════════");
             sb.AppendLine();
 
-            // Create organized table with better formatting
-            int instanceColWidth = 20;
-            int algoColWidth = 25;
-            int totalWidth = instanceColWidth + (exactAlgorithms.Count + greedyAlgorithms.Count + improvedAlgorithms.Count + otherAlgorithms.Count) * algoColWidth;
+            // Table formatting constants
+            const int instanceColWidth = 25;
+            const int algoColWidth = 20;
+            const int makespanColWidth = 12;
 
-            // Header row 1: Algorithm groups (simplified for 4 algorithms)
+            // Build header row
             sb.AppendFormat("{0,-" + instanceColWidth + "}", "Instance");
-            int totalAlgoCols = exactAlgorithms.Count + greedyAlgorithms.Count;
-            if (totalAlgoCols > 0)
+            foreach (var algo in orderedAlgorithms)
             {
-                sb.AppendFormat("{0," + (totalAlgoCols * algoColWidth) + "}", "ALGORITHMS");
+                string shortName = algorithmAbbrev.ContainsKey(algo) ? algorithmAbbrev[algo] : algo;
+                // Truncate if too long
+                if (shortName.Length > algoColWidth - 1)
+                    shortName = shortName.Substring(0, algoColWidth - 1);
+                sb.AppendFormat("{0," + makespanColWidth + "}", shortName);
             }
             sb.AppendLine();
 
-            // Header row 2: Algorithm names
-            sb.AppendFormat("{0,-" + instanceColWidth + "}", "");
-            foreach (var algo in exactAlgorithms)
-            {
-                string shortName = algorithmAbbrev.ContainsKey(algo) ? algorithmAbbrev[algo] : algo.Length > algoColWidth - 1 ? algo.Substring(0, algoColWidth - 1) : algo;
-                sb.AppendFormat("{0," + algoColWidth + "}", shortName);
-            }
-            foreach (var algo in greedyAlgorithms)
-            {
-                string shortName = algorithmAbbrev.ContainsKey(algo) ? algorithmAbbrev[algo] : algo.Length > algoColWidth - 1 ? algo.Substring(0, algoColWidth - 1) : algo;
-                sb.AppendFormat("{0," + algoColWidth + "}", shortName);
-            }
-            foreach (var algo in otherAlgorithms)
-            {
-                string shortName = algorithmAbbrev.ContainsKey(algo) ? algorithmAbbrev[algo] : algo.Length > algoColWidth - 1 ? algo.Substring(0, algoColWidth - 1) : algo;
-                sb.AppendFormat("{0," + algoColWidth + "}", shortName);
-            }
-            foreach (var algo in improvedAlgorithms)
-            {
-                string shortName = algorithmAbbrev.ContainsKey(algo) ? algorithmAbbrev[algo] : algo.Length > algoColWidth - 1 ? algo.Substring(0, algoColWidth - 1) : algo;
-                sb.AppendFormat("{0," + algoColWidth + "}", shortName);
-            }
-            sb.AppendLine();
-
-            // Separator
+            // Separator line
+            int totalWidth = instanceColWidth + orderedAlgorithms.Count * makespanColWidth;
             sb.AppendLine(new string('─', totalWidth));
 
             // Data rows
-            var orderedAlgorithms = exactAlgorithms.Concat(greedyAlgorithms).Concat(otherAlgorithms).Concat(improvedAlgorithms).ToList();
             foreach (var (instanceName, results, optimal) in allResults)
             {
-                sb.AppendFormat("{0,-" + instanceColWidth + "}", instanceName.Length > instanceColWidth - 1 ? instanceName.Substring(0, instanceColWidth - 1) : instanceName);
+                // Truncate instance name if needed
+                string displayName = instanceName.Length > instanceColWidth - 1 
+                    ? instanceName.Substring(0, instanceColWidth - 1) 
+                    : instanceName;
+                sb.AppendFormat("{0,-" + instanceColWidth + "}", displayName);
+
                 foreach (var algo in orderedAlgorithms)
                 {
                     var result = results.FirstOrDefault(r => r.AlgorithmName == algo);
                     if (result != null)
                     {
-                        sb.AppendFormat("{0," + algoColWidth + "}", result.Makespan);
+                        sb.AppendFormat("{0," + makespanColWidth + "}", result.Makespan);
                     }
                     else
                     {
-                        sb.AppendFormat("{0," + algoColWidth + "}", "-");
+                        sb.AppendFormat("{0," + makespanColWidth + "}", "-");
                     }
                 }
                 sb.AppendLine();
@@ -507,33 +487,41 @@ namespace TaskScheduling
                 sb.AppendLine();
 
                 var heuristicAlgorithms = orderedAlgorithms.Where(a => a != "Brute Force (Exact)").ToList();
-                int heuristicWidth = instanceColWidth + heuristicAlgorithms.Count * algoColWidth;
 
-                // Header
+                // Build header row
                 sb.AppendFormat("{0,-" + instanceColWidth + "}", "Instance");
                 foreach (var algo in heuristicAlgorithms)
                 {
-                    string shortName = algorithmAbbrev.ContainsKey(algo) ? algorithmAbbrev[algo] : algo.Length > algoColWidth - 1 ? algo.Substring(0, algoColWidth - 1) : algo;
-                    sb.AppendFormat("{0," + algoColWidth + "}", shortName);
+                    string shortName = algorithmAbbrev.ContainsKey(algo) ? algorithmAbbrev[algo] : algo;
+                    if (shortName.Length > algoColWidth - 1)
+                        shortName = shortName.Substring(0, algoColWidth - 1);
+                    sb.AppendFormat("{0," + makespanColWidth + "}", shortName);
                 }
                 sb.AppendLine();
+
+                // Separator line
+                int heuristicWidth = instanceColWidth + heuristicAlgorithms.Count * makespanColWidth;
                 sb.AppendLine(new string('─', heuristicWidth));
 
                 // Data rows
                 foreach (var (instanceName, results, optimal) in instancesWithOptimal)
                 {
-                    sb.AppendFormat("{0,-" + instanceColWidth + "}", instanceName.Length > instanceColWidth - 1 ? instanceName.Substring(0, instanceColWidth - 1) : instanceName);
+                    string displayName = instanceName.Length > instanceColWidth - 1 
+                        ? instanceName.Substring(0, instanceColWidth - 1) 
+                        : instanceName;
+                    sb.AppendFormat("{0,-" + instanceColWidth + "}", displayName);
+
                     foreach (var algo in heuristicAlgorithms)
                     {
                         var result = results.FirstOrDefault(r => r.AlgorithmName == algo);
                         if (result != null && optimal != null && optimal.Makespan > 0)
                         {
                             double ratio = (double)result.Makespan / optimal.Makespan;
-                            sb.AppendFormat("{0," + algoColWidth + ":F3}", ratio);
+                            sb.AppendFormat("{0," + makespanColWidth + ":F3}", ratio);
                         }
                         else
                         {
-                            sb.AppendFormat("{0," + algoColWidth + "}", "-");
+                            sb.AppendFormat("{0," + makespanColWidth + "}", "-");
                         }
                     }
                     sb.AppendLine();
@@ -558,7 +546,10 @@ namespace TaskScheduling
                 {
                     var best = results.OrderBy(r => r.Makespan).First();
                     string optimalNote = optimal != null && best.Makespan == optimal.Makespan ? " [OPTIMAL]" : "";
-                    sb.AppendLine($"  {instanceName,-20} → {best.AlgorithmName,-40} (Makespan: {best.Makespan,5}){optimalNote}");
+                    string algoDisplayName = algorithmAbbrev.ContainsKey(best.AlgorithmName) 
+                        ? algorithmAbbrev[best.AlgorithmName] 
+                        : best.AlgorithmName;
+                    sb.AppendLine($"  {instanceName,-25} → {algoDisplayName,-35} (Makespan: {best.Makespan,5}){optimalNote}");
                 }
             }
 
@@ -589,7 +580,10 @@ namespace TaskScheduling
             sb.AppendLine("Number of Best Results per Algorithm:");
             foreach (var kvp in winCounts.OrderByDescending(x => x.Value))
             {
-                sb.AppendLine($"  {kvp.Key,-50} : {kvp.Value,2} wins");
+                string algoDisplayName = algorithmAbbrev.ContainsKey(kvp.Key) 
+                    ? algorithmAbbrev[kvp.Key] 
+                    : kvp.Key;
+                sb.AppendLine($"  {algoDisplayName,-45} : {kvp.Value,2} wins");
             }
 
             sb.AppendLine();
