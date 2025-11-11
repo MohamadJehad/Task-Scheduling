@@ -24,12 +24,23 @@ namespace TaskScheduling
             Console.WriteLine("═══════════════════════════════════════════════════════════════");
             Console.WriteLine();
 
-            // Create reports directory
+            // Clear and create reports directory
             string reportsDir = Path.Combine(Directory.GetCurrentDirectory(), "reports");
-            if (!Directory.Exists(reportsDir))
+            if (Directory.Exists(reportsDir))
+            {
+                // Delete all existing report files
+                var existingFiles = Directory.GetFiles(reportsDir, "*.txt");
+                foreach (var file in existingFiles)
+                {
+                    File.Delete(file);
+                }
+                Console.WriteLine($"🗑️  Deleted {existingFiles.Length} existing report file(s)");
+            }
+            else
             {
                 Directory.CreateDirectory(reportsDir);
             }
+            Console.WriteLine($"📁 Reports directory ready: {reportsDir}\n");
 
             // Run comprehensive evaluation with all instances and algorithms
             RunAllExperimentsWithDetailedReports(reportsDir);
