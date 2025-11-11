@@ -59,11 +59,7 @@ namespace TaskScheduling.Common
                 sb.AppendLine("─────────────────────────────────────────────────────────────");
                 sb.AppendLine($"Makespan: {result.Makespan}");
                 
-                double avgLoad = SchedulingMetrics.ComputeAverageLoad(result.Loads);
-                double imbalance = SchedulingMetrics.ComputeLoadImbalance(result.Loads);
                 
-                sb.AppendLine($"Average Load: {avgLoad:F2}");
-                sb.AppendLine($"Load Imbalance: {imbalance:F3}");
                 sb.AppendLine();
 
                 sb.AppendLine("TA Loads:");

@@ -26,7 +26,7 @@ namespace TaskScheduling.Common
     {
         public Dictionary<string, string> Assignment { get; set; } = new(); // Task -> TA
         public Dictionary<string, int> Loads { get; set; } = new(); // TA -> Total Load
-        public int Makespan { get; set; }
+        public int MaxLoad { get; set; }
         public string AlgorithmName { get; set; } = string.Empty;
     }
 
@@ -115,24 +115,6 @@ namespace TaskScheduling.Common
         public static int ComputeMakespan(Dictionary<string, int> loads)
         {
             return loads.Count > 0 ? loads.Values.Max() : 0;
-        }
-
-        /// <summary>
-        /// Computes the average load across all TAs
-        /// </summary>
-        public static double ComputeAverageLoad(Dictionary<string, int> loads)
-        {
-            return loads.Count > 0 ? loads.Values.Average() : 0;
-        }
-
-        /// <summary>
-        /// Computes the load imbalance (makespan / average load)
-        /// </summary>
-        public static double ComputeLoadImbalance(Dictionary<string, int> loads)
-        {
-            double avg = ComputeAverageLoad(loads);
-            if (avg == 0) return 0;
-            return ComputeMakespan(loads) / avg;
         }
     }
 }
