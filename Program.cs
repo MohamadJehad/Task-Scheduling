@@ -39,204 +39,6 @@ namespace TaskScheduling
         }
 
         /// <summary>
-        /// Runs the example from the LaTeX document
-        /// </summary>
-        static void RunLaTeXExample()
-        {
-            Console.WriteLine("EXPERIMENT 1: LaTeX Document Example");
-            Console.WriteLine("─────────────────────────────────────────────────────────────");
-
-            var problem = DatasetGenerator.CreateLaTeXExample();
-            Console.WriteLine(ResultAnalyzer.FormatProblemInstance(problem));
-            Console.WriteLine();
-
-            var results = new List<SchedulingResult>();
-
-            // Brute force
-            var bfSolver = new BruteForceSolver();
-            var bfResult = bfSolver.Solve(problem);
-            results.Add(bfResult);
-
-            // Greedy
-            var greedySolver = new GreedySortLoadsDesc();
-            results.Add(greedySolver.Solve(problem));
-
-            Console.WriteLine(ResultAnalyzer.CompareResults(problem, results, bfResult));
-        }
-
-        /// <summary>
-        /// Runs experiments on small instances suitable for brute force
-        /// </summary>
-        static void RunSmallInstanceExperiments()
-        {
-            Console.WriteLine("EXPERIMENT 2: Small Instances (Brute Force vs Greedy)");
-            Console.WriteLine("─────────────────────────────────────────────────────────────");
-
-            var experiments = new List<ExperimentResult>();
-
-            for (int i = 0; i < 3; i++)
-            {
-                var problem = DatasetGenerator.CreateSmallInstance($"small_{i + 1}", seed: 100 + i);
-
-                Console.WriteLine($"\nProcessing {problem.Name}: {problem.TaskCount} tasks, {problem.TACount} TAs");
-
-                // Check if brute force is feasible
-                long estimatedAssignments = BruteForceSolver.EstimateAssignmentCount(problem);
-                Console.WriteLine($"Estimated assignments to check: {estimatedAssignments:N0}");
-
-                SchedulingResult? optimalResult = null;
-                if (estimatedAssignments <= 100000)
-                {
-                    var bfSolver = new BruteForceSolver();
-                    optimalResult = bfSolver.Solve(problem);
-                    Console.WriteLine($"Brute Force: MaxLoad = {optimalResult.MaxLoad}");
-                }
-                else
-                {
-                    Console.WriteLine("Brute force skipped (too many assignments)");
-                }
-
-                var greedySolver = new GreedySortLoadsDesc();
-                var greedyResult = greedySolver.Solve(problem);
-                Console.WriteLine($"Greedy: MaxLoad = {greedyResult.MaxLoad}");
-
-                double? ratio = null;
-                if (optimalResult != null && optimalResult.MaxLoad > 0)
-                {
-                    ratio = (double)greedyResult.MaxLoad / optimalResult.MaxLoad;
-                    Console.WriteLine($"Approximation Ratio: {ratio:F3}");
-                }
-
-                experiments.Add(new ExperimentResult
-                {
-                    InstanceName = problem.Name,
-                    NumTasks = problem.TaskCount,
-                    NumTAs = problem.TACount,
-                    OptimalMaxLoad = optimalResult?.MaxLoad,
-                    GreedyMaxLoad = greedyResult.MaxLoad,
-                    ApproximationRatio = ratio
-                });
-            }
-
-            Console.WriteLine();
-            Console.WriteLine(ResultAnalyzer.GenerateSummaryTable(experiments));
-        }
-
-        /// <summary>
-        /// Runs experiments on medium instances
-        /// </summary>
-        static void RunMediumInstanceExperiments()
-        {
-            Console.WriteLine("EXPERIMENT 3: Medium Instances");
-            Console.WriteLine("─────────────────────────────────────────────────────────────");
-
-            var problem = DatasetGenerator.CreateMediumInstance();
-
-            Console.WriteLine($"Instance: {problem.Name}");
-            Console.WriteLine($"Tasks: {problem.TaskCount}, TAs: {problem.TACount}");
-            Console.WriteLine();
-
-            var results = new List<SchedulingResult>();
-
-            // Greedy
-            var greedySolver = new GreedySortLoadsDesc();
-            var greedyResult = greedySolver.Solve(problem);
-            results.Add(greedyResult);
-            Console.WriteLine($"{"Greedy",-25}: MaxLoad = {greedyResult.MaxLoad,5}");
-
-            Console.WriteLine();
-            Console.WriteLine("Best result: " + results.OrderBy(r => r.MaxLoad).First().AlgorithmName);
-        }
-
-        /// <summary>
-        /// Runs experiments on large instances
-        /// </summary>
-        static void RunLargeInstanceExperiments()
-        {
-            Console.WriteLine("EXPERIMENT 4: Large Instance");
-            Console.WriteLine("─────────────────────────────────────────────────────────────");
-
-            var problem = DatasetGenerator.CreateLargeInstance();
-
-            Console.WriteLine($"Instance: {problem.Name}");
-            Console.WriteLine($"Tasks: {problem.TaskCount}, TAs: {problem.TACount}");
-            Console.WriteLine();
-
-            // Test scalability
-            var solver = new GreedySortLoadsDesc();
-            var result = solver.Solve(problem);
-
-            Console.WriteLine($"Greedy (MaxProcessingTime): MaxLoad = {result.MaxLoad}");
-        }
-
-        /// <summary>
-        /// Comprehensive evaluation across different instance types
-        /// </summary>
-        static void RunComprehensiveEvaluation()
-        {
-            Console.WriteLine("EXPERIMENT 5: Comprehensive Evaluation");
-            Console.WriteLine("─────────────────────────────────────────────────────────────");
-
-            var experiments = new List<ExperimentResult>();
-
-            // Test various instance types
-            var instanceGenerators = new List<(string name, Func<ProblemInstance> generator)>
-            {
-                ("medium_1", () => DatasetGenerator.CreateBalancedInstance("medium_1", 20, 5)),
-                ("medium_3", () => DatasetGenerator.CreateConstrainedInstance("medium_3", 20, 5)),
-                ("small_8", () => DatasetGenerator.CreateWorstCaseInstance("small_8", 10, 3)),
-                ("small_0", () => DatasetGenerator.CreateLaTeXExample())
-            };
-
-            foreach (var (name, genFunc) in instanceGenerators)
-            {
-                var problem = genFunc();
-                Console.WriteLine($"\nEvaluating {problem.Name}...");
-
-                SchedulingResult? optimalResult = null;
-                long estimatedAssignments = BruteForceSolver.EstimateAssignmentCount(problem);
-
-                if (estimatedAssignments <= 50000)
-                {
-                    try
-                    {
-                        var bfSolver = new BruteForceSolver();
-                        optimalResult = bfSolver.Solve(problem);
-                        Console.WriteLine($"  Optimal: {optimalResult.MaxLoad}");
-                    }
-                    catch (Exception ex)
-                    {
-                        Console.WriteLine($"  Optimal: Failed ({ex.Message})");
-                    }
-                }
-
-                var greedySolver = new GreedySortLoadsDesc();
-                var greedyResult = greedySolver.Solve(problem);
-                Console.WriteLine($"  Greedy:  {greedyResult.MaxLoad}");
-
-                double? ratio = null;
-                if (optimalResult != null && optimalResult.MaxLoad > 0)
-                {
-                    ratio = (double)greedyResult.MaxLoad / optimalResult.MaxLoad;
-                    Console.WriteLine($"  Ratio:   {ratio:F3}");
-                }
-
-                experiments.Add(new ExperimentResult
-                {
-                    InstanceName = problem.Name,
-                    NumTasks = problem.TaskCount,
-                    NumTAs = problem.TACount,
-                    OptimalMaxLoad = optimalResult?.MaxLoad,
-                    GreedyMaxLoad = greedyResult.MaxLoad,
-                    ApproximationRatio = ratio
-                });
-            }
-
-            Console.WriteLine();
-            Console.WriteLine(ResultAnalyzer.GenerateSummaryTable(experiments));
-        }
-
-        /// <summary>
         /// Runs all instances with all algorithms and generates detailed reports
         /// </summary>
         static void RunAllExperimentsWithDetailedReports(string reportsDir)
@@ -246,35 +48,15 @@ namespace TaskScheduling
             Console.WriteLine("═══════════════════════════════════════════════════════════════");
             Console.WriteLine();
 
-            // Define all problem instances
-            var instances = new List<(string name, Func<ProblemInstance> generator)>
-            {
-                ("small_0", () => DatasetGenerator.CreateLaTeXExample()),
-                ("small", () => DatasetGenerator.CreateSmallInstance()),
-                ("small_4", () => DatasetGenerator.CreateSmallMediumInstance()),
-                ("small_5", () => DatasetGenerator.CreateMediumSmallInstance()),
-                ("small_6", () => DatasetGenerator.CreateLargeSmallInstance()),
-                ("small_7", () => DatasetGenerator.CreateTASortingMattersInstance()),
-                ("medium", () => DatasetGenerator.CreateMediumInstance()),
-                ("big", () => DatasetGenerator.CreateLargeInstance()),
-                ("medium_1", () => DatasetGenerator.CreateBalancedInstance("medium_1", 20, 5)),
-                ("medium_2", () => DatasetGenerator.CreateBalancedInstance("medium_2", 50, 8)),
-                ("medium_3", () => DatasetGenerator.CreateConstrainedInstance("medium_3", 20, 5)),
-                ("small_8", () => DatasetGenerator.CreateWorstCaseInstance("small_8", 10, 3)),
-                ("small_9", () => DatasetGenerator.CreateWorstCaseInstance("small_9", 15, 5))
-            };
-
             var allResults = new List<(string instanceName, List<SchedulingResult> results, SchedulingResult? optimal)>();
             string runTimestamp = DateTime.Now.ToString("yyyyMMdd_HHmmss");
 
-            // Process each instance
-            foreach (var (instanceName, generator) in instances)
+            // Process each instance from TestInstances
+            foreach (var problem in TestInstances.GetAllInstances())
             {
                 Console.WriteLine($"\n{new string('=', 70)}");
-                Console.WriteLine($"Processing Instance: {instanceName}");
+                Console.WriteLine($"Processing Instance: {problem.Name}");
                 Console.WriteLine($"{new string('=', 70)}");
-
-                var problem = generator();
                 Console.WriteLine($"Tasks: {problem.TaskCount}, TAs: {problem.TACount}");
                 Console.WriteLine($"Description: {problem.Description}");
 
@@ -363,11 +145,11 @@ namespace TaskScheduling
                     Console.WriteLine($"  ✗ Greedy (Sort Loads Desc, TAs Asc by Skills) failed: {ex.Message}");
                 }
 
-                allResults.Add((instanceName, results, optimalResult));
+                allResults.Add((problem.Name, results, optimalResult));
 
                 // Generate and save detailed report for this instance
                 string reportContent = ResultAnalyzer.CompareResults(problem, results, optimalResult);
-                string reportFile = Path.Combine(reportsDir, $"Report_{instanceName}_{runTimestamp}.txt");
+                string reportFile = Path.Combine(reportsDir, $"Report_{problem.Name}_{runTimestamp}.txt");
                 File.WriteAllText(reportFile, reportContent);
                 Console.WriteLine($"\n  📄 Detailed report saved to: {reportFile}");
             }
