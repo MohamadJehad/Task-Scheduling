@@ -18,11 +18,11 @@ namespace TaskScheduling
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("═══════════════════════════════════════════════════════════════");
-            Console.WriteLine("   CSCE 5221: Task Scheduling with Eligibility Constraints");
-            Console.WriteLine("   Mohamad Jehad - Fall 2025");
-            Console.WriteLine("═══════════════════════════════════════════════════════════════");
-            Console.WriteLine();
+            // Console.WriteLine("═══════════════════════════════════════════════════════════════");
+            // Console.WriteLine("   CSCE 5221: Task Scheduling with Eligibility Constraints");
+            // Console.WriteLine("   Mohamad Jehad - Fall 2025");
+            // Console.WriteLine("═══════════════════════════════════════════════════════════════");
+            // Console.WriteLine();
 
             // Clear and create reports directory
             string reportsDir = Path.Combine(Directory.GetCurrentDirectory(), "reports");
@@ -34,19 +34,19 @@ namespace TaskScheduling
                 {
                     File.Delete(file);
                 }
-                Console.WriteLine($"🗑️  Deleted {existingFiles.Length} existing report file(s)");
+                // Console.WriteLine($"🗑️  Deleted {existingFiles.Length} existing report file(s)");
             }
             else
             {
                 Directory.CreateDirectory(reportsDir);
             }
-            Console.WriteLine($"📁 Reports directory ready: {reportsDir}\n");
+            // Console.WriteLine($"📁 Reports directory ready: {reportsDir}\n");
 
             // Run comprehensive evaluation with all instances and algorithms
             RunAllExperimentsWithDetailedReports(reportsDir);
 
-            Console.WriteLine("\n\nPress any key to exit...");
-            Console.ReadKey();
+            // Console.WriteLine("\n\nPress any key to exit...");
+            // Console.ReadKey();
         }
 
         /// <summary>
@@ -54,10 +54,10 @@ namespace TaskScheduling
         /// </summary>
         static void RunAllExperimentsWithDetailedReports(string reportsDir)
         {
-            Console.WriteLine("═══════════════════════════════════════════════════════════════");
-            Console.WriteLine("   COMPREHENSIVE EVALUATION: ALL INSTANCES & ALGORITHMS");
-            Console.WriteLine("═══════════════════════════════════════════════════════════════");
-            Console.WriteLine();
+            // Console.WriteLine("═══════════════════════════════════════════════════════════════");
+            // Console.WriteLine("   COMPREHENSIVE EVALUATION: ALL INSTANCES & ALGORITHMS");
+            // Console.WriteLine("═══════════════════════════════════════════════════════════════");
+            // Console.WriteLine();
 
             var allResults = new List<(string instanceName, List<SchedulingResult> results, SchedulingResult? optimal)>();
             string runTimestamp = DateTime.Now.ToString("yyyyMMdd_HHmmss");
@@ -65,47 +65,47 @@ namespace TaskScheduling
             // Process each instance from TestInstances
             foreach (var problem in TestInstances.GetAllInstances())
             {
-                Console.WriteLine($"\n{new string('=', 70)}");
-                Console.WriteLine($"Processing Instance: {problem.Name}");
-                Console.WriteLine($"{new string('=', 70)}");
-                Console.WriteLine($"Tasks: {problem.TaskCount}, TAs: {problem.TACount}");
-                Console.WriteLine($"Description: {problem.Description}");
+                // Console.WriteLine($"\n{new string('=', 70)}");
+                // Console.WriteLine($"Processing Instance: {problem.Name}");
+                // Console.WriteLine($"{new string('=', 70)}");
+                // Console.WriteLine($"Tasks: {problem.TaskCount}, TAs: {problem.TACount}");
+                // Console.WriteLine($"Description: {problem.Description}");
 
                 var results = new List<SchedulingResult>();
                 SchedulingResult? optimalResult = null;
 
                 // Check if brute force is feasible
                 long estimatedAssignments = BruteForceSolver.EstimateAssignmentCount(problem);
-                Console.WriteLine($"Estimated assignments for brute force: {estimatedAssignments:N0}");
+                // Console.WriteLine($"Estimated assignments for brute force: {estimatedAssignments:N0}");
 
                 // Run Brute Force (if feasible)
                 if (estimatedAssignments <= 1_000_000 && estimatedAssignments > 0)
                 {
                     try
                     {
-                        Console.WriteLine("Running Brute Force (Exact)...");
-                        var bfSolver = new BruteForceSolver();
-                        optimalResult = bfSolver.Solve(problem);
+                        // Console.WriteLine("Running Brute Force (Exact)...");
+                    var bfSolver = new BruteForceSolver();
+                    optimalResult = bfSolver.Solve(problem);
                         results.Add(optimalResult);
-                        Console.WriteLine($"  ✓ Brute Force: MaxLoad = {optimalResult.MaxLoad}");
+                        // Console.WriteLine($"  ✓ Brute Force: MaxLoad = {optimalResult.MaxLoad}");
                     }
-                    catch (Exception ex)
+                    catch
                     {
-                        Console.WriteLine($"  ✗ Brute Force failed: {ex.Message}");
+                        // Console.WriteLine($"  ✗ Brute Force failed: {ex.Message}");
                     }
                 }
                 else
                 {
-                    Console.WriteLine("  ⊘ Brute Force skipped (too many assignments)");
+                    // Console.WriteLine("  ⊘ Brute Force skipped (too many assignments)");
                 }
 
                 // Run only the 4 specified algorithms
-                Console.WriteLine("\nRunning Selected Algorithms...");
+                // Console.WriteLine("\nRunning Selected Algorithms...");
 
                 // 2. Greedy No Sorting
                 try
                 {
-                    Console.WriteLine("Running Greedy (No Sorting)...");
+                    // Console.WriteLine("Running Greedy (No Sorting)...");
                     var noSortSolver = new GreedyNoSorting();
                     var noSortResult = noSortSolver.Solve(problem);
                     results.Add(noSortResult);
@@ -113,17 +113,17 @@ namespace TaskScheduling
                         ? (double)noSortResult.MaxLoad / optimalResult.MaxLoad 
                         : null;
                     string ratioStr = ratio.HasValue ? $" (Ratio: {ratio.Value:F3})" : "";
-                    Console.WriteLine($"  ✓ Greedy (No Sorting): MaxLoad = {noSortResult.MaxLoad}{ratioStr}");
+                    // Console.WriteLine($"  ✓ Greedy (No Sorting): MaxLoad = {noSortResult.MaxLoad}{ratioStr}");
                 }
-                catch (Exception ex)
+                catch
                 {
-                    Console.WriteLine($"  ✗ Greedy (No Sorting) failed: {ex.Message}");
+                    // Console.WriteLine($"  ✗ Greedy (No Sorting) failed: {ex.Message}");
                 }
 
                 // 3. Greedy Sort Loads Desc (MaxProcessingTime)
                 try
                 {
-                    Console.WriteLine("Running Greedy (Sort Loads Desc)...");
+                    // Console.WriteLine("Running Greedy (Sort Loads Desc)...");
                     var sortLoadsSolver = new GreedySortLoadsDesc();
                     var sortLoadsResult = sortLoadsSolver.Solve(problem);
                     results.Add(sortLoadsResult);
@@ -131,17 +131,17 @@ namespace TaskScheduling
                         ? (double)sortLoadsResult.MaxLoad / optimalResult.MaxLoad 
                         : null;
                     string ratioStr = ratio.HasValue ? $" (Ratio: {ratio.Value:F3})" : "";
-                    Console.WriteLine($"  ✓ Greedy (Sort Loads Desc): MaxLoad = {sortLoadsResult.MaxLoad}{ratioStr}");
+                    // Console.WriteLine($"  ✓ Greedy (Sort Loads Desc): MaxLoad = {sortLoadsResult.MaxLoad}{ratioStr}");
                 }
-                catch (Exception ex)
+                catch
                 {
-                    Console.WriteLine($"  ✗ Greedy (Sort Loads Desc) failed: {ex.Message}");
+                    // Console.WriteLine($"  ✗ Greedy (Sort Loads Desc) failed: {ex.Message}");
                 }
 
                 // 4. Greedy Sort Loads Desc, TAs Asc by Skills
                 try
                 {
-                    Console.WriteLine("Running Greedy (Sort Loads Desc, TAs Asc by Skills)...");
+                    // Console.WriteLine("Running Greedy (Sort Loads Desc, TAs Asc by Skills)...");
                     var sortLoadsTAsSolver = new GreedySortLoadsDescTAsAscBySkills();
                     var sortLoadsTAsResult = sortLoadsTAsSolver.Solve(problem);
                     results.Add(sortLoadsTAsResult);
@@ -149,11 +149,11 @@ namespace TaskScheduling
                         ? (double)sortLoadsTAsResult.MaxLoad / optimalResult.MaxLoad 
                         : null;
                     string ratioStr = ratio.HasValue ? $" (Ratio: {ratio.Value:F3})" : "";
-                    Console.WriteLine($"  ✓ Greedy (Sort Loads Desc, TAs Asc by Skills): MaxLoad = {sortLoadsTAsResult.MaxLoad}{ratioStr}");
+                    // Console.WriteLine($"  ✓ Greedy (Sort Loads Desc, TAs Asc by Skills): MaxLoad = {sortLoadsTAsResult.MaxLoad}{ratioStr}");
                 }
-                catch (Exception ex)
+                catch
                 {
-                    Console.WriteLine($"  ✗ Greedy (Sort Loads Desc, TAs Asc by Skills) failed: {ex.Message}");
+                    // Console.WriteLine($"  ✗ Greedy (Sort Loads Desc, TAs Asc by Skills) failed: {ex.Message}");
                 }
 
                 allResults.Add((problem.Name, results, optimalResult));
@@ -162,15 +162,15 @@ namespace TaskScheduling
                 string reportContent = ResultAnalyzer.CompareResults(problem, results, optimalResult);
                 string reportFile = Path.Combine(reportsDir, $"Report_{problem.Name}_{runTimestamp}.txt");
                 File.WriteAllText(reportFile, reportContent);
-                Console.WriteLine($"\n  📄 Detailed report saved to: {reportFile}");
+                // Console.WriteLine($"\n  📄 Detailed report saved to: {reportFile}");
             }
 
             // Generate master summary report
             GenerateMasterSummaryReport(reportsDir, allResults);
-            Console.WriteLine($"\n\n{new string('=', 70)}");
-            Console.WriteLine("All experiments completed!");
-            Console.WriteLine($"Reports saved in: {reportsDir}");
-            Console.WriteLine($"{new string('=', 70)}");
+            // Console.WriteLine($"\n\n{new string('=', 70)}");
+            // Console.WriteLine("All experiments completed!");
+            // Console.WriteLine($"Reports saved in: {reportsDir}");
+            // Console.WriteLine($"{new string('=', 70)}");
         }
 
         /// <summary>
@@ -331,12 +331,12 @@ namespace TaskScheduling
 
             string summaryFile = Path.Combine(reportsDir, $"MasterSummary_{DateTime.Now:yyyyMMdd_HHmmss}.txt");
             File.WriteAllText(summaryFile, sb.ToString());
-            Console.WriteLine($"\n📊 Master summary report saved to: {Path.GetFileName(summaryFile)}");
+            // Console.WriteLine($"\n📊 Master summary report saved to: {Path.GetFileName(summaryFile)}");
             
             // Display the master summary report in console for easy viewing in Replit
-            Console.WriteLine("\n" + new string('=', 70));
-            Console.WriteLine("MASTER SUMMARY REPORT (Displayed Below)");
-            Console.WriteLine(new string('=', 70) + "\n");
+            // Console.WriteLine("\n" + new string('=', 70));
+            // Console.WriteLine("MASTER SUMMARY REPORT (Displayed Below)");
+            // Console.WriteLine(new string('=', 70) + "\n");
             Console.WriteLine(sb.ToString());
         }
     }

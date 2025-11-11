@@ -1147,6 +1147,502 @@ namespace TaskScheduling.DataGeneration
             };
         }
 
+        /// <summary>
+        /// Creates a small instance with very low processing times (1-5) and few TAs
+        /// </summary>
+        public static ProblemInstance Small_15(string name = "small_15", int seed = 42)
+        {
+            var random = new Random(seed);
+            var tasks = new List<TaskInfo>();
+            var taNames = new List<string> { "TA1", "TA2", "TA3" };
+            var tas = taNames.Select(n => new TAInfo { Name = n }).ToList();
+
+            // Create 12 tasks with very low processing times (1-5)
+            for (int i = 1; i <= 12; i++)
+            {
+                var selectedTAs = tas.OrderBy(x => random.Next()).Take(2).ToList();
+                int processingTime = 1 + random.Next(0, 5); // Processing time between 1-5
+
+                var task = new TaskInfo
+                {
+                    Name = $"Task{i}",
+                    EligibleTAs = selectedTAs,
+                    ProcessingTimes = new Dictionary<string, int>
+                    {
+                        { selectedTAs[0].Name, processingTime },
+                        { selectedTAs[1].Name, processingTime }
+                    }
+                };
+                tasks.Add(task);
+            }
+
+            return new ProblemInstance
+            {
+                Name = name,
+                Tasks = tasks,
+                TAs = tas,
+                Description = "Small instance: 12 tasks, 3 TAs, very low processing times (1-5)"
+            };
+        }
+
+        /// <summary>
+        /// Creates a small instance with very high processing times (100-200) and few TAs
+        /// </summary>
+        public static ProblemInstance Small_16(string name = "small_16", int seed = 42)
+        {
+            var random = new Random(seed);
+            var tasks = new List<TaskInfo>();
+            var taNames = new List<string> { "TA1", "TA2", "TA3", "TA4" };
+            var tas = taNames.Select(n => new TAInfo { Name = n }).ToList();
+
+            // Create 10 tasks with very high processing times (100-200)
+            for (int i = 1; i <= 10; i++)
+            {
+                var selectedTAs = tas.OrderBy(x => random.Next()).Take(2).ToList();
+                int processingTime = 100 + random.Next(0, 101); // Processing time between 100-200
+
+                var task = new TaskInfo
+                {
+                    Name = $"Task{i}",
+                    EligibleTAs = selectedTAs,
+                    ProcessingTimes = new Dictionary<string, int>
+                    {
+                        { selectedTAs[0].Name, processingTime },
+                        { selectedTAs[1].Name, processingTime }
+                    }
+                };
+                tasks.Add(task);
+            }
+
+            return new ProblemInstance
+            {
+                Name = name,
+                Tasks = tasks,
+                TAs = tas,
+                Description = "Small instance: 10 tasks, 4 TAs, very high processing times (100-200)"
+            };
+        }
+
+        /// <summary>
+        /// Creates a small instance with wide load range (5-150) and moderate TAs
+        /// </summary>
+        public static ProblemInstance Small_18(string name = "small_18", int seed = 42)
+        {
+            var random = new Random(seed);
+            var tasks = new List<TaskInfo>();
+            var taNames = new List<string> { "TA1", "TA2", "TA3", "TA4", "TA5", "TA6" };
+            var tas = taNames.Select(n => new TAInfo { Name = n }).ToList();
+
+            // Create 12 tasks with wide range of processing times (5-150)
+            for (int i = 1; i <= 12; i++)
+            {
+                var selectedTAs = tas.OrderBy(x => random.Next()).Take(2).ToList();
+                // Wide range: mix of small, medium, and large processing times
+                int processingTime = random.Next(0, 100) < 30 ? 
+                    (5 + random.Next(0, 20)) : // 30% chance: 5-25
+                    (random.Next(0, 100) < 50 ? 
+                        (30 + random.Next(0, 50)) : // 35% chance: 30-80
+                        (80 + random.Next(0, 71))); // 35% chance: 80-150
+
+                var task = new TaskInfo
+                {
+                    Name = $"Task{i}",
+                    EligibleTAs = selectedTAs,
+                    ProcessingTimes = new Dictionary<string, int>
+                    {
+                        { selectedTAs[0].Name, processingTime },
+                        { selectedTAs[1].Name, processingTime }
+                    }
+                };
+                tasks.Add(task);
+            }
+
+            return new ProblemInstance
+            {
+                Name = name,
+                Tasks = tasks,
+                TAs = tas,
+                Description = "Small instance: 12 tasks, 6 TAs, wide processing time range (5-150)"
+            };
+        }
+
+        /// <summary>
+        /// Creates a small instance with many TAs (8) and moderate tasks
+        /// </summary>
+        public static ProblemInstance Small_19(string name = "small_19", int seed = 42)
+        {
+            var random = new Random(seed);
+            var tasks = new List<TaskInfo>();
+            var taNames = new List<string>();
+            for (int i = 1; i <= 8; i++)
+            {
+                taNames.Add($"TA{i}");
+            }
+            var tas = taNames.Select(n => new TAInfo { Name = n }).ToList();
+
+            // Create 10 tasks with moderate processing times (20-80)
+            for (int i = 1; i <= 10; i++)
+            {
+                var selectedTAs = tas.OrderBy(x => random.Next()).Take(2).ToList();
+                int processingTime = 20 + random.Next(0, 61); // Processing time between 20-80
+
+                var task = new TaskInfo
+                {
+                    Name = $"Task{i}",
+                    EligibleTAs = selectedTAs,
+                    ProcessingTimes = new Dictionary<string, int>
+                    {
+                        { selectedTAs[0].Name, processingTime },
+                        { selectedTAs[1].Name, processingTime }
+                    }
+                };
+                tasks.Add(task);
+            }
+
+            return new ProblemInstance
+            {
+                Name = name,
+                Tasks = tasks,
+                TAs = tas,
+                Description = "Small instance: 10 tasks, 8 TAs, moderate processing times (20-80)"
+            };
+        }
+
+        /// <summary>
+        /// Creates a small instance with very low processing times (1-10) and many TAs
+        /// </summary>
+        public static ProblemInstance Small_20(string name = "small_20", int seed = 42)
+        {
+            var random = new Random(seed);
+            var tasks = new List<TaskInfo>();
+            var taNames = new List<string>();
+            for (int i = 1; i <= 7; i++)
+            {
+                taNames.Add($"TA{i}");
+            }
+            var tas = taNames.Select(n => new TAInfo { Name = n }).ToList();
+
+            // Create 11 tasks with very low processing times (1-10)
+            for (int i = 1; i <= 11; i++)
+            {
+                var selectedTAs = tas.OrderBy(x => random.Next()).Take(2).ToList();
+                int processingTime = 1 + random.Next(0, 10); // Processing time between 1-10
+
+                var task = new TaskInfo
+                {
+                    Name = $"Task{i}",
+                    EligibleTAs = selectedTAs,
+                    ProcessingTimes = new Dictionary<string, int>
+                    {
+                        { selectedTAs[0].Name, processingTime },
+                        { selectedTAs[1].Name, processingTime }
+                    }
+                };
+                tasks.Add(task);
+            }
+
+            return new ProblemInstance
+            {
+                Name = name,
+                Tasks = tasks,
+                TAs = tas,
+                Description = "Small instance: 11 tasks, 7 TAs, very low processing times (1-10)"
+            };
+        }
+
+        /// <summary>
+        /// Creates a small instance with very high processing times (150-300) and many TAs
+        /// </summary>
+        public static ProblemInstance Small_21(string name = "small_21", int seed = 42)
+        {
+            var random = new Random(seed);
+            var tasks = new List<TaskInfo>();
+            var taNames = new List<string>();
+            for (int i = 1; i <= 6; i++)
+            {
+                taNames.Add($"TA{i}");
+            }
+            var tas = taNames.Select(n => new TAInfo { Name = n }).ToList();
+
+            // Create 9 tasks with very high processing times (150-300)
+            for (int i = 1; i <= 9; i++)
+            {
+                var selectedTAs = tas.OrderBy(x => random.Next()).Take(2).ToList();
+                int processingTime = 150 + random.Next(0, 151); // Processing time between 150-300
+
+                var task = new TaskInfo
+                {
+                    Name = $"Task{i}",
+                    EligibleTAs = selectedTAs,
+                    ProcessingTimes = new Dictionary<string, int>
+                    {
+                        { selectedTAs[0].Name, processingTime },
+                        { selectedTAs[1].Name, processingTime }
+                    }
+                };
+                tasks.Add(task);
+            }
+
+            return new ProblemInstance
+            {
+                Name = name,
+                Tasks = tasks,
+                TAs = tas,
+                Description = "Small instance: 9 tasks, 6 TAs, very high processing times (150-300)"
+            };
+        }
+
+        /// <summary>
+        /// Creates a small instance with extreme load range (1-200) and moderate TAs
+        /// </summary>
+        public static ProblemInstance Small_22(string name = "small_22", int seed = 42)
+        {
+            var random = new Random(seed);
+            var tasks = new List<TaskInfo>();
+            var taNames = new List<string> { "TA1", "TA2", "TA3", "TA4", "TA5" };
+            var tas = taNames.Select(n => new TAInfo { Name = n }).ToList();
+
+            // Create 10 tasks with extreme range of processing times (1-200)
+            for (int i = 1; i <= 10; i++)
+            {
+                var selectedTAs = tas.OrderBy(x => random.Next()).Take(2).ToList();
+                // Extreme range: uniform distribution from 1 to 200
+                int processingTime = 1 + random.Next(0, 200);
+
+                var task = new TaskInfo
+                {
+                    Name = $"Task{i}",
+                    EligibleTAs = selectedTAs,
+                    ProcessingTimes = new Dictionary<string, int>
+                    {
+                        { selectedTAs[0].Name, processingTime },
+                        { selectedTAs[1].Name, processingTime }
+                    }
+                };
+                tasks.Add(task);
+            }
+
+            return new ProblemInstance
+            {
+                Name = name,
+                Tasks = tasks,
+                TAs = tas,
+                Description = "Small instance: 10 tasks, 5 TAs, extreme processing time range (1-200)"
+            };
+        }
+
+        /// <summary>
+        /// Creates a small instance with moderate TAs (7) and bimodal load distribution
+        /// </summary>
+        public static ProblemInstance Small_23(string name = "small_23", int seed = 42)
+        {
+            var random = new Random(seed);
+            var tasks = new List<TaskInfo>();
+            var taNames = new List<string>();
+            for (int i = 1; i <= 7; i++)
+            {
+                taNames.Add($"TA{i}");
+            }
+            var tas = taNames.Select(n => new TAInfo { Name = n }).ToList();
+
+            // Create 13 tasks with bimodal distribution: many small (5-15) and few very large (180-200)
+            for (int i = 1; i <= 13; i++)
+            {
+                var selectedTAs = tas.OrderBy(x => random.Next()).Take(2).ToList();
+                // 80% small tasks, 20% very large tasks
+                int processingTime = random.Next(0, 100) < 80 ? 
+                    (5 + random.Next(0, 11)) : // 80% chance: 5-15
+                    (180 + random.Next(0, 21)); // 20% chance: 180-200
+
+                var task = new TaskInfo
+                {
+                    Name = $"Task{i}",
+                    EligibleTAs = selectedTAs,
+                    ProcessingTimes = new Dictionary<string, int>
+                    {
+                        { selectedTAs[0].Name, processingTime },
+                        { selectedTAs[1].Name, processingTime }
+                    }
+                };
+                tasks.Add(task);
+            }
+
+            return new ProblemInstance
+            {
+                Name = name,
+                Tasks = tasks,
+                TAs = tas,
+                Description = "Small instance: 13 tasks, 7 TAs, bimodal processing time distribution (5-15 and 180-200)"
+            };
+        }
+
+        /// <summary>
+        /// Creates a small instance with many TAs (9) and moderate-high processing times
+        /// </summary>
+        public static ProblemInstance Small_24(string name = "small_24", int seed = 42)
+        {
+            var random = new Random(seed);
+            var tasks = new List<TaskInfo>();
+            var taNames = new List<string>();
+            for (int i = 1; i <= 9; i++)
+            {
+                taNames.Add($"TA{i}");
+            }
+            var tas = taNames.Select(n => new TAInfo { Name = n }).ToList();
+
+            // Create 12 tasks with moderate-high processing times (50-120)
+            for (int i = 1; i <= 12; i++)
+            {
+                var selectedTAs = tas.OrderBy(x => random.Next()).Take(2).ToList();
+                int processingTime = 50 + random.Next(0, 71); // Processing time between 50-120
+
+                var task = new TaskInfo
+                {
+                    Name = $"Task{i}",
+                    EligibleTAs = selectedTAs,
+                    ProcessingTimes = new Dictionary<string, int>
+                    {
+                        { selectedTAs[0].Name, processingTime },
+                        { selectedTAs[1].Name, processingTime }
+                    }
+                };
+                tasks.Add(task);
+            }
+
+            return new ProblemInstance
+            {
+                Name = name,
+                Tasks = tasks,
+                TAs = tas,
+                Description = "Small instance: 12 tasks, 9 TAs, moderate-high processing times (50-120)"
+            };
+        }
+
+        /// <summary>
+        /// Creates a small instance with few TAs (3) and wide load range (10-100)
+        /// </summary>
+        public static ProblemInstance Small_17(string name = "small_17", int seed = 42)
+        {
+            var random = new Random(seed);
+            var tasks = new List<TaskInfo>();
+            var taNames = new List<string> { "TA1", "TA2", "TA3" };
+            var tas = taNames.Select(n => new TAInfo { Name = n }).ToList();
+
+            // Create 15 tasks with wide range of processing times (10-100)
+            for (int i = 1; i <= 15; i++)
+            {
+                var selectedTAs = tas.OrderBy(x => random.Next()).Take(2).ToList();
+                int processingTime = 10 + random.Next(0, 91); // Processing time between 10-100
+
+                var task = new TaskInfo
+                {
+                    Name = $"Task{i}",
+                    EligibleTAs = selectedTAs,
+                    ProcessingTimes = new Dictionary<string, int>
+                    {
+                        { selectedTAs[0].Name, processingTime },
+                        { selectedTAs[1].Name, processingTime }
+                    }
+                };
+                tasks.Add(task);
+            }
+
+            return new ProblemInstance
+            {
+                Name = name,
+                Tasks = tasks,
+                TAs = tas,
+                Description = "Small instance: 15 tasks, 3 TAs, wide processing time range (10-100)"
+            };
+        }
+
+        /// <summary>
+        /// Creates a large instance with many TAs (20) and moderate-high processing times
+        /// </summary>
+        public static ProblemInstance Big_8(string name = "big_8", int seed = 42)
+        {
+            var random = new Random(seed);
+            var tasks = new List<TaskInfo>();
+            var taNames = new List<string>();
+            for (int i = 1; i <= 20; i++)
+            {
+                taNames.Add($"TA{i}");
+            }
+            var tas = taNames.Select(n => new TAInfo { Name = n }).ToList();
+
+            // Create 150 tasks with moderate-high processing times (50-120)
+            for (int i = 1; i <= 150; i++)
+            {
+                var selectedTAs = tas.OrderBy(x => random.Next()).Take(2).ToList();
+                int processingTime = 50 + random.Next(0, 71); // Processing time between 50-120
+
+                var task = new TaskInfo
+                {
+                    Name = $"Task{i}",
+                    EligibleTAs = selectedTAs,
+                    ProcessingTimes = new Dictionary<string, int>
+                    {
+                        { selectedTAs[0].Name, processingTime },
+                        { selectedTAs[1].Name, processingTime }
+                    }
+                };
+                tasks.Add(task);
+            }
+
+            return new ProblemInstance
+            {
+                Name = name,
+                Tasks = tasks,
+                TAs = tas,
+                Description = "Large instance: 150 tasks, 20 TAs, moderate-high processing times (50-120)"
+            };
+        }
+
+        /// <summary>
+        /// Creates a medium instance with moderate TAs (8) and bimodal load distribution
+        /// </summary>
+        public static ProblemInstance Medium_12(string name = "medium_12", int seed = 42)
+        {
+            var random = new Random(seed);
+            var tasks = new List<TaskInfo>();
+            var taNames = new List<string>();
+            for (int i = 1; i <= 8; i++)
+            {
+                taNames.Add($"TA{i}");
+            }
+            var tas = taNames.Select(n => new TAInfo { Name = n }).ToList();
+
+            // Create 50 tasks with bimodal distribution: many small (5-15) and few very large (180-200)
+            for (int i = 1; i <= 50; i++)
+            {
+                var selectedTAs = tas.OrderBy(x => random.Next()).Take(2).ToList();
+                // 80% small tasks, 20% very large tasks
+                int processingTime = random.Next(0, 100) < 80 ? 
+                    (5 + random.Next(0, 11)) : // 80% chance: 5-15
+                    (180 + random.Next(0, 21)); // 20% chance: 180-200
+
+                var task = new TaskInfo
+                {
+                    Name = $"Task{i}",
+                    EligibleTAs = selectedTAs,
+                    ProcessingTimes = new Dictionary<string, int>
+                    {
+                        { selectedTAs[0].Name, processingTime },
+                        { selectedTAs[1].Name, processingTime }
+                    }
+                };
+                tasks.Add(task);
+            }
+
+            return new ProblemInstance
+            {
+                Name = name,
+                Tasks = tasks,
+                TAs = tas,
+                Description = "Medium instance: 50 tasks, 8 TAs, bimodal processing time distribution (5-15 and 180-200)"
+            };
+        }
+
         public static IEnumerable<ProblemInstance> GetAllInstances()
         {
             yield return Small_0();
@@ -1163,6 +1659,9 @@ namespace TaskScheduling.DataGeneration
             yield return Small_12();
             yield return Small_13();
             yield return Small_14();
+            yield return Small_15();
+            yield return Small_16();
+            yield return Small_17();
             yield return Medium_1();
             yield return Medium_2();
             yield return Medium_3();
@@ -1171,6 +1670,13 @@ namespace TaskScheduling.DataGeneration
             yield return Medium_6();
             yield return Medium_7();
             yield return Medium_8();
+            yield return Small_18();
+            yield return Small_19();
+            yield return Small_20();
+            yield return Small_21();
+            yield return Small_22();
+            yield return Small_23();
+            yield return Small_24();
             yield return Big_1();
             yield return Big_2();
             yield return Big_3();
