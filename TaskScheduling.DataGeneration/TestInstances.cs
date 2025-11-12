@@ -9004,6 +9004,161 @@ namespace TaskScheduling.DataGeneration
             };
         }
 
+        /// <summary>
+        /// Generates 1000 instances based on Uniform distribution
+        /// Cycles through uniform distribution functions (Small_112 to Small_136) with different seeds
+        /// </summary>
+        public static IEnumerable<ProblemInstance> GenerateUniformDistributionInstances(int count = 1000, int startSeed = 2000)
+        {
+            var uniformFunctions = new Func<int, int, ProblemInstance>[]
+            {
+                (nameSuffix, seed) => Small_112($"uniform_112_v{nameSuffix}", seed),
+                (nameSuffix, seed) => Small_113($"uniform_113_v{nameSuffix}", seed),
+                (nameSuffix, seed) => Small_114($"uniform_114_v{nameSuffix}", seed),
+                (nameSuffix, seed) => Small_115($"uniform_115_v{nameSuffix}", seed),
+                (nameSuffix, seed) => Small_116($"uniform_116_v{nameSuffix}", seed),
+                (nameSuffix, seed) => Small_117($"uniform_117_v{nameSuffix}", seed),
+                (nameSuffix, seed) => Small_118($"uniform_118_v{nameSuffix}", seed),
+                (nameSuffix, seed) => Small_119($"uniform_119_v{nameSuffix}", seed),
+                (nameSuffix, seed) => Small_120($"uniform_120_v{nameSuffix}", seed),
+                (nameSuffix, seed) => Small_121($"uniform_121_v{nameSuffix}", seed),
+                (nameSuffix, seed) => Small_122($"uniform_122_v{nameSuffix}", seed),
+                (nameSuffix, seed) => Small_123($"uniform_123_v{nameSuffix}", seed),
+                (nameSuffix, seed) => Small_124($"uniform_124_v{nameSuffix}", seed),
+                (nameSuffix, seed) => Small_125($"uniform_125_v{nameSuffix}", seed),
+                (nameSuffix, seed) => Small_126($"uniform_126_v{nameSuffix}", seed),
+                (nameSuffix, seed) => Small_127($"uniform_127_v{nameSuffix}", seed),
+                (nameSuffix, seed) => Small_128($"uniform_128_v{nameSuffix}", seed),
+                (nameSuffix, seed) => Small_129($"uniform_129_v{nameSuffix}", seed),
+                (nameSuffix, seed) => Small_130($"uniform_130_v{nameSuffix}", seed),
+                (nameSuffix, seed) => Small_131($"uniform_131_v{nameSuffix}", seed),
+                (nameSuffix, seed) => Small_132($"uniform_132_v{nameSuffix}", seed),
+                (nameSuffix, seed) => Small_133($"uniform_133_v{nameSuffix}", seed),
+                (nameSuffix, seed) => Small_134($"uniform_134_v{nameSuffix}", seed),
+                (nameSuffix, seed) => Small_135($"uniform_135_v{nameSuffix}", seed),
+                (nameSuffix, seed) => Small_136($"uniform_136_v{nameSuffix}", seed)
+            };
+
+            for (int i = 1; i <= count; i++)
+            {
+                int functionIndex = (i - 1) % uniformFunctions.Length;
+                int seed = startSeed + i;
+                yield return uniformFunctions[functionIndex](i, seed);
+            }
+        }
+
+        /// <summary>
+        /// Generates 1000 instances based on Bimodal distribution
+        /// Cycles through bimodal distribution functions (Small_137 to Small_186) with different seeds
+        /// </summary>
+        public static IEnumerable<ProblemInstance> GenerateBimodalDistributionInstances(int count = 1000, int startSeed = 3000)
+        {
+            var bimodalFunctions = new Func<int, int, ProblemInstance>[]
+            {
+                (nameSuffix, seed) => Small_137($"bimodal_137_v{nameSuffix}", seed),
+                (nameSuffix, seed) => Small_138($"bimodal_138_v{nameSuffix}", seed),
+                (nameSuffix, seed) => Small_139($"bimodal_139_v{nameSuffix}", seed),
+                (nameSuffix, seed) => Small_140($"bimodal_140_v{nameSuffix}", seed),
+                (nameSuffix, seed) => Small_141($"bimodal_141_v{nameSuffix}", seed),
+                (nameSuffix, seed) => Small_142($"bimodal_142_v{nameSuffix}", seed),
+                (nameSuffix, seed) => Small_143($"bimodal_143_v{nameSuffix}", seed),
+                (nameSuffix, seed) => Small_144($"bimodal_144_v{nameSuffix}", seed),
+                (nameSuffix, seed) => Small_145($"bimodal_145_v{nameSuffix}", seed),
+                (nameSuffix, seed) => Small_146($"bimodal_146_v{nameSuffix}", seed),
+                (nameSuffix, seed) => Small_147($"bimodal_147_v{nameSuffix}", seed),
+                (nameSuffix, seed) => Small_148($"bimodal_148_v{nameSuffix}", seed),
+                (nameSuffix, seed) => Small_149($"bimodal_149_v{nameSuffix}", seed),
+                (nameSuffix, seed) => Small_150($"bimodal_150_v{nameSuffix}", seed),
+                (nameSuffix, seed) => Small_151($"bimodal_151_v{nameSuffix}", seed),
+                (nameSuffix, seed) => Small_152($"bimodal_152_v{nameSuffix}", seed),
+                (nameSuffix, seed) => Small_153($"bimodal_153_v{nameSuffix}", seed),
+                (nameSuffix, seed) => Small_154($"bimodal_154_v{nameSuffix}", seed),
+                (nameSuffix, seed) => Small_155($"bimodal_155_v{nameSuffix}", seed),
+                (nameSuffix, seed) => Small_156($"bimodal_156_v{nameSuffix}", seed),
+                (nameSuffix, seed) => Small_157($"bimodal_157_v{nameSuffix}", seed),
+                (nameSuffix, seed) => Small_158($"bimodal_158_v{nameSuffix}", seed),
+                (nameSuffix, seed) => Small_159($"bimodal_159_v{nameSuffix}", seed),
+                (nameSuffix, seed) => Small_160($"bimodal_160_v{nameSuffix}", seed),
+                (nameSuffix, seed) => Small_161($"bimodal_161_v{nameSuffix}", seed),
+                (nameSuffix, seed) => Small_162($"bimodal_162_v{nameSuffix}", seed),
+                (nameSuffix, seed) => Small_163($"bimodal_163_v{nameSuffix}", seed),
+                (nameSuffix, seed) => Small_164($"bimodal_164_v{nameSuffix}", seed),
+                (nameSuffix, seed) => Small_165($"bimodal_165_v{nameSuffix}", seed),
+                (nameSuffix, seed) => Small_166($"bimodal_166_v{nameSuffix}", seed),
+                (nameSuffix, seed) => Small_167($"bimodal_167_v{nameSuffix}", seed),
+                (nameSuffix, seed) => Small_168($"bimodal_168_v{nameSuffix}", seed),
+                (nameSuffix, seed) => Small_169($"bimodal_169_v{nameSuffix}", seed),
+                (nameSuffix, seed) => Small_170($"bimodal_170_v{nameSuffix}", seed),
+                (nameSuffix, seed) => Small_171($"bimodal_171_v{nameSuffix}", seed),
+                (nameSuffix, seed) => Small_172($"bimodal_172_v{nameSuffix}", seed),
+                (nameSuffix, seed) => Small_173($"bimodal_173_v{nameSuffix}", seed),
+                (nameSuffix, seed) => Small_174($"bimodal_174_v{nameSuffix}", seed),
+                (nameSuffix, seed) => Small_175($"bimodal_175_v{nameSuffix}", seed),
+                (nameSuffix, seed) => Small_176($"bimodal_176_v{nameSuffix}", seed),
+                (nameSuffix, seed) => Small_177($"bimodal_177_v{nameSuffix}", seed),
+                (nameSuffix, seed) => Small_178($"bimodal_178_v{nameSuffix}", seed),
+                (nameSuffix, seed) => Small_179($"bimodal_179_v{nameSuffix}", seed),
+                (nameSuffix, seed) => Small_180($"bimodal_180_v{nameSuffix}", seed),
+                (nameSuffix, seed) => Small_181($"bimodal_181_v{nameSuffix}", seed),
+                (nameSuffix, seed) => Small_182($"bimodal_182_v{nameSuffix}", seed),
+                (nameSuffix, seed) => Small_183($"bimodal_183_v{nameSuffix}", seed),
+                (nameSuffix, seed) => Small_184($"bimodal_184_v{nameSuffix}", seed),
+                (nameSuffix, seed) => Small_185($"bimodal_185_v{nameSuffix}", seed),
+                (nameSuffix, seed) => Small_186($"bimodal_186_v{nameSuffix}", seed)
+            };
+
+            for (int i = 1; i <= count; i++)
+            {
+                int functionIndex = (i - 1) % bimodalFunctions.Length;
+                int seed = startSeed + i;
+                yield return bimodalFunctions[functionIndex](i, seed);
+            }
+        }
+
+        /// <summary>
+        /// Generates 1000 instances based on Mixed ranges distribution
+        /// Cycles through mixed ranges functions (Small_187 to Small_212) with different seeds
+        /// </summary>
+        public static IEnumerable<ProblemInstance> GenerateMixedRangesInstances(int count = 1000, int startSeed = 4000)
+        {
+            var mixedRangesFunctions = new Func<int, int, ProblemInstance>[]
+            {
+                (nameSuffix, seed) => Small_187($"mixed_187_v{nameSuffix}", seed),
+                (nameSuffix, seed) => Small_188($"mixed_188_v{nameSuffix}", seed),
+                (nameSuffix, seed) => Small_189($"mixed_189_v{nameSuffix}", seed),
+                (nameSuffix, seed) => Small_190($"mixed_190_v{nameSuffix}", seed),
+                (nameSuffix, seed) => Small_191($"mixed_191_v{nameSuffix}", seed),
+                (nameSuffix, seed) => Small_192($"mixed_192_v{nameSuffix}", seed),
+                (nameSuffix, seed) => Small_193($"mixed_193_v{nameSuffix}", seed),
+                (nameSuffix, seed) => Small_194($"mixed_194_v{nameSuffix}", seed),
+                (nameSuffix, seed) => Small_195($"mixed_195_v{nameSuffix}", seed),
+                (nameSuffix, seed) => Small_196($"mixed_196_v{nameSuffix}", seed),
+                (nameSuffix, seed) => Small_197($"mixed_197_v{nameSuffix}", seed),
+                (nameSuffix, seed) => Small_198($"mixed_198_v{nameSuffix}", seed),
+                (nameSuffix, seed) => Small_199($"mixed_199_v{nameSuffix}", seed),
+                (nameSuffix, seed) => Small_200($"mixed_200_v{nameSuffix}", seed),
+                (nameSuffix, seed) => Small_201($"mixed_201_v{nameSuffix}", seed),
+                (nameSuffix, seed) => Small_202($"mixed_202_v{nameSuffix}", seed),
+                (nameSuffix, seed) => Small_203($"mixed_203_v{nameSuffix}", seed),
+                (nameSuffix, seed) => Small_204($"mixed_204_v{nameSuffix}", seed),
+                (nameSuffix, seed) => Small_205($"mixed_205_v{nameSuffix}", seed),
+                (nameSuffix, seed) => Small_206($"mixed_206_v{nameSuffix}", seed),
+                (nameSuffix, seed) => Small_207($"mixed_207_v{nameSuffix}", seed),
+                (nameSuffix, seed) => Small_208($"mixed_208_v{nameSuffix}", seed),
+                (nameSuffix, seed) => Small_209($"mixed_209_v{nameSuffix}", seed),
+                (nameSuffix, seed) => Small_210($"mixed_210_v{nameSuffix}", seed),
+                (nameSuffix, seed) => Small_211($"mixed_211_v{nameSuffix}", seed),
+                (nameSuffix, seed) => Small_212($"mixed_212_v{nameSuffix}", seed)
+            };
+
+            for (int i = 1; i <= count; i++)
+            {
+                int functionIndex = (i - 1) % mixedRangesFunctions.Length;
+                int seed = startSeed + i;
+                yield return mixedRangesFunctions[functionIndex](i, seed);
+            }
+        }
+
         public static IEnumerable<ProblemInstance> GetAllInstances()
         {
             yield return Small_0();
@@ -9229,6 +9384,22 @@ namespace TaskScheduling.DataGeneration
             yield return Small_210();
             yield return Small_211();
             yield return Small_212();
+            
+            // Generate 1000 instances for each distribution type using the new methods
+            foreach (var instance in GenerateUniformDistributionInstances())
+            {
+                yield return instance;
+            }
+            
+            foreach (var instance in GenerateBimodalDistributionInstances())
+            {
+                yield return instance;
+            }
+            
+            foreach (var instance in GenerateMixedRangesInstances())
+            {
+                yield return instance;
+            }
             
             yield return Big_1();
             yield return Big_2();
