@@ -4908,7 +4908,3978 @@ namespace TaskScheduling.DataGeneration
             };
         }
 
+        // ========== UNIFORM DISTRIBUTION INSTANCES (25 instances) ==========
+
         /// <summary>
+        /// Creates a small instance with uniform distribution: 8 tasks, 3 TAs (20-60)
+        /// </summary>
+        public static ProblemInstance Small_112(string name = "small_112", int seed = 42)
+        {
+            var tasks = new List<TaskInfo>();
+            var taNames = new List<string> { "TA1", "TA2", "TA3" };
+            var tas = taNames.Select(n => new TAInfo { Name = n }).ToList();
+
+            for (int i = 1; i <= 8; i++)
+            {
+                int ta1Index = (i - 1) % 3;
+                int ta2Index = i % 3;
+                var eligibleTAs = new List<TAInfo> { tas[ta1Index], tas[ta2Index] };
+                int processingTime = 20 + (i * 5); // Uniform: 25, 30, 35, 40, 45, 50, 55, 60
+
+                var processingTimes = new Dictionary<string, int>
+                {
+                    { tas[ta1Index].Name, processingTime },
+                    { tas[ta2Index].Name, processingTime }
+                };
+
+                tasks.Add(new TaskInfo
+                {
+                    Name = $"Task{i}",
+                    EligibleTAs = eligibleTAs,
+                    ProcessingTimes = processingTimes
+                });
+            }
+
+            return new ProblemInstance
+            {
+                Name = name,
+                Tasks = tasks,
+                TAs = tas,
+                Description = "Small instance: 8 tasks, 3 TAs, uniform distribution (20-60)"
+            };
+        }
+
+        /// <summary>
+        /// Creates a small instance with uniform distribution: 9 tasks, 4 TAs (30-70)
+        /// </summary>
+        public static ProblemInstance Small_113(string name = "small_113", int seed = 42)
+        {
+            var tasks = new List<TaskInfo>();
+            var taNames = new List<string> { "TA1", "TA2", "TA3", "TA4" };
+            var tas = taNames.Select(n => new TAInfo { Name = n }).ToList();
+
+            for (int i = 1; i <= 9; i++)
+            {
+                int ta1Index = (i - 1) % 4;
+                int ta2Index = i % 4;
+                var eligibleTAs = new List<TAInfo> { tas[ta1Index], tas[ta2Index] };
+                int processingTime = 30 + ((i - 1) * 5); // Uniform: 30, 35, 40, 45, 50, 55, 60, 65, 70
+
+                var processingTimes = new Dictionary<string, int>
+                {
+                    { tas[ta1Index].Name, processingTime },
+                    { tas[ta2Index].Name, processingTime }
+                };
+
+                tasks.Add(new TaskInfo
+                {
+                    Name = $"Task{i}",
+                    EligibleTAs = eligibleTAs,
+                    ProcessingTimes = processingTimes
+                });
+            }
+
+            return new ProblemInstance
+            {
+                Name = name,
+                Tasks = tasks,
+                TAs = tas,
+                Description = "Small instance: 9 tasks, 4 TAs, uniform distribution (30-70)"
+            };
+        }
+
+        /// <summary>
+        /// Creates a small instance with uniform distribution: 10 tasks, 5 TAs (40-85)
+        /// </summary>
+        public static ProblemInstance Small_114(string name = "small_114", int seed = 42)
+        {
+            var tasks = new List<TaskInfo>();
+            var taNames = new List<string> { "TA1", "TA2", "TA3", "TA4", "TA5" };
+            var tas = taNames.Select(n => new TAInfo { Name = n }).ToList();
+
+            for (int i = 1; i <= 10; i++)
+            {
+                int ta1Index = (i - 1) % 5;
+                int ta2Index = i % 5;
+                var eligibleTAs = new List<TAInfo> { tas[ta1Index], tas[ta2Index] };
+                int processingTime = 40 + ((i - 1) * 5); // Uniform: 40, 45, 50, 55, 60, 65, 70, 75, 80, 85
+
+                var processingTimes = new Dictionary<string, int>
+                {
+                    { tas[ta1Index].Name, processingTime },
+                    { tas[ta2Index].Name, processingTime }
+                };
+
+                tasks.Add(new TaskInfo
+                {
+                    Name = $"Task{i}",
+                    EligibleTAs = eligibleTAs,
+                    ProcessingTimes = processingTimes
+                });
+            }
+
+            return new ProblemInstance
+            {
+                Name = name,
+                Tasks = tasks,
+                TAs = tas,
+                Description = "Small instance: 10 tasks, 5 TAs, uniform distribution (40-85)"
+            };
+        }
+
+        /// <summary>
+        /// Creates a small instance with uniform distribution: 11 tasks, 3 TAs (15-65)
+        /// </summary>
+        public static ProblemInstance Small_115(string name = "small_115", int seed = 42)
+        {
+            var tasks = new List<TaskInfo>();
+            var taNames = new List<string> { "TA1", "TA2", "TA3" };
+            var tas = taNames.Select(n => new TAInfo { Name = n }).ToList();
+
+            for (int i = 1; i <= 11; i++)
+            {
+                int ta1Index = (i - 1) % 3;
+                int ta2Index = i % 3;
+                var eligibleTAs = new List<TAInfo> { tas[ta1Index], tas[ta2Index] };
+                int processingTime = 15 + ((i - 1) * 5); // Uniform: 15, 20, 25, 30, 35, 40, 45, 50, 55, 60, 65
+
+                var processingTimes = new Dictionary<string, int>
+                {
+                    { tas[ta1Index].Name, processingTime },
+                    { tas[ta2Index].Name, processingTime }
+                };
+
+                tasks.Add(new TaskInfo
+                {
+                    Name = $"Task{i}",
+                    EligibleTAs = eligibleTAs,
+                    ProcessingTimes = processingTimes
+                });
+            }
+
+            return new ProblemInstance
+            {
+                Name = name,
+                Tasks = tasks,
+                TAs = tas,
+                Description = "Small instance: 11 tasks, 3 TAs, uniform distribution (15-65)"
+            };
+        }
+
+        /// <summary>
+        /// Creates a small instance with uniform distribution: 12 tasks, 6 TAs (50-105)
+        /// </summary>
+        public static ProblemInstance Small_116(string name = "small_116", int seed = 42)
+        {
+            var tasks = new List<TaskInfo>();
+            var taNames = new List<string> { "TA1", "TA2", "TA3", "TA4", "TA5", "TA6" };
+            var tas = taNames.Select(n => new TAInfo { Name = n }).ToList();
+
+            for (int i = 1; i <= 12; i++)
+            {
+                int ta1Index = (i - 1) % 6;
+                int ta2Index = i % 6;
+                var eligibleTAs = new List<TAInfo> { tas[ta1Index], tas[ta2Index] };
+                int processingTime = 50 + ((i - 1) * 5); // Uniform: 50, 55, 60, 65, 70, 75, 80, 85, 90, 95, 100, 105
+
+                var processingTimes = new Dictionary<string, int>
+                {
+                    { tas[ta1Index].Name, processingTime },
+                    { tas[ta2Index].Name, processingTime }
+                };
+
+                tasks.Add(new TaskInfo
+                {
+                    Name = $"Task{i}",
+                    EligibleTAs = eligibleTAs,
+                    ProcessingTimes = processingTimes
+                });
+            }
+
+            return new ProblemInstance
+            {
+                Name = name,
+                Tasks = tasks,
+                TAs = tas,
+                Description = "Small instance: 12 tasks, 6 TAs, uniform distribution (50-105)"
+            };
+        }
+
+        /// <summary>
+        /// Creates a small instance with uniform distribution: 13 tasks, 4 TAs (25-85)
+        /// </summary>
+        public static ProblemInstance Small_117(string name = "small_117", int seed = 42)
+        {
+            var tasks = new List<TaskInfo>();
+            var taNames = new List<string> { "TA1", "TA2", "TA3", "TA4" };
+            var tas = taNames.Select(n => new TAInfo { Name = n }).ToList();
+
+            for (int i = 1; i <= 13; i++)
+            {
+                int ta1Index = (i - 1) % 4;
+                int ta2Index = i % 4;
+                var eligibleTAs = new List<TAInfo> { tas[ta1Index], tas[ta2Index] };
+                int processingTime = 25 + ((i - 1) * 5); // Uniform: 25, 30, 35, 40, 45, 50, 55, 60, 65, 70, 75, 80, 85
+
+                var processingTimes = new Dictionary<string, int>
+                {
+                    { tas[ta1Index].Name, processingTime },
+                    { tas[ta2Index].Name, processingTime }
+                };
+
+                tasks.Add(new TaskInfo
+                {
+                    Name = $"Task{i}",
+                    EligibleTAs = eligibleTAs,
+                    ProcessingTimes = processingTimes
+                });
+            }
+
+            return new ProblemInstance
+            {
+                Name = name,
+                Tasks = tasks,
+                TAs = tas,
+                Description = "Small instance: 13 tasks, 4 TAs, uniform distribution (25-85)"
+            };
+        }
+
+        /// <summary>
+        /// Creates a small instance with uniform distribution: 14 tasks, 5 TAs (35-100)
+        /// </summary>
+        public static ProblemInstance Small_118(string name = "small_118", int seed = 42)
+        {
+            var tasks = new List<TaskInfo>();
+            var taNames = new List<string> { "TA1", "TA2", "TA3", "TA4", "TA5" };
+            var tas = taNames.Select(n => new TAInfo { Name = n }).ToList();
+
+            for (int i = 1; i <= 14; i++)
+            {
+                int ta1Index = (i - 1) % 5;
+                int ta2Index = i % 5;
+                var eligibleTAs = new List<TAInfo> { tas[ta1Index], tas[ta2Index] };
+                int processingTime = 35 + ((i - 1) * 5); // Uniform distribution
+
+                var processingTimes = new Dictionary<string, int>
+                {
+                    { tas[ta1Index].Name, processingTime },
+                    { tas[ta2Index].Name, processingTime }
+                };
+
+                tasks.Add(new TaskInfo
+                {
+                    Name = $"Task{i}",
+                    EligibleTAs = eligibleTAs,
+                    ProcessingTimes = processingTimes
+                });
+            }
+
+            return new ProblemInstance
+            {
+                Name = name,
+                Tasks = tasks,
+                TAs = tas,
+                Description = "Small instance: 14 tasks, 5 TAs, uniform distribution (35-100)"
+            };
+        }
+
+        /// <summary>
+        /// Creates a small instance with uniform distribution: 15 tasks, 3 TAs (20-90)
+        /// </summary>
+        public static ProblemInstance Small_119(string name = "small_119", int seed = 42)
+        {
+            var tasks = new List<TaskInfo>();
+            var taNames = new List<string> { "TA1", "TA2", "TA3" };
+            var tas = taNames.Select(n => new TAInfo { Name = n }).ToList();
+
+            for (int i = 1; i <= 15; i++)
+            {
+                int ta1Index = (i - 1) % 3;
+                int ta2Index = i % 3;
+                var eligibleTAs = new List<TAInfo> { tas[ta1Index], tas[ta2Index] };
+                int processingTime = 20 + ((i - 1) * 5); // Uniform distribution
+
+                var processingTimes = new Dictionary<string, int>
+                {
+                    { tas[ta1Index].Name, processingTime },
+                    { tas[ta2Index].Name, processingTime }
+                };
+
+                tasks.Add(new TaskInfo
+                {
+                    Name = $"Task{i}",
+                    EligibleTAs = eligibleTAs,
+                    ProcessingTimes = processingTimes
+                });
+            }
+
+            return new ProblemInstance
+            {
+                Name = name,
+                Tasks = tasks,
+                TAs = tas,
+                Description = "Small instance: 15 tasks, 3 TAs, uniform distribution (20-90)"
+            };
+        }
+
+        /// <summary>
+        /// Creates a small instance with uniform distribution: 8 tasks, 7 TAs (45-80)
+        /// </summary>
+        public static ProblemInstance Small_120(string name = "small_120", int seed = 42)
+        {
+            var tasks = new List<TaskInfo>();
+            var taNames = new List<string> { "TA1", "TA2", "TA3", "TA4", "TA5", "TA6", "TA7" };
+            var tas = taNames.Select(n => new TAInfo { Name = n }).ToList();
+
+            for (int i = 1; i <= 8; i++)
+            {
+                int ta1Index = (i - 1) % 7;
+                int ta2Index = i % 7;
+                var eligibleTAs = new List<TAInfo> { tas[ta1Index], tas[ta2Index] };
+                int processingTime = 45 + ((i - 1) * 5); // Uniform distribution
+
+                var processingTimes = new Dictionary<string, int>
+                {
+                    { tas[ta1Index].Name, processingTime },
+                    { tas[ta2Index].Name, processingTime }
+                };
+
+                tasks.Add(new TaskInfo
+                {
+                    Name = $"Task{i}",
+                    EligibleTAs = eligibleTAs,
+                    ProcessingTimes = processingTimes
+                });
+            }
+
+            return new ProblemInstance
+            {
+                Name = name,
+                Tasks = tasks,
+                TAs = tas,
+                Description = "Small instance: 8 tasks, 7 TAs, uniform distribution (45-80)"
+            };
+        }
+
+        /// <summary>
+        /// Creates a small instance with uniform distribution: 9 tasks, 8 TAs (30-70)
+        /// </summary>
+        public static ProblemInstance Small_121(string name = "small_121", int seed = 42)
+        {
+            var tasks = new List<TaskInfo>();
+            var taNames = new List<string> { "TA1", "TA2", "TA3", "TA4", "TA5", "TA6", "TA7", "TA8" };
+            var tas = taNames.Select(n => new TAInfo { Name = n }).ToList();
+
+            for (int i = 1; i <= 9; i++)
+            {
+                int ta1Index = (i - 1) % 8;
+                int ta2Index = i % 8;
+                var eligibleTAs = new List<TAInfo> { tas[ta1Index], tas[ta2Index] };
+                int processingTime = 30 + ((i - 1) * 5); // Uniform distribution
+
+                var processingTimes = new Dictionary<string, int>
+                {
+                    { tas[ta1Index].Name, processingTime },
+                    { tas[ta2Index].Name, processingTime }
+                };
+
+                tasks.Add(new TaskInfo
+                {
+                    Name = $"Task{i}",
+                    EligibleTAs = eligibleTAs,
+                    ProcessingTimes = processingTimes
+                });
+            }
+
+            return new ProblemInstance
+            {
+                Name = name,
+                Tasks = tasks,
+                TAs = tas,
+                Description = "Small instance: 9 tasks, 8 TAs, uniform distribution (30-70)"
+            };
+        }
+
+        /// <summary>
+        /// Creates a small instance with uniform distribution: 10 tasks, 6 TAs (40-85)
+        /// </summary>
+        public static ProblemInstance Small_122(string name = "small_122", int seed = 42)
+        {
+            var tasks = new List<TaskInfo>();
+            var taNames = new List<string> { "TA1", "TA2", "TA3", "TA4", "TA5", "TA6" };
+            var tas = taNames.Select(n => new TAInfo { Name = n }).ToList();
+
+            for (int i = 1; i <= 10; i++)
+            {
+                int ta1Index = (i - 1) % 6;
+                int ta2Index = i % 6;
+                var eligibleTAs = new List<TAInfo> { tas[ta1Index], tas[ta2Index] };
+                int processingTime = 40 + ((i - 1) * 5); // Uniform distribution
+
+                var processingTimes = new Dictionary<string, int>
+                {
+                    { tas[ta1Index].Name, processingTime },
+                    { tas[ta2Index].Name, processingTime }
+                };
+
+                tasks.Add(new TaskInfo
+                {
+                    Name = $"Task{i}",
+                    EligibleTAs = eligibleTAs,
+                    ProcessingTimes = processingTimes
+                });
+            }
+
+            return new ProblemInstance
+            {
+                Name = name,
+                Tasks = tasks,
+                TAs = tas,
+                Description = "Small instance: 10 tasks, 6 TAs, uniform distribution (40-85)"
+            };
+        }
+
+        /// <summary>
+        /// Creates a small instance with uniform distribution: 11 tasks, 4 TAs (50-100)
+        /// </summary>
+        public static ProblemInstance Small_123(string name = "small_123", int seed = 42)
+        {
+            var tasks = new List<TaskInfo>();
+            var taNames = new List<string> { "TA1", "TA2", "TA3", "TA4" };
+            var tas = taNames.Select(n => new TAInfo { Name = n }).ToList();
+
+            for (int i = 1; i <= 11; i++)
+            {
+                int ta1Index = (i - 1) % 4;
+                int ta2Index = i % 4;
+                var eligibleTAs = new List<TAInfo> { tas[ta1Index], tas[ta2Index] };
+                int processingTime = 50 + ((i - 1) * 5); // Uniform distribution
+
+                var processingTimes = new Dictionary<string, int>
+                {
+                    { tas[ta1Index].Name, processingTime },
+                    { tas[ta2Index].Name, processingTime }
+                };
+
+                tasks.Add(new TaskInfo
+                {
+                    Name = $"Task{i}",
+                    EligibleTAs = eligibleTAs,
+                    ProcessingTimes = processingTimes
+                });
+            }
+
+            return new ProblemInstance
+            {
+                Name = name,
+                Tasks = tasks,
+                TAs = tas,
+                Description = "Small instance: 11 tasks, 4 TAs, uniform distribution (50-100)"
+            };
+        }
+
+        /// <summary>
+        /// Creates a small instance with uniform distribution: 12 tasks, 5 TAs (25-80)
+        /// </summary>
+        public static ProblemInstance Small_124(string name = "small_124", int seed = 42)
+        {
+            var tasks = new List<TaskInfo>();
+            var taNames = new List<string> { "TA1", "TA2", "TA3", "TA4", "TA5" };
+            var tas = taNames.Select(n => new TAInfo { Name = n }).ToList();
+
+            for (int i = 1; i <= 12; i++)
+            {
+                int ta1Index = (i - 1) % 5;
+                int ta2Index = i % 5;
+                var eligibleTAs = new List<TAInfo> { tas[ta1Index], tas[ta2Index] };
+                int processingTime = 25 + ((i - 1) * 5); // Uniform distribution
+
+                var processingTimes = new Dictionary<string, int>
+                {
+                    { tas[ta1Index].Name, processingTime },
+                    { tas[ta2Index].Name, processingTime }
+                };
+
+                tasks.Add(new TaskInfo
+                {
+                    Name = $"Task{i}",
+                    EligibleTAs = eligibleTAs,
+                    ProcessingTimes = processingTimes
+                });
+            }
+
+            return new ProblemInstance
+            {
+                Name = name,
+                Tasks = tasks,
+                TAs = tas,
+                Description = "Small instance: 12 tasks, 5 TAs, uniform distribution (25-80)"
+            };
+        }
+
+        /// <summary>
+        /// Creates a small instance with uniform distribution: 13 tasks, 6 TAs (35-95)
+        /// </summary>
+        public static ProblemInstance Small_125(string name = "small_125", int seed = 42)
+        {
+            var tasks = new List<TaskInfo>();
+            var taNames = new List<string> { "TA1", "TA2", "TA3", "TA4", "TA5", "TA6" };
+            var tas = taNames.Select(n => new TAInfo { Name = n }).ToList();
+
+            for (int i = 1; i <= 13; i++)
+            {
+                int ta1Index = (i - 1) % 6;
+                int ta2Index = i % 6;
+                var eligibleTAs = new List<TAInfo> { tas[ta1Index], tas[ta2Index] };
+                int processingTime = 35 + ((i - 1) * 5); // Uniform distribution
+
+                var processingTimes = new Dictionary<string, int>
+                {
+                    { tas[ta1Index].Name, processingTime },
+                    { tas[ta2Index].Name, processingTime }
+                };
+
+                tasks.Add(new TaskInfo
+                {
+                    Name = $"Task{i}",
+                    EligibleTAs = eligibleTAs,
+                    ProcessingTimes = processingTimes
+                });
+            }
+
+            return new ProblemInstance
+            {
+                Name = name,
+                Tasks = tasks,
+                TAs = tas,
+                Description = "Small instance: 13 tasks, 6 TAs, uniform distribution (35-95)"
+            };
+        }
+
+        /// <summary>
+        /// Creates a small instance with uniform distribution: 14 tasks, 3 TAs (30-100)
+        /// </summary>
+        public static ProblemInstance Small_126(string name = "small_126", int seed = 42)
+        {
+            var tasks = new List<TaskInfo>();
+            var taNames = new List<string> { "TA1", "TA2", "TA3" };
+            var tas = taNames.Select(n => new TAInfo { Name = n }).ToList();
+
+            for (int i = 1; i <= 14; i++)
+            {
+                int ta1Index = (i - 1) % 3;
+                int ta2Index = i % 3;
+                var eligibleTAs = new List<TAInfo> { tas[ta1Index], tas[ta2Index] };
+                int processingTime = 30 + ((i - 1) * 5); // Uniform distribution
+
+                var processingTimes = new Dictionary<string, int>
+                {
+                    { tas[ta1Index].Name, processingTime },
+                    { tas[ta2Index].Name, processingTime }
+                };
+
+                tasks.Add(new TaskInfo
+                {
+                    Name = $"Task{i}",
+                    EligibleTAs = eligibleTAs,
+                    ProcessingTimes = processingTimes
+                });
+            }
+
+            return new ProblemInstance
+            {
+                Name = name,
+                Tasks = tasks,
+                TAs = tas,
+                Description = "Small instance: 14 tasks, 3 TAs, uniform distribution (30-100)"
+            };
+        }
+
+        /// <summary>
+        /// Creates a small instance with uniform distribution: 15 tasks, 7 TAs (40-110)
+        /// </summary>
+        public static ProblemInstance Small_127(string name = "small_127", int seed = 42)
+        {
+            var tasks = new List<TaskInfo>();
+            var taNames = new List<string> { "TA1", "TA2", "TA3", "TA4", "TA5", "TA6", "TA7" };
+            var tas = taNames.Select(n => new TAInfo { Name = n }).ToList();
+
+            for (int i = 1; i <= 15; i++)
+            {
+                int ta1Index = (i - 1) % 7;
+                int ta2Index = i % 7;
+                var eligibleTAs = new List<TAInfo> { tas[ta1Index], tas[ta2Index] };
+                int processingTime = 40 + ((i - 1) * 5); // Uniform distribution
+
+                var processingTimes = new Dictionary<string, int>
+                {
+                    { tas[ta1Index].Name, processingTime },
+                    { tas[ta2Index].Name, processingTime }
+                };
+
+                tasks.Add(new TaskInfo
+                {
+                    Name = $"Task{i}",
+                    EligibleTAs = eligibleTAs,
+                    ProcessingTimes = processingTimes
+                });
+            }
+
+            return new ProblemInstance
+            {
+                Name = name,
+                Tasks = tasks,
+                TAs = tas,
+                Description = "Small instance: 15 tasks, 7 TAs, uniform distribution (40-110)"
+            };
+        }
+
+        /// <summary>
+        /// Creates a small instance with uniform distribution: 8 tasks, 4 TAs (55-90)
+        /// </summary>
+        public static ProblemInstance Small_128(string name = "small_128", int seed = 42)
+        {
+            var tasks = new List<TaskInfo>();
+            var taNames = new List<string> { "TA1", "TA2", "TA3", "TA4" };
+            var tas = taNames.Select(n => new TAInfo { Name = n }).ToList();
+
+            for (int i = 1; i <= 8; i++)
+            {
+                int ta1Index = (i - 1) % 4;
+                int ta2Index = i % 4;
+                var eligibleTAs = new List<TAInfo> { tas[ta1Index], tas[ta2Index] };
+                int processingTime = 55 + ((i - 1) * 5); // Uniform distribution
+
+                var processingTimes = new Dictionary<string, int>
+                {
+                    { tas[ta1Index].Name, processingTime },
+                    { tas[ta2Index].Name, processingTime }
+                };
+
+                tasks.Add(new TaskInfo
+                {
+                    Name = $"Task{i}",
+                    EligibleTAs = eligibleTAs,
+                    ProcessingTimes = processingTimes
+                });
+            }
+
+            return new ProblemInstance
+            {
+                Name = name,
+                Tasks = tasks,
+                TAs = tas,
+                Description = "Small instance: 8 tasks, 4 TAs, uniform distribution (55-90)"
+            };
+        }
+
+        /// <summary>
+        /// Creates a small instance with uniform distribution: 9 tasks, 5 TAs (60-100)
+        /// </summary>
+        public static ProblemInstance Small_129(string name = "small_129", int seed = 42)
+        {
+            var tasks = new List<TaskInfo>();
+            var taNames = new List<string> { "TA1", "TA2", "TA3", "TA4", "TA5" };
+            var tas = taNames.Select(n => new TAInfo { Name = n }).ToList();
+
+            for (int i = 1; i <= 9; i++)
+            {
+                int ta1Index = (i - 1) % 5;
+                int ta2Index = i % 5;
+                var eligibleTAs = new List<TAInfo> { tas[ta1Index], tas[ta2Index] };
+                int processingTime = 60 + ((i - 1) * 5); // Uniform distribution
+
+                var processingTimes = new Dictionary<string, int>
+                {
+                    { tas[ta1Index].Name, processingTime },
+                    { tas[ta2Index].Name, processingTime }
+                };
+
+                tasks.Add(new TaskInfo
+                {
+                    Name = $"Task{i}",
+                    EligibleTAs = eligibleTAs,
+                    ProcessingTimes = processingTimes
+                });
+            }
+
+            return new ProblemInstance
+            {
+                Name = name,
+                Tasks = tasks,
+                TAs = tas,
+                Description = "Small instance: 9 tasks, 5 TAs, uniform distribution (60-100)"
+            };
+        }
+
+        /// <summary>
+        /// Creates a small instance with uniform distribution: 10 tasks, 3 TAs (45-90)
+        /// </summary>
+        public static ProblemInstance Small_130(string name = "small_130", int seed = 42)
+        {
+            var tasks = new List<TaskInfo>();
+            var taNames = new List<string> { "TA1", "TA2", "TA3" };
+            var tas = taNames.Select(n => new TAInfo { Name = n }).ToList();
+
+            for (int i = 1; i <= 10; i++)
+            {
+                int ta1Index = (i - 1) % 3;
+                int ta2Index = i % 3;
+                var eligibleTAs = new List<TAInfo> { tas[ta1Index], tas[ta2Index] };
+                int processingTime = 45 + ((i - 1) * 5); // Uniform distribution
+
+                var processingTimes = new Dictionary<string, int>
+                {
+                    { tas[ta1Index].Name, processingTime },
+                    { tas[ta2Index].Name, processingTime }
+                };
+
+                tasks.Add(new TaskInfo
+                {
+                    Name = $"Task{i}",
+                    EligibleTAs = eligibleTAs,
+                    ProcessingTimes = processingTimes
+                });
+            }
+
+            return new ProblemInstance
+            {
+                Name = name,
+                Tasks = tasks,
+                TAs = tas,
+                Description = "Small instance: 10 tasks, 3 TAs, uniform distribution (45-90)"
+            };
+        }
+
+        /// <summary>
+        /// Creates a small instance with uniform distribution: 11 tasks, 8 TAs (35-85)
+        /// </summary>
+        public static ProblemInstance Small_131(string name = "small_131", int seed = 42)
+        {
+            var tasks = new List<TaskInfo>();
+            var taNames = new List<string> { "TA1", "TA2", "TA3", "TA4", "TA5", "TA6", "TA7", "TA8" };
+            var tas = taNames.Select(n => new TAInfo { Name = n }).ToList();
+
+            for (int i = 1; i <= 11; i++)
+            {
+                int ta1Index = (i - 1) % 8;
+                int ta2Index = i % 8;
+                var eligibleTAs = new List<TAInfo> { tas[ta1Index], tas[ta2Index] };
+                int processingTime = 35 + ((i - 1) * 5); // Uniform distribution
+
+                var processingTimes = new Dictionary<string, int>
+                {
+                    { tas[ta1Index].Name, processingTime },
+                    { tas[ta2Index].Name, processingTime }
+                };
+
+                tasks.Add(new TaskInfo
+                {
+                    Name = $"Task{i}",
+                    EligibleTAs = eligibleTAs,
+                    ProcessingTimes = processingTimes
+                });
+            }
+
+            return new ProblemInstance
+            {
+                Name = name,
+                Tasks = tasks,
+                TAs = tas,
+                Description = "Small instance: 11 tasks, 8 TAs, uniform distribution (35-85)"
+            };
+        }
+
+        /// <summary>
+        /// Creates a small instance with uniform distribution: 12 tasks, 4 TAs (70-125)
+        /// </summary>
+        public static ProblemInstance Small_132(string name = "small_132", int seed = 42)
+        {
+            var tasks = new List<TaskInfo>();
+            var taNames = new List<string> { "TA1", "TA2", "TA3", "TA4" };
+            var tas = taNames.Select(n => new TAInfo { Name = n }).ToList();
+
+            for (int i = 1; i <= 12; i++)
+            {
+                int ta1Index = (i - 1) % 4;
+                int ta2Index = i % 4;
+                var eligibleTAs = new List<TAInfo> { tas[ta1Index], tas[ta2Index] };
+                int processingTime = 70 + ((i - 1) * 5); // Uniform distribution
+
+                var processingTimes = new Dictionary<string, int>
+                {
+                    { tas[ta1Index].Name, processingTime },
+                    { tas[ta2Index].Name, processingTime }
+                };
+
+                tasks.Add(new TaskInfo
+                {
+                    Name = $"Task{i}",
+                    EligibleTAs = eligibleTAs,
+                    ProcessingTimes = processingTimes
+                });
+            }
+
+            return new ProblemInstance
+            {
+                Name = name,
+                Tasks = tasks,
+                TAs = tas,
+                Description = "Small instance: 12 tasks, 4 TAs, uniform distribution (70-125)"
+            };
+        }
+
+        /// <summary>
+        /// Creates a small instance with uniform distribution: 13 tasks, 5 TAs (80-140)
+        /// </summary>
+        public static ProblemInstance Small_133(string name = "small_133", int seed = 42)
+        {
+            var tasks = new List<TaskInfo>();
+            var taNames = new List<string> { "TA1", "TA2", "TA3", "TA4", "TA5" };
+            var tas = taNames.Select(n => new TAInfo { Name = n }).ToList();
+
+            for (int i = 1; i <= 13; i++)
+            {
+                int ta1Index = (i - 1) % 5;
+                int ta2Index = i % 5;
+                var eligibleTAs = new List<TAInfo> { tas[ta1Index], tas[ta2Index] };
+                int processingTime = 80 + ((i - 1) * 5); // Uniform distribution
+
+                var processingTimes = new Dictionary<string, int>
+                {
+                    { tas[ta1Index].Name, processingTime },
+                    { tas[ta2Index].Name, processingTime }
+                };
+
+                tasks.Add(new TaskInfo
+                {
+                    Name = $"Task{i}",
+                    EligibleTAs = eligibleTAs,
+                    ProcessingTimes = processingTimes
+                });
+            }
+
+            return new ProblemInstance
+            {
+                Name = name,
+                Tasks = tasks,
+                TAs = tas,
+                Description = "Small instance: 13 tasks, 5 TAs, uniform distribution (80-140)"
+            };
+        }
+
+        /// <summary>
+        /// Creates a small instance with uniform distribution: 14 tasks, 6 TAs (90-160)
+        /// </summary>
+        public static ProblemInstance Small_134(string name = "small_134", int seed = 42)
+        {
+            var tasks = new List<TaskInfo>();
+            var taNames = new List<string> { "TA1", "TA2", "TA3", "TA4", "TA5", "TA6" };
+            var tas = taNames.Select(n => new TAInfo { Name = n }).ToList();
+
+            for (int i = 1; i <= 14; i++)
+            {
+                int ta1Index = (i - 1) % 6;
+                int ta2Index = i % 6;
+                var eligibleTAs = new List<TAInfo> { tas[ta1Index], tas[ta2Index] };
+                int processingTime = 90 + ((i - 1) * 5); // Uniform distribution
+
+                var processingTimes = new Dictionary<string, int>
+                {
+                    { tas[ta1Index].Name, processingTime },
+                    { tas[ta2Index].Name, processingTime }
+                };
+
+                tasks.Add(new TaskInfo
+                {
+                    Name = $"Task{i}",
+                    EligibleTAs = eligibleTAs,
+                    ProcessingTimes = processingTimes
+                });
+            }
+
+            return new ProblemInstance
+            {
+                Name = name,
+                Tasks = tasks,
+                TAs = tas,
+                Description = "Small instance: 14 tasks, 6 TAs, uniform distribution (90-160)"
+            };
+        }
+
+        /// <summary>
+        /// Creates a small instance with uniform distribution: 15 tasks, 3 TAs (100-170)
+        /// </summary>
+        public static ProblemInstance Small_135(string name = "small_135", int seed = 42)
+        {
+            var tasks = new List<TaskInfo>();
+            var taNames = new List<string> { "TA1", "TA2", "TA3" };
+            var tas = taNames.Select(n => new TAInfo { Name = n }).ToList();
+
+            for (int i = 1; i <= 15; i++)
+            {
+                int ta1Index = (i - 1) % 3;
+                int ta2Index = i % 3;
+                var eligibleTAs = new List<TAInfo> { tas[ta1Index], tas[ta2Index] };
+                int processingTime = 100 + ((i - 1) * 5); // Uniform distribution
+
+                var processingTimes = new Dictionary<string, int>
+                {
+                    { tas[ta1Index].Name, processingTime },
+                    { tas[ta2Index].Name, processingTime }
+                };
+
+                tasks.Add(new TaskInfo
+                {
+                    Name = $"Task{i}",
+                    EligibleTAs = eligibleTAs,
+                    ProcessingTimes = processingTimes
+                });
+            }
+
+            return new ProblemInstance
+            {
+                Name = name,
+                Tasks = tasks,
+                TAs = tas,
+                Description = "Small instance: 15 tasks, 3 TAs, uniform distribution (100-170)"
+            };
+        }
+
+        /// <summary>
+        /// Creates a small instance with uniform distribution: 16 tasks, 4 TAs (110-185)
+        /// </summary>
+        public static ProblemInstance Small_136(string name = "small_136", int seed = 42)
+        {
+            var tasks = new List<TaskInfo>();
+            var taNames = new List<string> { "TA1", "TA2", "TA3", "TA4" };
+            var tas = taNames.Select(n => new TAInfo { Name = n }).ToList();
+
+            for (int i = 1; i <= 16; i++)
+            {
+                int ta1Index = (i - 1) % 4;
+                int ta2Index = i % 4;
+                var eligibleTAs = new List<TAInfo> { tas[ta1Index], tas[ta2Index] };
+                int processingTime = 110 + ((i - 1) * 5); // Uniform distribution
+
+                var processingTimes = new Dictionary<string, int>
+                {
+                    { tas[ta1Index].Name, processingTime },
+                    { tas[ta2Index].Name, processingTime }
+                };
+
+                tasks.Add(new TaskInfo
+                {
+                    Name = $"Task{i}",
+                    EligibleTAs = eligibleTAs,
+                    ProcessingTimes = processingTimes
+                });
+            }
+
+            return new ProblemInstance
+            {
+                Name = name,
+                Tasks = tasks,
+                TAs = tas,
+                Description = "Small instance: 16 tasks, 4 TAs, uniform distribution (110-185)"
+            };
+        }
+
+        // ========== BIMODAL DISTRIBUTION INSTANCES (50 instances) ==========
+
+        /// <summary>
+        /// Creates a small instance with bimodal distribution: 8 tasks, 3 TAs (5-15 and 150-200)
+        /// </summary>
+        public static ProblemInstance Small_137(string name = "small_137", int seed = 42)
+        {
+            var random = new Random(seed);
+            var tasks = new List<TaskInfo>();
+            var taNames = new List<string> { "TA1", "TA2", "TA3" };
+            var tas = taNames.Select(n => new TAInfo { Name = n }).ToList();
+
+            for (int i = 1; i <= 8; i++)
+            {
+                var selectedTAs = tas.OrderBy(x => random.Next()).Take(2).ToList();
+                int processingTime = random.Next(0, 100) < 75 ? 
+                    (5 + random.Next(0, 11)) : // 75% chance: 5-15
+                    (150 + random.Next(0, 51)); // 25% chance: 150-200
+
+                var task = new TaskInfo
+                {
+                    Name = $"Task{i}",
+                    EligibleTAs = selectedTAs,
+                    ProcessingTimes = new Dictionary<string, int>
+                    {
+                        { selectedTAs[0].Name, processingTime },
+                        { selectedTAs[1].Name, processingTime }
+                    }
+                };
+                tasks.Add(task);
+            }
+
+            return new ProblemInstance
+            {
+                Name = name,
+                Tasks = tasks,
+                TAs = tas,
+                Description = "Small instance: 8 tasks, 3 TAs, bimodal distribution (5-15 and 150-200)"
+            };
+        }
+
+        /// <summary>
+        /// Creates a small instance with bimodal distribution: 9 tasks, 4 TAs (10-20 and 180-220)
+        /// </summary>
+        public static ProblemInstance Small_138(string name = "small_138", int seed = 42)
+        {
+            var random = new Random(seed);
+            var tasks = new List<TaskInfo>();
+            var taNames = new List<string> { "TA1", "TA2", "TA3", "TA4" };
+            var tas = taNames.Select(n => new TAInfo { Name = n }).ToList();
+
+            for (int i = 1; i <= 9; i++)
+            {
+                var selectedTAs = tas.OrderBy(x => random.Next()).Take(2).ToList();
+                int processingTime = random.Next(0, 100) < 70 ? 
+                    (10 + random.Next(0, 11)) : // 70% chance: 10-20
+                    (180 + random.Next(0, 41)); // 30% chance: 180-220
+
+                var task = new TaskInfo
+                {
+                    Name = $"Task{i}",
+                    EligibleTAs = selectedTAs,
+                    ProcessingTimes = new Dictionary<string, int>
+                    {
+                        { selectedTAs[0].Name, processingTime },
+                        { selectedTAs[1].Name, processingTime }
+                    }
+                };
+                tasks.Add(task);
+            }
+
+            return new ProblemInstance
+            {
+                Name = name,
+                Tasks = tasks,
+                TAs = tas,
+                Description = "Small instance: 9 tasks, 4 TAs, bimodal distribution (10-20 and 180-220)"
+            };
+        }
+
+        /// <summary>
+        /// Creates a small instance with bimodal distribution: 10 tasks, 5 TAs (8-18 and 200-250)
+        /// </summary>
+        public static ProblemInstance Small_139(string name = "small_139", int seed = 42)
+        {
+            var random = new Random(seed);
+            var tasks = new List<TaskInfo>();
+            var taNames = new List<string> { "TA1", "TA2", "TA3", "TA4", "TA5" };
+            var tas = taNames.Select(n => new TAInfo { Name = n }).ToList();
+
+            for (int i = 1; i <= 10; i++)
+            {
+                var selectedTAs = tas.OrderBy(x => random.Next()).Take(2).ToList();
+                int processingTime = random.Next(0, 100) < 80 ? 
+                    (8 + random.Next(0, 11)) : // 80% chance: 8-18
+                    (200 + random.Next(0, 51)); // 20% chance: 200-250
+
+                var task = new TaskInfo
+                {
+                    Name = $"Task{i}",
+                    EligibleTAs = selectedTAs,
+                    ProcessingTimes = new Dictionary<string, int>
+                    {
+                        { selectedTAs[0].Name, processingTime },
+                        { selectedTAs[1].Name, processingTime }
+                    }
+                };
+                tasks.Add(task);
+            }
+
+            return new ProblemInstance
+            {
+                Name = name,
+                Tasks = tasks,
+                TAs = tas,
+                Description = "Small instance: 10 tasks, 5 TAs, bimodal distribution (8-18 and 200-250)"
+            };
+        }
+
+        /// <summary>
+        /// Creates a small instance with bimodal distribution: 11 tasks, 3 TAs (12-22 and 160-190)
+        /// </summary>
+        public static ProblemInstance Small_140(string name = "small_140", int seed = 42)
+        {
+            var random = new Random(seed);
+            var tasks = new List<TaskInfo>();
+            var taNames = new List<string> { "TA1", "TA2", "TA3" };
+            var tas = taNames.Select(n => new TAInfo { Name = n }).ToList();
+
+            for (int i = 1; i <= 11; i++)
+            {
+                var selectedTAs = tas.OrderBy(x => random.Next()).Take(2).ToList();
+                int processingTime = random.Next(0, 100) < 75 ? 
+                    (12 + random.Next(0, 11)) : // 75% chance: 12-22
+                    (160 + random.Next(0, 31)); // 25% chance: 160-190
+
+                var task = new TaskInfo
+                {
+                    Name = $"Task{i}",
+                    EligibleTAs = selectedTAs,
+                    ProcessingTimes = new Dictionary<string, int>
+                    {
+                        { selectedTAs[0].Name, processingTime },
+                        { selectedTAs[1].Name, processingTime }
+                    }
+                };
+                tasks.Add(task);
+            }
+
+            return new ProblemInstance
+            {
+                Name = name,
+                Tasks = tasks,
+                TAs = tas,
+                Description = "Small instance: 11 tasks, 3 TAs, bimodal distribution (12-22 and 160-190)"
+            };
+        }
+
+        /// <summary>
+        /// Creates a small instance with bimodal distribution: 12 tasks, 6 TAs (15-25 and 170-200)
+        /// </summary>
+        public static ProblemInstance Small_141(string name = "small_141", int seed = 42)
+        {
+            var random = new Random(seed);
+            var tasks = new List<TaskInfo>();
+            var taNames = new List<string> { "TA1", "TA2", "TA3", "TA4", "TA5", "TA6" };
+            var tas = taNames.Select(n => new TAInfo { Name = n }).ToList();
+
+            for (int i = 1; i <= 12; i++)
+            {
+                var selectedTAs = tas.OrderBy(x => random.Next()).Take(2).ToList();
+                int processingTime = random.Next(0, 100) < 70 ? 
+                    (15 + random.Next(0, 11)) : // 70% chance: 15-25
+                    (170 + random.Next(0, 31)); // 30% chance: 170-200
+
+                var task = new TaskInfo
+                {
+                    Name = $"Task{i}",
+                    EligibleTAs = selectedTAs,
+                    ProcessingTimes = new Dictionary<string, int>
+                    {
+                        { selectedTAs[0].Name, processingTime },
+                        { selectedTAs[1].Name, processingTime }
+                    }
+                };
+                tasks.Add(task);
+            }
+
+            return new ProblemInstance
+            {
+                Name = name,
+                Tasks = tasks,
+                TAs = tas,
+                Description = "Small instance: 12 tasks, 6 TAs, bimodal distribution (15-25 and 170-200)"
+            };
+        }
+
+        /// <summary>
+        /// Creates a small instance with bimodal distribution: 13 tasks, 4 TAs (6-16 and 190-240)
+        /// </summary>
+        public static ProblemInstance Small_142(string name = "small_142", int seed = 42)
+        {
+            var random = new Random(seed);
+            var tasks = new List<TaskInfo>();
+            var taNames = new List<string> { "TA1", "TA2", "TA3", "TA4" };
+            var tas = taNames.Select(n => new TAInfo { Name = n }).ToList();
+
+            for (int i = 1; i <= 13; i++)
+            {
+                var selectedTAs = tas.OrderBy(x => random.Next()).Take(2).ToList();
+                int processingTime = random.Next(0, 100) < 80 ? 
+                    (6 + random.Next(0, 11)) : // 80% chance: 6-16
+                    (190 + random.Next(0, 51)); // 20% chance: 190-240
+
+                var task = new TaskInfo
+                {
+                    Name = $"Task{i}",
+                    EligibleTAs = selectedTAs,
+                    ProcessingTimes = new Dictionary<string, int>
+                    {
+                        { selectedTAs[0].Name, processingTime },
+                        { selectedTAs[1].Name, processingTime }
+                    }
+                };
+                tasks.Add(task);
+            }
+
+            return new ProblemInstance
+            {
+                Name = name,
+                Tasks = tasks,
+                TAs = tas,
+                Description = "Small instance: 13 tasks, 4 TAs, bimodal distribution (6-16 and 190-240)"
+            };
+        }
+
+        /// <summary>
+        /// Creates a small instance with bimodal distribution: 14 tasks, 5 TAs (9-19 and 210-260)
+        /// </summary>
+        public static ProblemInstance Small_143(string name = "small_143", int seed = 42)
+        {
+            var random = new Random(seed);
+            var tasks = new List<TaskInfo>();
+            var taNames = new List<string> { "TA1", "TA2", "TA3", "TA4", "TA5" };
+            var tas = taNames.Select(n => new TAInfo { Name = n }).ToList();
+
+            for (int i = 1; i <= 14; i++)
+            {
+                var selectedTAs = tas.OrderBy(x => random.Next()).Take(2).ToList();
+                int processingTime = random.Next(0, 100) < 75 ? 
+                    (9 + random.Next(0, 11)) : // 75% chance: 9-19
+                    (210 + random.Next(0, 51)); // 25% chance: 210-260
+
+                var task = new TaskInfo
+                {
+                    Name = $"Task{i}",
+                    EligibleTAs = selectedTAs,
+                    ProcessingTimes = new Dictionary<string, int>
+                    {
+                        { selectedTAs[0].Name, processingTime },
+                        { selectedTAs[1].Name, processingTime }
+                    }
+                };
+                tasks.Add(task);
+            }
+
+            return new ProblemInstance
+            {
+                Name = name,
+                Tasks = tasks,
+                TAs = tas,
+                Description = "Small instance: 14 tasks, 5 TAs, bimodal distribution (9-19 and 210-260)"
+            };
+        }
+
+        /// <summary>
+        /// Creates a small instance with bimodal distribution: 15 tasks, 3 TAs (7-17 and 140-170)
+        /// </summary>
+        public static ProblemInstance Small_144(string name = "small_144", int seed = 42)
+        {
+            var random = new Random(seed);
+            var tasks = new List<TaskInfo>();
+            var taNames = new List<string> { "TA1", "TA2", "TA3" };
+            var tas = taNames.Select(n => new TAInfo { Name = n }).ToList();
+
+            for (int i = 1; i <= 15; i++)
+            {
+                var selectedTAs = tas.OrderBy(x => random.Next()).Take(2).ToList();
+                int processingTime = random.Next(0, 100) < 80 ? 
+                    (7 + random.Next(0, 11)) : // 80% chance: 7-17
+                    (140 + random.Next(0, 31)); // 20% chance: 140-170
+
+                var task = new TaskInfo
+                {
+                    Name = $"Task{i}",
+                    EligibleTAs = selectedTAs,
+                    ProcessingTimes = new Dictionary<string, int>
+                    {
+                        { selectedTAs[0].Name, processingTime },
+                        { selectedTAs[1].Name, processingTime }
+                    }
+                };
+                tasks.Add(task);
+            }
+
+            return new ProblemInstance
+            {
+                Name = name,
+                Tasks = tasks,
+                TAs = tas,
+                Description = "Small instance: 15 tasks, 3 TAs, bimodal distribution (7-17 and 140-170)"
+            };
+        }
+
+        /// <summary>
+        /// Creates a small instance with bimodal distribution: 8 tasks, 7 TAs (11-21 and 220-270)
+        /// </summary>
+        public static ProblemInstance Small_145(string name = "small_145", int seed = 42)
+        {
+            var random = new Random(seed);
+            var tasks = new List<TaskInfo>();
+            var taNames = new List<string> { "TA1", "TA2", "TA3", "TA4", "TA5", "TA6", "TA7" };
+            var tas = taNames.Select(n => new TAInfo { Name = n }).ToList();
+
+            for (int i = 1; i <= 8; i++)
+            {
+                var selectedTAs = tas.OrderBy(x => random.Next()).Take(2).ToList();
+                int processingTime = random.Next(0, 100) < 70 ? 
+                    (11 + random.Next(0, 11)) : // 70% chance: 11-21
+                    (220 + random.Next(0, 51)); // 30% chance: 220-270
+
+                var task = new TaskInfo
+                {
+                    Name = $"Task{i}",
+                    EligibleTAs = selectedTAs,
+                    ProcessingTimes = new Dictionary<string, int>
+                    {
+                        { selectedTAs[0].Name, processingTime },
+                        { selectedTAs[1].Name, processingTime }
+                    }
+                };
+                tasks.Add(task);
+            }
+
+            return new ProblemInstance
+            {
+                Name = name,
+                Tasks = tasks,
+                TAs = tas,
+                Description = "Small instance: 8 tasks, 7 TAs, bimodal distribution (11-21 and 220-270)"
+            };
+        }
+
+        /// <summary>
+        /// Creates a small instance with bimodal distribution: 9 tasks, 8 TAs (13-23 and 230-280)
+        /// </summary>
+        public static ProblemInstance Small_146(string name = "small_146", int seed = 42)
+        {
+            var random = new Random(seed);
+            var tasks = new List<TaskInfo>();
+            var taNames = new List<string> { "TA1", "TA2", "TA3", "TA4", "TA5", "TA6", "TA7", "TA8" };
+            var tas = taNames.Select(n => new TAInfo { Name = n }).ToList();
+
+            for (int i = 1; i <= 9; i++)
+            {
+                var selectedTAs = tas.OrderBy(x => random.Next()).Take(2).ToList();
+                int processingTime = random.Next(0, 100) < 75 ? 
+                    (13 + random.Next(0, 11)) : // 75% chance: 13-23
+                    (230 + random.Next(0, 51)); // 25% chance: 230-280
+
+                var task = new TaskInfo
+                {
+                    Name = $"Task{i}",
+                    EligibleTAs = selectedTAs,
+                    ProcessingTimes = new Dictionary<string, int>
+                    {
+                        { selectedTAs[0].Name, processingTime },
+                        { selectedTAs[1].Name, processingTime }
+                    }
+                };
+                tasks.Add(task);
+            }
+
+            return new ProblemInstance
+            {
+                Name = name,
+                Tasks = tasks,
+                TAs = tas,
+                Description = "Small instance: 9 tasks, 8 TAs, bimodal distribution (13-23 and 230-280)"
+            };
+        }
+
+        /// <summary>
+        /// Creates a small instance with bimodal distribution: 10 tasks, 6 TAs (4-14 and 250-300)
+        /// </summary>
+        public static ProblemInstance Small_147(string name = "small_147", int seed = 42)
+        {
+            var random = new Random(seed);
+            var tasks = new List<TaskInfo>();
+            var taNames = new List<string> { "TA1", "TA2", "TA3", "TA4", "TA5", "TA6" };
+            var tas = taNames.Select(n => new TAInfo { Name = n }).ToList();
+
+            for (int i = 1; i <= 10; i++)
+            {
+                var selectedTAs = tas.OrderBy(x => random.Next()).Take(2).ToList();
+                int processingTime = random.Next(0, 100) < 80 ? 
+                    (4 + random.Next(0, 11)) : // 80% chance: 4-14
+                    (250 + random.Next(0, 51)); // 20% chance: 250-300
+
+                var task = new TaskInfo
+                {
+                    Name = $"Task{i}",
+                    EligibleTAs = selectedTAs,
+                    ProcessingTimes = new Dictionary<string, int>
+                    {
+                        { selectedTAs[0].Name, processingTime },
+                        { selectedTAs[1].Name, processingTime }
+                    }
+                };
+                tasks.Add(task);
+            }
+
+            return new ProblemInstance
+            {
+                Name = name,
+                Tasks = tasks,
+                TAs = tas,
+                Description = "Small instance: 10 tasks, 6 TAs, bimodal distribution (4-14 and 250-300)"
+            };
+        }
+
+        /// <summary>
+        /// Creates a small instance with bimodal distribution: 11 tasks, 4 TAs (14-24 and 240-290)
+        /// </summary>
+        public static ProblemInstance Small_148(string name = "small_148", int seed = 42)
+        {
+            var random = new Random(seed);
+            var tasks = new List<TaskInfo>();
+            var taNames = new List<string> { "TA1", "TA2", "TA3", "TA4" };
+            var tas = taNames.Select(n => new TAInfo { Name = n }).ToList();
+
+            for (int i = 1; i <= 11; i++)
+            {
+                var selectedTAs = tas.OrderBy(x => random.Next()).Take(2).ToList();
+                int processingTime = random.Next(0, 100) < 70 ? 
+                    (14 + random.Next(0, 11)) : // 70% chance: 14-24
+                    (240 + random.Next(0, 51)); // 30% chance: 240-290
+
+                var task = new TaskInfo
+                {
+                    Name = $"Task{i}",
+                    EligibleTAs = selectedTAs,
+                    ProcessingTimes = new Dictionary<string, int>
+                    {
+                        { selectedTAs[0].Name, processingTime },
+                        { selectedTAs[1].Name, processingTime }
+                    }
+                };
+                tasks.Add(task);
+            }
+
+            return new ProblemInstance
+            {
+                Name = name,
+                Tasks = tasks,
+                TAs = tas,
+                Description = "Small instance: 11 tasks, 4 TAs, bimodal distribution (14-24 and 240-290)"
+            };
+        }
+
+        /// <summary>
+        /// Creates a small instance with bimodal distribution: 12 tasks, 5 TAs (16-26 and 260-310)
+        /// </summary>
+        public static ProblemInstance Small_149(string name = "small_149", int seed = 42)
+        {
+            var random = new Random(seed);
+            var tasks = new List<TaskInfo>();
+            var taNames = new List<string> { "TA1", "TA2", "TA3", "TA4", "TA5" };
+            var tas = taNames.Select(n => new TAInfo { Name = n }).ToList();
+
+            for (int i = 1; i <= 12; i++)
+            {
+                var selectedTAs = tas.OrderBy(x => random.Next()).Take(2).ToList();
+                int processingTime = random.Next(0, 100) < 75 ? 
+                    (16 + random.Next(0, 11)) : // 75% chance: 16-26
+                    (260 + random.Next(0, 51)); // 25% chance: 260-310
+
+                var task = new TaskInfo
+                {
+                    Name = $"Task{i}",
+                    EligibleTAs = selectedTAs,
+                    ProcessingTimes = new Dictionary<string, int>
+                    {
+                        { selectedTAs[0].Name, processingTime },
+                        { selectedTAs[1].Name, processingTime }
+                    }
+                };
+                tasks.Add(task);
+            }
+
+            return new ProblemInstance
+            {
+                Name = name,
+                Tasks = tasks,
+                TAs = tas,
+                Description = "Small instance: 12 tasks, 5 TAs, bimodal distribution (16-26 and 260-310)"
+            };
+        }
+
+        /// <summary>
+        /// Creates a small instance with bimodal distribution: 13 tasks, 3 TAs (18-28 and 270-320)
+        /// </summary>
+        public static ProblemInstance Small_150(string name = "small_150", int seed = 42)
+        {
+            var random = new Random(seed);
+            var tasks = new List<TaskInfo>();
+            var taNames = new List<string> { "TA1", "TA2", "TA3" };
+            var tas = taNames.Select(n => new TAInfo { Name = n }).ToList();
+
+            for (int i = 1; i <= 13; i++)
+            {
+                var selectedTAs = tas.OrderBy(x => random.Next()).Take(2).ToList();
+                int processingTime = random.Next(0, 100) < 80 ? 
+                    (18 + random.Next(0, 11)) : // 80% chance: 18-28
+                    (270 + random.Next(0, 51)); // 20% chance: 270-320
+
+                var task = new TaskInfo
+                {
+                    Name = $"Task{i}",
+                    EligibleTAs = selectedTAs,
+                    ProcessingTimes = new Dictionary<string, int>
+                    {
+                        { selectedTAs[0].Name, processingTime },
+                        { selectedTAs[1].Name, processingTime }
+                    }
+                };
+                tasks.Add(task);
+            }
+
+            return new ProblemInstance
+            {
+                Name = name,
+                Tasks = tasks,
+                TAs = tas,
+                Description = "Small instance: 13 tasks, 3 TAs, bimodal distribution (18-28 and 270-320)"
+            };
+        }
+
+        /// <summary>
+        /// Creates a small instance with bimodal distribution: 14 tasks, 6 TAs (20-30 and 280-330)
+        /// </summary>
+        public static ProblemInstance Small_151(string name = "small_151", int seed = 42)
+        {
+            var random = new Random(seed);
+            var tasks = new List<TaskInfo>();
+            var taNames = new List<string> { "TA1", "TA2", "TA3", "TA4", "TA5", "TA6" };
+            var tas = taNames.Select(n => new TAInfo { Name = n }).ToList();
+
+            for (int i = 1; i <= 14; i++)
+            {
+                var selectedTAs = tas.OrderBy(x => random.Next()).Take(2).ToList();
+                int processingTime = random.Next(0, 100) < 70 ? 
+                    (20 + random.Next(0, 11)) : // 70% chance: 20-30
+                    (280 + random.Next(0, 51)); // 30% chance: 280-330
+
+                var task = new TaskInfo
+                {
+                    Name = $"Task{i}",
+                    EligibleTAs = selectedTAs,
+                    ProcessingTimes = new Dictionary<string, int>
+                    {
+                        { selectedTAs[0].Name, processingTime },
+                        { selectedTAs[1].Name, processingTime }
+                    }
+                };
+                tasks.Add(task);
+            }
+
+            return new ProblemInstance
+            {
+                Name = name,
+                Tasks = tasks,
+                TAs = tas,
+                Description = "Small instance: 14 tasks, 6 TAs, bimodal distribution (20-30 and 280-330)"
+            };
+        }
+
+        /// <summary>
+        /// Creates a small instance with bimodal distribution: 15 tasks, 4 TAs (22-32 and 290-340)
+        /// </summary>
+        public static ProblemInstance Small_152(string name = "small_152", int seed = 42)
+        {
+            var random = new Random(seed);
+            var tasks = new List<TaskInfo>();
+            var taNames = new List<string> { "TA1", "TA2", "TA3", "TA4" };
+            var tas = taNames.Select(n => new TAInfo { Name = n }).ToList();
+
+            for (int i = 1; i <= 15; i++)
+            {
+                var selectedTAs = tas.OrderBy(x => random.Next()).Take(2).ToList();
+                int processingTime = random.Next(0, 100) < 75 ? 
+                    (22 + random.Next(0, 11)) : // 75% chance: 22-32
+                    (290 + random.Next(0, 51)); // 25% chance: 290-340
+
+                var task = new TaskInfo
+                {
+                    Name = $"Task{i}",
+                    EligibleTAs = selectedTAs,
+                    ProcessingTimes = new Dictionary<string, int>
+                    {
+                        { selectedTAs[0].Name, processingTime },
+                        { selectedTAs[1].Name, processingTime }
+                    }
+                };
+                tasks.Add(task);
+            }
+
+            return new ProblemInstance
+            {
+                Name = name,
+                Tasks = tasks,
+                TAs = tas,
+                Description = "Small instance: 15 tasks, 4 TAs, bimodal distribution (22-32 and 290-340)"
+            };
+        }
+
+        /// <summary>
+        /// Creates a small instance with bimodal distribution: 8 tasks, 5 TAs (3-13 and 300-350)
+        /// </summary>
+        public static ProblemInstance Small_153(string name = "small_153", int seed = 42)
+        {
+            var random = new Random(seed);
+            var tasks = new List<TaskInfo>();
+            var taNames = new List<string> { "TA1", "TA2", "TA3", "TA4", "TA5" };
+            var tas = taNames.Select(n => new TAInfo { Name = n }).ToList();
+
+            for (int i = 1; i <= 8; i++)
+            {
+                var selectedTAs = tas.OrderBy(x => random.Next()).Take(2).ToList();
+                int processingTime = random.Next(0, 100) < 80 ? 
+                    (3 + random.Next(0, 11)) : // 80% chance: 3-13
+                    (300 + random.Next(0, 51)); // 20% chance: 300-350
+
+                var task = new TaskInfo
+                {
+                    Name = $"Task{i}",
+                    EligibleTAs = selectedTAs,
+                    ProcessingTimes = new Dictionary<string, int>
+                    {
+                        { selectedTAs[0].Name, processingTime },
+                        { selectedTAs[1].Name, processingTime }
+                    }
+                };
+                tasks.Add(task);
+            }
+
+            return new ProblemInstance
+            {
+                Name = name,
+                Tasks = tasks,
+                TAs = tas,
+                Description = "Small instance: 8 tasks, 5 TAs, bimodal distribution (3-13 and 300-350)"
+            };
+        }
+
+        /// <summary>
+        /// Creates a small instance with bimodal distribution: 9 tasks, 3 TAs (24-34 and 310-360)
+        /// </summary>
+        public static ProblemInstance Small_154(string name = "small_154", int seed = 42)
+        {
+            var random = new Random(seed);
+            var tasks = new List<TaskInfo>();
+            var taNames = new List<string> { "TA1", "TA2", "TA3" };
+            var tas = taNames.Select(n => new TAInfo { Name = n }).ToList();
+
+            for (int i = 1; i <= 9; i++)
+            {
+                var selectedTAs = tas.OrderBy(x => random.Next()).Take(2).ToList();
+                int processingTime = random.Next(0, 100) < 70 ? 
+                    (24 + random.Next(0, 11)) : // 70% chance: 24-34
+                    (310 + random.Next(0, 51)); // 30% chance: 310-360
+
+                var task = new TaskInfo
+                {
+                    Name = $"Task{i}",
+                    EligibleTAs = selectedTAs,
+                    ProcessingTimes = new Dictionary<string, int>
+                    {
+                        { selectedTAs[0].Name, processingTime },
+                        { selectedTAs[1].Name, processingTime }
+                    }
+                };
+                tasks.Add(task);
+            }
+
+            return new ProblemInstance
+            {
+                Name = name,
+                Tasks = tasks,
+                TAs = tas,
+                Description = "Small instance: 9 tasks, 3 TAs, bimodal distribution (24-34 and 310-360)"
+            };
+        }
+
+        /// <summary>
+        /// Creates a small instance with bimodal distribution: 10 tasks, 7 TAs (26-36 and 320-370)
+        /// </summary>
+        public static ProblemInstance Small_155(string name = "small_155", int seed = 42)
+        {
+            var random = new Random(seed);
+            var tasks = new List<TaskInfo>();
+            var taNames = new List<string> { "TA1", "TA2", "TA3", "TA4", "TA5", "TA6", "TA7" };
+            var tas = taNames.Select(n => new TAInfo { Name = n }).ToList();
+
+            for (int i = 1; i <= 10; i++)
+            {
+                var selectedTAs = tas.OrderBy(x => random.Next()).Take(2).ToList();
+                int processingTime = random.Next(0, 100) < 75 ? 
+                    (26 + random.Next(0, 11)) : // 75% chance: 26-36
+                    (320 + random.Next(0, 51)); // 25% chance: 320-370
+
+                var task = new TaskInfo
+                {
+                    Name = $"Task{i}",
+                    EligibleTAs = selectedTAs,
+                    ProcessingTimes = new Dictionary<string, int>
+                    {
+                        { selectedTAs[0].Name, processingTime },
+                        { selectedTAs[1].Name, processingTime }
+                    }
+                };
+                tasks.Add(task);
+            }
+
+            return new ProblemInstance
+            {
+                Name = name,
+                Tasks = tasks,
+                TAs = tas,
+                Description = "Small instance: 10 tasks, 7 TAs, bimodal distribution (26-36 and 320-370)"
+            };
+        }
+
+        /// <summary>
+        /// Creates a small instance with bimodal distribution: 11 tasks, 6 TAs (28-38 and 330-380)
+        /// </summary>
+        public static ProblemInstance Small_156(string name = "small_156", int seed = 42)
+        {
+            var random = new Random(seed);
+            var tasks = new List<TaskInfo>();
+            var taNames = new List<string> { "TA1", "TA2", "TA3", "TA4", "TA5", "TA6" };
+            var tas = taNames.Select(n => new TAInfo { Name = n }).ToList();
+
+            for (int i = 1; i <= 11; i++)
+            {
+                var selectedTAs = tas.OrderBy(x => random.Next()).Take(2).ToList();
+                int processingTime = random.Next(0, 100) < 80 ? 
+                    (28 + random.Next(0, 11)) : // 80% chance: 28-38
+                    (330 + random.Next(0, 51)); // 20% chance: 330-380
+
+                var task = new TaskInfo
+                {
+                    Name = $"Task{i}",
+                    EligibleTAs = selectedTAs,
+                    ProcessingTimes = new Dictionary<string, int>
+                    {
+                        { selectedTAs[0].Name, processingTime },
+                        { selectedTAs[1].Name, processingTime }
+                    }
+                };
+                tasks.Add(task);
+            }
+
+            return new ProblemInstance
+            {
+                Name = name,
+                Tasks = tasks,
+                TAs = tas,
+                Description = "Small instance: 11 tasks, 6 TAs, bimodal distribution (28-38 and 330-380)"
+            };
+        }
+
+        /// <summary>
+        /// Creates a small instance with bimodal distribution: 12 tasks, 4 TAs (30-40 and 340-390)
+        /// </summary>
+        public static ProblemInstance Small_157(string name = "small_157", int seed = 42)
+        {
+            var random = new Random(seed);
+            var tasks = new List<TaskInfo>();
+            var taNames = new List<string> { "TA1", "TA2", "TA3", "TA4" };
+            var tas = taNames.Select(n => new TAInfo { Name = n }).ToList();
+
+            for (int i = 1; i <= 12; i++)
+            {
+                var selectedTAs = tas.OrderBy(x => random.Next()).Take(2).ToList();
+                int processingTime = random.Next(0, 100) < 70 ? 
+                    (30 + random.Next(0, 11)) : // 70% chance: 30-40
+                    (340 + random.Next(0, 51)); // 30% chance: 340-390
+
+                var task = new TaskInfo
+                {
+                    Name = $"Task{i}",
+                    EligibleTAs = selectedTAs,
+                    ProcessingTimes = new Dictionary<string, int>
+                    {
+                        { selectedTAs[0].Name, processingTime },
+                        { selectedTAs[1].Name, processingTime }
+                    }
+                };
+                tasks.Add(task);
+            }
+
+            return new ProblemInstance
+            {
+                Name = name,
+                Tasks = tasks,
+                TAs = tas,
+                Description = "Small instance: 12 tasks, 4 TAs, bimodal distribution (30-40 and 340-390)"
+            };
+        }
+
+        /// <summary>
+        /// Creates a small instance with bimodal distribution: 13 tasks, 5 TAs (32-42 and 350-400)
+        /// </summary>
+        public static ProblemInstance Small_158(string name = "small_158", int seed = 42)
+        {
+            var random = new Random(seed);
+            var tasks = new List<TaskInfo>();
+            var taNames = new List<string> { "TA1", "TA2", "TA3", "TA4", "TA5" };
+            var tas = taNames.Select(n => new TAInfo { Name = n }).ToList();
+
+            for (int i = 1; i <= 13; i++)
+            {
+                var selectedTAs = tas.OrderBy(x => random.Next()).Take(2).ToList();
+                int processingTime = random.Next(0, 100) < 75 ? 
+                    (32 + random.Next(0, 11)) : // 75% chance: 32-42
+                    (350 + random.Next(0, 51)); // 25% chance: 350-400
+
+                var task = new TaskInfo
+                {
+                    Name = $"Task{i}",
+                    EligibleTAs = selectedTAs,
+                    ProcessingTimes = new Dictionary<string, int>
+                    {
+                        { selectedTAs[0].Name, processingTime },
+                        { selectedTAs[1].Name, processingTime }
+                    }
+                };
+                tasks.Add(task);
+            }
+
+            return new ProblemInstance
+            {
+                Name = name,
+                Tasks = tasks,
+                TAs = tas,
+                Description = "Small instance: 13 tasks, 5 TAs, bimodal distribution (32-42 and 350-400)"
+            };
+        }
+
+        /// <summary>
+        /// Creates a small instance with bimodal distribution: 14 tasks, 3 TAs (34-44 and 360-410)
+        /// </summary>
+        public static ProblemInstance Small_159(string name = "small_159", int seed = 42)
+        {
+            var random = new Random(seed);
+            var tasks = new List<TaskInfo>();
+            var taNames = new List<string> { "TA1", "TA2", "TA3" };
+            var tas = taNames.Select(n => new TAInfo { Name = n }).ToList();
+
+            for (int i = 1; i <= 14; i++)
+            {
+                var selectedTAs = tas.OrderBy(x => random.Next()).Take(2).ToList();
+                int processingTime = random.Next(0, 100) < 80 ? 
+                    (34 + random.Next(0, 11)) : // 80% chance: 34-44
+                    (360 + random.Next(0, 51)); // 20% chance: 360-410
+
+                var task = new TaskInfo
+                {
+                    Name = $"Task{i}",
+                    EligibleTAs = selectedTAs,
+                    ProcessingTimes = new Dictionary<string, int>
+                    {
+                        { selectedTAs[0].Name, processingTime },
+                        { selectedTAs[1].Name, processingTime }
+                    }
+                };
+                tasks.Add(task);
+            }
+
+            return new ProblemInstance
+            {
+                Name = name,
+                Tasks = tasks,
+                TAs = tas,
+                Description = "Small instance: 14 tasks, 3 TAs, bimodal distribution (34-44 and 360-410)"
+            };
+        }
+
+        /// <summary>
+        /// Creates a small instance with bimodal distribution: 15 tasks, 6 TAs (36-46 and 370-420)
+        /// </summary>
+        public static ProblemInstance Small_160(string name = "small_160", int seed = 42)
+        {
+            var random = new Random(seed);
+            var tasks = new List<TaskInfo>();
+            var taNames = new List<string> { "TA1", "TA2", "TA3", "TA4", "TA5", "TA6" };
+            var tas = taNames.Select(n => new TAInfo { Name = n }).ToList();
+
+            for (int i = 1; i <= 15; i++)
+            {
+                var selectedTAs = tas.OrderBy(x => random.Next()).Take(2).ToList();
+                int processingTime = random.Next(0, 100) < 70 ? 
+                    (36 + random.Next(0, 11)) : // 70% chance: 36-46
+                    (370 + random.Next(0, 51)); // 30% chance: 370-420
+
+                var task = new TaskInfo
+                {
+                    Name = $"Task{i}",
+                    EligibleTAs = selectedTAs,
+                    ProcessingTimes = new Dictionary<string, int>
+                    {
+                        { selectedTAs[0].Name, processingTime },
+                        { selectedTAs[1].Name, processingTime }
+                    }
+                };
+                tasks.Add(task);
+            }
+
+            return new ProblemInstance
+            {
+                Name = name,
+                Tasks = tasks,
+                TAs = tas,
+                Description = "Small instance: 15 tasks, 6 TAs, bimodal distribution (36-46 and 370-420)"
+            };
+        }
+
+        /// <summary>
+        /// Creates a small instance with bimodal distribution: 8 tasks, 4 TAs (38-48 and 380-430)
+        /// </summary>
+        public static ProblemInstance Small_161(string name = "small_161", int seed = 42)
+        {
+            var random = new Random(seed);
+            var tasks = new List<TaskInfo>();
+            var taNames = new List<string> { "TA1", "TA2", "TA3", "TA4" };
+            var tas = taNames.Select(n => new TAInfo { Name = n }).ToList();
+
+            for (int i = 1; i <= 8; i++)
+            {
+                var selectedTAs = tas.OrderBy(x => random.Next()).Take(2).ToList();
+                int processingTime = random.Next(0, 100) < 75 ? 
+                    (38 + random.Next(0, 11)) : // 75% chance: 38-48
+                    (380 + random.Next(0, 51)); // 25% chance: 380-430
+
+                var task = new TaskInfo
+                {
+                    Name = $"Task{i}",
+                    EligibleTAs = selectedTAs,
+                    ProcessingTimes = new Dictionary<string, int>
+                    {
+                        { selectedTAs[0].Name, processingTime },
+                        { selectedTAs[1].Name, processingTime }
+                    }
+                };
+                tasks.Add(task);
+            }
+
+            return new ProblemInstance
+            {
+                Name = name,
+                Tasks = tasks,
+                TAs = tas,
+                Description = "Small instance: 8 tasks, 4 TAs, bimodal distribution (38-48 and 380-430)"
+            };
+        }
+
+        /// <summary>
+        /// Creates a small instance with bimodal distribution: 9 tasks, 5 TAs (40-50 and 390-440)
+        /// </summary>
+        public static ProblemInstance Small_162(string name = "small_162", int seed = 42)
+        {
+            var random = new Random(seed);
+            var tasks = new List<TaskInfo>();
+            var taNames = new List<string> { "TA1", "TA2", "TA3", "TA4", "TA5" };
+            var tas = taNames.Select(n => new TAInfo { Name = n }).ToList();
+
+            for (int i = 1; i <= 9; i++)
+            {
+                var selectedTAs = tas.OrderBy(x => random.Next()).Take(2).ToList();
+                int processingTime = random.Next(0, 100) < 80 ? 
+                    (40 + random.Next(0, 11)) : // 80% chance: 40-50
+                    (390 + random.Next(0, 51)); // 20% chance: 390-440
+
+                var task = new TaskInfo
+                {
+                    Name = $"Task{i}",
+                    EligibleTAs = selectedTAs,
+                    ProcessingTimes = new Dictionary<string, int>
+                    {
+                        { selectedTAs[0].Name, processingTime },
+                        { selectedTAs[1].Name, processingTime }
+                    }
+                };
+                tasks.Add(task);
+            }
+
+            return new ProblemInstance
+            {
+                Name = name,
+                Tasks = tasks,
+                TAs = tas,
+                Description = "Small instance: 9 tasks, 5 TAs, bimodal distribution (40-50 and 390-440)"
+            };
+        }
+
+        /// <summary>
+        /// Creates a small instance with bimodal distribution: 10 tasks, 3 TAs (42-52 and 400-450)
+        /// </summary>
+        public static ProblemInstance Small_163(string name = "small_163", int seed = 42)
+        {
+            var random = new Random(seed);
+            var tasks = new List<TaskInfo>();
+            var taNames = new List<string> { "TA1", "TA2", "TA3" };
+            var tas = taNames.Select(n => new TAInfo { Name = n }).ToList();
+
+            for (int i = 1; i <= 10; i++)
+            {
+                var selectedTAs = tas.OrderBy(x => random.Next()).Take(2).ToList();
+                int processingTime = random.Next(0, 100) < 70 ? 
+                    (42 + random.Next(0, 11)) : // 70% chance: 42-52
+                    (400 + random.Next(0, 51)); // 30% chance: 400-450
+
+                var task = new TaskInfo
+                {
+                    Name = $"Task{i}",
+                    EligibleTAs = selectedTAs,
+                    ProcessingTimes = new Dictionary<string, int>
+                    {
+                        { selectedTAs[0].Name, processingTime },
+                        { selectedTAs[1].Name, processingTime }
+                    }
+                };
+                tasks.Add(task);
+            }
+
+            return new ProblemInstance
+            {
+                Name = name,
+                Tasks = tasks,
+                TAs = tas,
+                Description = "Small instance: 10 tasks, 3 TAs, bimodal distribution (42-52 and 400-450)"
+            };
+        }
+
+        /// <summary>
+        /// Creates a small instance with bimodal distribution: 11 tasks, 7 TAs (44-54 and 410-460)
+        /// </summary>
+        public static ProblemInstance Small_164(string name = "small_164", int seed = 42)
+        {
+            var random = new Random(seed);
+            var tasks = new List<TaskInfo>();
+            var taNames = new List<string> { "TA1", "TA2", "TA3", "TA4", "TA5", "TA6", "TA7" };
+            var tas = taNames.Select(n => new TAInfo { Name = n }).ToList();
+
+            for (int i = 1; i <= 11; i++)
+            {
+                var selectedTAs = tas.OrderBy(x => random.Next()).Take(2).ToList();
+                int processingTime = random.Next(0, 100) < 75 ? 
+                    (44 + random.Next(0, 11)) : // 75% chance: 44-54
+                    (410 + random.Next(0, 51)); // 25% chance: 410-460
+
+                var task = new TaskInfo
+                {
+                    Name = $"Task{i}",
+                    EligibleTAs = selectedTAs,
+                    ProcessingTimes = new Dictionary<string, int>
+                    {
+                        { selectedTAs[0].Name, processingTime },
+                        { selectedTAs[1].Name, processingTime }
+                    }
+                };
+                tasks.Add(task);
+            }
+
+            return new ProblemInstance
+            {
+                Name = name,
+                Tasks = tasks,
+                TAs = tas,
+                Description = "Small instance: 11 tasks, 7 TAs, bimodal distribution (44-54 and 410-460)"
+            };
+        }
+
+        /// <summary>
+        /// Creates a small instance with bimodal distribution: 12 tasks, 8 TAs (46-56 and 420-470)
+        /// </summary>
+        public static ProblemInstance Small_165(string name = "small_165", int seed = 42)
+        {
+            var random = new Random(seed);
+            var tasks = new List<TaskInfo>();
+            var taNames = new List<string> { "TA1", "TA2", "TA3", "TA4", "TA5", "TA6", "TA7", "TA8" };
+            var tas = taNames.Select(n => new TAInfo { Name = n }).ToList();
+
+            for (int i = 1; i <= 12; i++)
+            {
+                var selectedTAs = tas.OrderBy(x => random.Next()).Take(2).ToList();
+                int processingTime = random.Next(0, 100) < 80 ? 
+                    (46 + random.Next(0, 11)) : // 80% chance: 46-56
+                    (420 + random.Next(0, 51)); // 20% chance: 420-470
+
+                var task = new TaskInfo
+                {
+                    Name = $"Task{i}",
+                    EligibleTAs = selectedTAs,
+                    ProcessingTimes = new Dictionary<string, int>
+                    {
+                        { selectedTAs[0].Name, processingTime },
+                        { selectedTAs[1].Name, processingTime }
+                    }
+                };
+                tasks.Add(task);
+            }
+
+            return new ProblemInstance
+            {
+                Name = name,
+                Tasks = tasks,
+                TAs = tas,
+                Description = "Small instance: 12 tasks, 8 TAs, bimodal distribution (46-56 and 420-470)"
+            };
+        }
+
+        /// <summary>
+        /// Creates a small instance with bimodal distribution: 13 tasks, 4 TAs (48-58 and 430-480)
+        /// </summary>
+        public static ProblemInstance Small_166(string name = "small_166", int seed = 42)
+        {
+            var random = new Random(seed);
+            var tasks = new List<TaskInfo>();
+            var taNames = new List<string> { "TA1", "TA2", "TA3", "TA4" };
+            var tas = taNames.Select(n => new TAInfo { Name = n }).ToList();
+
+            for (int i = 1; i <= 13; i++)
+            {
+                var selectedTAs = tas.OrderBy(x => random.Next()).Take(2).ToList();
+                int processingTime = random.Next(0, 100) < 70 ? 
+                    (48 + random.Next(0, 11)) : // 70% chance: 48-58
+                    (430 + random.Next(0, 51)); // 30% chance: 430-480
+
+                var task = new TaskInfo
+                {
+                    Name = $"Task{i}",
+                    EligibleTAs = selectedTAs,
+                    ProcessingTimes = new Dictionary<string, int>
+                    {
+                        { selectedTAs[0].Name, processingTime },
+                        { selectedTAs[1].Name, processingTime }
+                    }
+                };
+                tasks.Add(task);
+            }
+
+            return new ProblemInstance
+            {
+                Name = name,
+                Tasks = tasks,
+                TAs = tas,
+                Description = "Small instance: 13 tasks, 4 TAs, bimodal distribution (48-58 and 430-480)"
+            };
+        }
+
+        /// <summary>
+        /// Creates a small instance with bimodal distribution: 14 tasks, 5 TAs (50-60 and 440-490)
+        /// </summary>
+        public static ProblemInstance Small_167(string name = "small_167", int seed = 42)
+        {
+            var random = new Random(seed);
+            var tasks = new List<TaskInfo>();
+            var taNames = new List<string> { "TA1", "TA2", "TA3", "TA4", "TA5" };
+            var tas = taNames.Select(n => new TAInfo { Name = n }).ToList();
+
+            for (int i = 1; i <= 14; i++)
+            {
+                var selectedTAs = tas.OrderBy(x => random.Next()).Take(2).ToList();
+                int processingTime = random.Next(0, 100) < 75 ? 
+                    (50 + random.Next(0, 11)) : // 75% chance: 50-60
+                    (440 + random.Next(0, 51)); // 25% chance: 440-490
+
+                var task = new TaskInfo
+                {
+                    Name = $"Task{i}",
+                    EligibleTAs = selectedTAs,
+                    ProcessingTimes = new Dictionary<string, int>
+                    {
+                        { selectedTAs[0].Name, processingTime },
+                        { selectedTAs[1].Name, processingTime }
+                    }
+                };
+                tasks.Add(task);
+            }
+
+            return new ProblemInstance
+            {
+                Name = name,
+                Tasks = tasks,
+                TAs = tas,
+                Description = "Small instance: 14 tasks, 5 TAs, bimodal distribution (50-60 and 440-490)"
+            };
+        }
+
+        /// <summary>
+        /// Creates a small instance with bimodal distribution: 15 tasks, 3 TAs (52-62 and 450-500)
+        /// </summary>
+        public static ProblemInstance Small_168(string name = "small_168", int seed = 42)
+        {
+            var random = new Random(seed);
+            var tasks = new List<TaskInfo>();
+            var taNames = new List<string> { "TA1", "TA2", "TA3" };
+            var tas = taNames.Select(n => new TAInfo { Name = n }).ToList();
+
+            for (int i = 1; i <= 15; i++)
+            {
+                var selectedTAs = tas.OrderBy(x => random.Next()).Take(2).ToList();
+                int processingTime = random.Next(0, 100) < 80 ? 
+                    (52 + random.Next(0, 11)) : // 80% chance: 52-62
+                    (450 + random.Next(0, 51)); // 20% chance: 450-500
+
+                var task = new TaskInfo
+                {
+                    Name = $"Task{i}",
+                    EligibleTAs = selectedTAs,
+                    ProcessingTimes = new Dictionary<string, int>
+                    {
+                        { selectedTAs[0].Name, processingTime },
+                        { selectedTAs[1].Name, processingTime }
+                    }
+                };
+                tasks.Add(task);
+            }
+
+            return new ProblemInstance
+            {
+                Name = name,
+                Tasks = tasks,
+                TAs = tas,
+                Description = "Small instance: 15 tasks, 3 TAs, bimodal distribution (52-62 and 450-500)"
+            };
+        }
+
+        /// <summary>
+        /// Creates a small instance with bimodal distribution: 8 tasks, 6 TAs (54-64 and 460-510)
+        /// </summary>
+        public static ProblemInstance Small_169(string name = "small_169", int seed = 42)
+        {
+            var random = new Random(seed);
+            var tasks = new List<TaskInfo>();
+            var taNames = new List<string> { "TA1", "TA2", "TA3", "TA4", "TA5", "TA6" };
+            var tas = taNames.Select(n => new TAInfo { Name = n }).ToList();
+
+            for (int i = 1; i <= 8; i++)
+            {
+                var selectedTAs = tas.OrderBy(x => random.Next()).Take(2).ToList();
+                int processingTime = random.Next(0, 100) < 70 ? 
+                    (54 + random.Next(0, 11)) : // 70% chance: 54-64
+                    (460 + random.Next(0, 51)); // 30% chance: 460-510
+
+                var task = new TaskInfo
+                {
+                    Name = $"Task{i}",
+                    EligibleTAs = selectedTAs,
+                    ProcessingTimes = new Dictionary<string, int>
+                    {
+                        { selectedTAs[0].Name, processingTime },
+                        { selectedTAs[1].Name, processingTime }
+                    }
+                };
+                tasks.Add(task);
+            }
+
+            return new ProblemInstance
+            {
+                Name = name,
+                Tasks = tasks,
+                TAs = tas,
+                Description = "Small instance: 8 tasks, 6 TAs, bimodal distribution (54-64 and 460-510)"
+            };
+        }
+
+        /// <summary>
+        /// Creates a small instance with bimodal distribution: 9 tasks, 7 TAs (56-66 and 470-520)
+        /// </summary>
+        public static ProblemInstance Small_170(string name = "small_170", int seed = 42)
+        {
+            var random = new Random(seed);
+            var tasks = new List<TaskInfo>();
+            var taNames = new List<string> { "TA1", "TA2", "TA3", "TA4", "TA5", "TA6", "TA7" };
+            var tas = taNames.Select(n => new TAInfo { Name = n }).ToList();
+
+            for (int i = 1; i <= 9; i++)
+            {
+                var selectedTAs = tas.OrderBy(x => random.Next()).Take(2).ToList();
+                int processingTime = random.Next(0, 100) < 75 ? 
+                    (56 + random.Next(0, 11)) : // 75% chance: 56-66
+                    (470 + random.Next(0, 51)); // 25% chance: 470-520
+
+                var task = new TaskInfo
+                {
+                    Name = $"Task{i}",
+                    EligibleTAs = selectedTAs,
+                    ProcessingTimes = new Dictionary<string, int>
+                    {
+                        { selectedTAs[0].Name, processingTime },
+                        { selectedTAs[1].Name, processingTime }
+                    }
+                };
+                tasks.Add(task);
+            }
+
+            return new ProblemInstance
+            {
+                Name = name,
+                Tasks = tasks,
+                TAs = tas,
+                Description = "Small instance: 9 tasks, 7 TAs, bimodal distribution (56-66 and 470-520)"
+            };
+        }
+
+        /// <summary>
+        /// Creates a small instance with bimodal distribution: 10 tasks, 4 TAs (58-68 and 480-530)
+        /// </summary>
+        public static ProblemInstance Small_171(string name = "small_171", int seed = 42)
+        {
+            var random = new Random(seed);
+            var tasks = new List<TaskInfo>();
+            var taNames = new List<string> { "TA1", "TA2", "TA3", "TA4" };
+            var tas = taNames.Select(n => new TAInfo { Name = n }).ToList();
+
+            for (int i = 1; i <= 10; i++)
+            {
+                var selectedTAs = tas.OrderBy(x => random.Next()).Take(2).ToList();
+                int processingTime = random.Next(0, 100) < 80 ? 
+                    (58 + random.Next(0, 11)) : // 80% chance: 58-68
+                    (480 + random.Next(0, 51)); // 20% chance: 480-530
+
+                var task = new TaskInfo
+                {
+                    Name = $"Task{i}",
+                    EligibleTAs = selectedTAs,
+                    ProcessingTimes = new Dictionary<string, int>
+                    {
+                        { selectedTAs[0].Name, processingTime },
+                        { selectedTAs[1].Name, processingTime }
+                    }
+                };
+                tasks.Add(task);
+            }
+
+            return new ProblemInstance
+            {
+                Name = name,
+                Tasks = tasks,
+                TAs = tas,
+                Description = "Small instance: 10 tasks, 4 TAs, bimodal distribution (58-68 and 480-530)"
+            };
+        }
+
+        /// <summary>
+        /// Creates a small instance with bimodal distribution: 11 tasks, 5 TAs (60-70 and 490-540)
+        /// </summary>
+        public static ProblemInstance Small_172(string name = "small_172", int seed = 42)
+        {
+            var random = new Random(seed);
+            var tasks = new List<TaskInfo>();
+            var taNames = new List<string> { "TA1", "TA2", "TA3", "TA4", "TA5" };
+            var tas = taNames.Select(n => new TAInfo { Name = n }).ToList();
+
+            for (int i = 1; i <= 11; i++)
+            {
+                var selectedTAs = tas.OrderBy(x => random.Next()).Take(2).ToList();
+                int processingTime = random.Next(0, 100) < 70 ? 
+                    (60 + random.Next(0, 11)) : // 70% chance: 60-70
+                    (490 + random.Next(0, 51)); // 30% chance: 490-540
+
+                var task = new TaskInfo
+                {
+                    Name = $"Task{i}",
+                    EligibleTAs = selectedTAs,
+                    ProcessingTimes = new Dictionary<string, int>
+                    {
+                        { selectedTAs[0].Name, processingTime },
+                        { selectedTAs[1].Name, processingTime }
+                    }
+                };
+                tasks.Add(task);
+            }
+
+            return new ProblemInstance
+            {
+                Name = name,
+                Tasks = tasks,
+                TAs = tas,
+                Description = "Small instance: 11 tasks, 5 TAs, bimodal distribution (60-70 and 490-540)"
+            };
+        }
+
+        /// <summary>
+        /// Creates a small instance with bimodal distribution: 12 tasks, 3 TAs (62-72 and 500-550)
+        /// </summary>
+        public static ProblemInstance Small_173(string name = "small_173", int seed = 42)
+        {
+            var random = new Random(seed);
+            var tasks = new List<TaskInfo>();
+            var taNames = new List<string> { "TA1", "TA2", "TA3" };
+            var tas = taNames.Select(n => new TAInfo { Name = n }).ToList();
+
+            for (int i = 1; i <= 12; i++)
+            {
+                var selectedTAs = tas.OrderBy(x => random.Next()).Take(2).ToList();
+                int processingTime = random.Next(0, 100) < 75 ? 
+                    (62 + random.Next(0, 11)) : // 75% chance: 62-72
+                    (500 + random.Next(0, 51)); // 25% chance: 500-550
+
+                var task = new TaskInfo
+                {
+                    Name = $"Task{i}",
+                    EligibleTAs = selectedTAs,
+                    ProcessingTimes = new Dictionary<string, int>
+                    {
+                        { selectedTAs[0].Name, processingTime },
+                        { selectedTAs[1].Name, processingTime }
+                    }
+                };
+                tasks.Add(task);
+            }
+
+            return new ProblemInstance
+            {
+                Name = name,
+                Tasks = tasks,
+                TAs = tas,
+                Description = "Small instance: 12 tasks, 3 TAs, bimodal distribution (62-72 and 500-550)"
+            };
+        }
+
+        /// <summary>
+        /// Creates a small instance with bimodal distribution: 13 tasks, 6 TAs (64-74 and 510-560)
+        /// </summary>
+        public static ProblemInstance Small_174(string name = "small_174", int seed = 42)
+        {
+            var random = new Random(seed);
+            var tasks = new List<TaskInfo>();
+            var taNames = new List<string> { "TA1", "TA2", "TA3", "TA4", "TA5", "TA6" };
+            var tas = taNames.Select(n => new TAInfo { Name = n }).ToList();
+
+            for (int i = 1; i <= 13; i++)
+            {
+                var selectedTAs = tas.OrderBy(x => random.Next()).Take(2).ToList();
+                int processingTime = random.Next(0, 100) < 80 ? 
+                    (64 + random.Next(0, 11)) : // 80% chance: 64-74
+                    (510 + random.Next(0, 51)); // 20% chance: 510-560
+
+                var task = new TaskInfo
+                {
+                    Name = $"Task{i}",
+                    EligibleTAs = selectedTAs,
+                    ProcessingTimes = new Dictionary<string, int>
+                    {
+                        { selectedTAs[0].Name, processingTime },
+                        { selectedTAs[1].Name, processingTime }
+                    }
+                };
+                tasks.Add(task);
+            }
+
+            return new ProblemInstance
+            {
+                Name = name,
+                Tasks = tasks,
+                TAs = tas,
+                Description = "Small instance: 13 tasks, 6 TAs, bimodal distribution (64-74 and 510-560)"
+            };
+        }
+
+        /// <summary>
+        /// Creates a small instance with bimodal distribution: 14 tasks, 4 TAs (66-76 and 520-570)
+        /// </summary>
+        public static ProblemInstance Small_175(string name = "small_175", int seed = 42)
+        {
+            var random = new Random(seed);
+            var tasks = new List<TaskInfo>();
+            var taNames = new List<string> { "TA1", "TA2", "TA3", "TA4" };
+            var tas = taNames.Select(n => new TAInfo { Name = n }).ToList();
+
+            for (int i = 1; i <= 14; i++)
+            {
+                var selectedTAs = tas.OrderBy(x => random.Next()).Take(2).ToList();
+                int processingTime = random.Next(0, 100) < 70 ? 
+                    (66 + random.Next(0, 11)) : // 70% chance: 66-76
+                    (520 + random.Next(0, 51)); // 30% chance: 520-570
+
+                var task = new TaskInfo
+                {
+                    Name = $"Task{i}",
+                    EligibleTAs = selectedTAs,
+                    ProcessingTimes = new Dictionary<string, int>
+                    {
+                        { selectedTAs[0].Name, processingTime },
+                        { selectedTAs[1].Name, processingTime }
+                    }
+                };
+                tasks.Add(task);
+            }
+
+            return new ProblemInstance
+            {
+                Name = name,
+                Tasks = tasks,
+                TAs = tas,
+                Description = "Small instance: 14 tasks, 4 TAs, bimodal distribution (66-76 and 520-570)"
+            };
+        }
+
+        /// <summary>
+        /// Creates a small instance with bimodal distribution: 15 tasks, 5 TAs (68-78 and 530-580)
+        /// </summary>
+        public static ProblemInstance Small_176(string name = "small_176", int seed = 42)
+        {
+            var random = new Random(seed);
+            var tasks = new List<TaskInfo>();
+            var taNames = new List<string> { "TA1", "TA2", "TA3", "TA4", "TA5" };
+            var tas = taNames.Select(n => new TAInfo { Name = n }).ToList();
+
+            for (int i = 1; i <= 15; i++)
+            {
+                var selectedTAs = tas.OrderBy(x => random.Next()).Take(2).ToList();
+                int processingTime = random.Next(0, 100) < 75 ? 
+                    (68 + random.Next(0, 11)) : // 75% chance: 68-78
+                    (530 + random.Next(0, 51)); // 25% chance: 530-580
+
+                var task = new TaskInfo
+                {
+                    Name = $"Task{i}",
+                    EligibleTAs = selectedTAs,
+                    ProcessingTimes = new Dictionary<string, int>
+                    {
+                        { selectedTAs[0].Name, processingTime },
+                        { selectedTAs[1].Name, processingTime }
+                    }
+                };
+                tasks.Add(task);
+            }
+
+            return new ProblemInstance
+            {
+                Name = name,
+                Tasks = tasks,
+                TAs = tas,
+                Description = "Small instance: 15 tasks, 5 TAs, bimodal distribution (68-78 and 530-580)"
+            };
+        }
+
+        /// <summary>
+        /// Creates a small instance with bimodal distribution: 8 tasks, 7 TAs (70-80 and 540-590)
+        /// </summary>
+        public static ProblemInstance Small_177(string name = "small_177", int seed = 42)
+        {
+            var random = new Random(seed);
+            var tasks = new List<TaskInfo>();
+            var taNames = new List<string> { "TA1", "TA2", "TA3", "TA4", "TA5", "TA6", "TA7" };
+            var tas = taNames.Select(n => new TAInfo { Name = n }).ToList();
+
+            for (int i = 1; i <= 8; i++)
+            {
+                var selectedTAs = tas.OrderBy(x => random.Next()).Take(2).ToList();
+                int processingTime = random.Next(0, 100) < 80 ? 
+                    (70 + random.Next(0, 11)) : // 80% chance: 70-80
+                    (540 + random.Next(0, 51)); // 20% chance: 540-590
+
+                var task = new TaskInfo
+                {
+                    Name = $"Task{i}",
+                    EligibleTAs = selectedTAs,
+                    ProcessingTimes = new Dictionary<string, int>
+                    {
+                        { selectedTAs[0].Name, processingTime },
+                        { selectedTAs[1].Name, processingTime }
+                    }
+                };
+                tasks.Add(task);
+            }
+
+            return new ProblemInstance
+            {
+                Name = name,
+                Tasks = tasks,
+                TAs = tas,
+                Description = "Small instance: 8 tasks, 7 TAs, bimodal distribution (70-80 and 540-590)"
+            };
+        }
+
+        /// <summary>
+        /// Creates a small instance with bimodal distribution: 9 tasks, 8 TAs (72-82 and 550-600)
+        /// </summary>
+        public static ProblemInstance Small_178(string name = "small_178", int seed = 42)
+        {
+            var random = new Random(seed);
+            var tasks = new List<TaskInfo>();
+            var taNames = new List<string> { "TA1", "TA2", "TA3", "TA4", "TA5", "TA6", "TA7", "TA8" };
+            var tas = taNames.Select(n => new TAInfo { Name = n }).ToList();
+
+            for (int i = 1; i <= 9; i++)
+            {
+                var selectedTAs = tas.OrderBy(x => random.Next()).Take(2).ToList();
+                int processingTime = random.Next(0, 100) < 70 ? 
+                    (72 + random.Next(0, 11)) : // 70% chance: 72-82
+                    (550 + random.Next(0, 51)); // 30% chance: 550-600
+
+                var task = new TaskInfo
+                {
+                    Name = $"Task{i}",
+                    EligibleTAs = selectedTAs,
+                    ProcessingTimes = new Dictionary<string, int>
+                    {
+                        { selectedTAs[0].Name, processingTime },
+                        { selectedTAs[1].Name, processingTime }
+                    }
+                };
+                tasks.Add(task);
+            }
+
+            return new ProblemInstance
+            {
+                Name = name,
+                Tasks = tasks,
+                TAs = tas,
+                Description = "Small instance: 9 tasks, 8 TAs, bimodal distribution (72-82 and 550-600)"
+            };
+        }
+
+        /// <summary>
+        /// Creates a small instance with bimodal distribution: 10 tasks, 6 TAs (74-84 and 560-610)
+        /// </summary>
+        public static ProblemInstance Small_179(string name = "small_179", int seed = 42)
+        {
+            var random = new Random(seed);
+            var tasks = new List<TaskInfo>();
+            var taNames = new List<string> { "TA1", "TA2", "TA3", "TA4", "TA5", "TA6" };
+            var tas = taNames.Select(n => new TAInfo { Name = n }).ToList();
+
+            for (int i = 1; i <= 10; i++)
+            {
+                var selectedTAs = tas.OrderBy(x => random.Next()).Take(2).ToList();
+                int processingTime = random.Next(0, 100) < 75 ? 
+                    (74 + random.Next(0, 11)) : // 75% chance: 74-84
+                    (560 + random.Next(0, 51)); // 25% chance: 560-610
+
+                var task = new TaskInfo
+                {
+                    Name = $"Task{i}",
+                    EligibleTAs = selectedTAs,
+                    ProcessingTimes = new Dictionary<string, int>
+                    {
+                        { selectedTAs[0].Name, processingTime },
+                        { selectedTAs[1].Name, processingTime }
+                    }
+                };
+                tasks.Add(task);
+            }
+
+            return new ProblemInstance
+            {
+                Name = name,
+                Tasks = tasks,
+                TAs = tas,
+                Description = "Small instance: 10 tasks, 6 TAs, bimodal distribution (74-84 and 560-610)"
+            };
+        }
+
+        /// <summary>
+        /// Creates a small instance with bimodal distribution: 11 tasks, 4 TAs (76-86 and 570-620)
+        /// </summary>
+        public static ProblemInstance Small_180(string name = "small_180", int seed = 42)
+        {
+            var random = new Random(seed);
+            var tasks = new List<TaskInfo>();
+            var taNames = new List<string> { "TA1", "TA2", "TA3", "TA4" };
+            var tas = taNames.Select(n => new TAInfo { Name = n }).ToList();
+
+            for (int i = 1; i <= 11; i++)
+            {
+                var selectedTAs = tas.OrderBy(x => random.Next()).Take(2).ToList();
+                int processingTime = random.Next(0, 100) < 80 ? 
+                    (76 + random.Next(0, 11)) : // 80% chance: 76-86
+                    (570 + random.Next(0, 51)); // 20% chance: 570-620
+
+                var task = new TaskInfo
+                {
+                    Name = $"Task{i}",
+                    EligibleTAs = selectedTAs,
+                    ProcessingTimes = new Dictionary<string, int>
+                    {
+                        { selectedTAs[0].Name, processingTime },
+                        { selectedTAs[1].Name, processingTime }
+                    }
+                };
+                tasks.Add(task);
+            }
+
+            return new ProblemInstance
+            {
+                Name = name,
+                Tasks = tasks,
+                TAs = tas,
+                Description = "Small instance: 11 tasks, 4 TAs, bimodal distribution (76-86 and 570-620)"
+            };
+        }
+
+        /// <summary>
+        /// Creates a small instance with bimodal distribution: 12 tasks, 5 TAs (78-88 and 580-630)
+        /// </summary>
+        public static ProblemInstance Small_181(string name = "small_181", int seed = 42)
+        {
+            var random = new Random(seed);
+            var tasks = new List<TaskInfo>();
+            var taNames = new List<string> { "TA1", "TA2", "TA3", "TA4", "TA5" };
+            var tas = taNames.Select(n => new TAInfo { Name = n }).ToList();
+
+            for (int i = 1; i <= 12; i++)
+            {
+                var selectedTAs = tas.OrderBy(x => random.Next()).Take(2).ToList();
+                int processingTime = random.Next(0, 100) < 70 ? 
+                    (78 + random.Next(0, 11)) : // 70% chance: 78-88
+                    (580 + random.Next(0, 51)); // 30% chance: 580-630
+
+                var task = new TaskInfo
+                {
+                    Name = $"Task{i}",
+                    EligibleTAs = selectedTAs,
+                    ProcessingTimes = new Dictionary<string, int>
+                    {
+                        { selectedTAs[0].Name, processingTime },
+                        { selectedTAs[1].Name, processingTime }
+                    }
+                };
+                tasks.Add(task);
+            }
+
+            return new ProblemInstance
+            {
+                Name = name,
+                Tasks = tasks,
+                TAs = tas,
+                Description = "Small instance: 12 tasks, 5 TAs, bimodal distribution (78-88 and 580-630)"
+            };
+        }
+
+        /// <summary>
+        /// Creates a small instance with bimodal distribution: 13 tasks, 3 TAs (80-90 and 590-640)
+        /// </summary>
+        public static ProblemInstance Small_182(string name = "small_182", int seed = 42)
+        {
+            var random = new Random(seed);
+            var tasks = new List<TaskInfo>();
+            var taNames = new List<string> { "TA1", "TA2", "TA3" };
+            var tas = taNames.Select(n => new TAInfo { Name = n }).ToList();
+
+            for (int i = 1; i <= 13; i++)
+            {
+                var selectedTAs = tas.OrderBy(x => random.Next()).Take(2).ToList();
+                int processingTime = random.Next(0, 100) < 75 ? 
+                    (80 + random.Next(0, 11)) : // 75% chance: 80-90
+                    (590 + random.Next(0, 51)); // 25% chance: 590-640
+
+                var task = new TaskInfo
+                {
+                    Name = $"Task{i}",
+                    EligibleTAs = selectedTAs,
+                    ProcessingTimes = new Dictionary<string, int>
+                    {
+                        { selectedTAs[0].Name, processingTime },
+                        { selectedTAs[1].Name, processingTime }
+                    }
+                };
+                tasks.Add(task);
+            }
+
+            return new ProblemInstance
+            {
+                Name = name,
+                Tasks = tasks,
+                TAs = tas,
+                Description = "Small instance: 13 tasks, 3 TAs, bimodal distribution (80-90 and 590-640)"
+            };
+        }
+
+        /// <summary>
+        /// Creates a small instance with bimodal distribution: 14 tasks, 6 TAs (82-92 and 600-650)
+        /// </summary>
+        public static ProblemInstance Small_183(string name = "small_183", int seed = 42)
+        {
+            var random = new Random(seed);
+            var tasks = new List<TaskInfo>();
+            var taNames = new List<string> { "TA1", "TA2", "TA3", "TA4", "TA5", "TA6" };
+            var tas = taNames.Select(n => new TAInfo { Name = n }).ToList();
+
+            for (int i = 1; i <= 14; i++)
+            {
+                var selectedTAs = tas.OrderBy(x => random.Next()).Take(2).ToList();
+                int processingTime = random.Next(0, 100) < 80 ? 
+                    (82 + random.Next(0, 11)) : // 80% chance: 82-92
+                    (600 + random.Next(0, 51)); // 20% chance: 600-650
+
+                var task = new TaskInfo
+                {
+                    Name = $"Task{i}",
+                    EligibleTAs = selectedTAs,
+                    ProcessingTimes = new Dictionary<string, int>
+                    {
+                        { selectedTAs[0].Name, processingTime },
+                        { selectedTAs[1].Name, processingTime }
+                    }
+                };
+                tasks.Add(task);
+            }
+
+            return new ProblemInstance
+            {
+                Name = name,
+                Tasks = tasks,
+                TAs = tas,
+                Description = "Small instance: 14 tasks, 6 TAs, bimodal distribution (82-92 and 600-650)"
+            };
+        }
+
+        /// <summary>
+        /// Creates a small instance with bimodal distribution: 15 tasks, 4 TAs (84-94 and 610-660)
+        /// </summary>
+        public static ProblemInstance Small_184(string name = "small_184", int seed = 42)
+        {
+            var random = new Random(seed);
+            var tasks = new List<TaskInfo>();
+            var taNames = new List<string> { "TA1", "TA2", "TA3", "TA4" };
+            var tas = taNames.Select(n => new TAInfo { Name = n }).ToList();
+
+            for (int i = 1; i <= 15; i++)
+            {
+                var selectedTAs = tas.OrderBy(x => random.Next()).Take(2).ToList();
+                int processingTime = random.Next(0, 100) < 70 ? 
+                    (84 + random.Next(0, 11)) : // 70% chance: 84-94
+                    (610 + random.Next(0, 51)); // 30% chance: 610-660
+
+                var task = new TaskInfo
+                {
+                    Name = $"Task{i}",
+                    EligibleTAs = selectedTAs,
+                    ProcessingTimes = new Dictionary<string, int>
+                    {
+                        { selectedTAs[0].Name, processingTime },
+                        { selectedTAs[1].Name, processingTime }
+                    }
+                };
+                tasks.Add(task);
+            }
+
+            return new ProblemInstance
+            {
+                Name = name,
+                Tasks = tasks,
+                TAs = tas,
+                Description = "Small instance: 15 tasks, 4 TAs, bimodal distribution (84-94 and 610-660)"
+            };
+        }
+
+        /// <summary>
+        /// Creates a small instance with bimodal distribution: 8 tasks, 5 TAs (86-96 and 620-670)
+        /// </summary>
+        public static ProblemInstance Small_185(string name = "small_185", int seed = 42)
+        {
+            var random = new Random(seed);
+            var tasks = new List<TaskInfo>();
+            var taNames = new List<string> { "TA1", "TA2", "TA3", "TA4", "TA5" };
+            var tas = taNames.Select(n => new TAInfo { Name = n }).ToList();
+
+            for (int i = 1; i <= 8; i++)
+            {
+                var selectedTAs = tas.OrderBy(x => random.Next()).Take(2).ToList();
+                int processingTime = random.Next(0, 100) < 75 ? 
+                    (86 + random.Next(0, 11)) : // 75% chance: 86-96
+                    (620 + random.Next(0, 51)); // 25% chance: 620-670
+
+                var task = new TaskInfo
+                {
+                    Name = $"Task{i}",
+                    EligibleTAs = selectedTAs,
+                    ProcessingTimes = new Dictionary<string, int>
+                    {
+                        { selectedTAs[0].Name, processingTime },
+                        { selectedTAs[1].Name, processingTime }
+                    }
+                };
+                tasks.Add(task);
+            }
+
+            return new ProblemInstance
+            {
+                Name = name,
+                Tasks = tasks,
+                TAs = tas,
+                Description = "Small instance: 8 tasks, 5 TAs, bimodal distribution (86-96 and 620-670)"
+            };
+        }
+
+        /// <summary>
+        /// Creates a small instance with bimodal distribution: 9 tasks, 6 TAs (88-98 and 630-680)
+        /// </summary>
+        public static ProblemInstance Small_186(string name = "small_186", int seed = 42)
+        {
+            var random = new Random(seed);
+            var tasks = new List<TaskInfo>();
+            var taNames = new List<string> { "TA1", "TA2", "TA3", "TA4", "TA5", "TA6" };
+            var tas = taNames.Select(n => new TAInfo { Name = n }).ToList();
+
+            for (int i = 1; i <= 9; i++)
+            {
+                var selectedTAs = tas.OrderBy(x => random.Next()).Take(2).ToList();
+                int processingTime = random.Next(0, 100) < 80 ? 
+                    (88 + random.Next(0, 11)) : // 80% chance: 88-98
+                    (630 + random.Next(0, 51)); // 20% chance: 630-680
+
+                var task = new TaskInfo
+                {
+                    Name = $"Task{i}",
+                    EligibleTAs = selectedTAs,
+                    ProcessingTimes = new Dictionary<string, int>
+                    {
+                        { selectedTAs[0].Name, processingTime },
+                        { selectedTAs[1].Name, processingTime }
+                    }
+                };
+                tasks.Add(task);
+            }
+
+            return new ProblemInstance
+            {
+                Name = name,
+                Tasks = tasks,
+                TAs = tas,
+                Description = "Small instance: 9 tasks, 6 TAs, bimodal distribution (88-98 and 630-680)"
+            };
+        }
+
+        // ========== MIXED RANGES INSTANCES (26 instances) ==========
+
+        /// <summary>
+        /// Creates a small instance with mixed ranges: 8 tasks, 3 TAs (mixed: 5-15, 30-50, 80-120)
+        /// </summary>
+        public static ProblemInstance Small_187(string name = "small_187", int seed = 42)
+        {
+            var random = new Random(seed);
+            var tasks = new List<TaskInfo>();
+            var taNames = new List<string> { "TA1", "TA2", "TA3" };
+            var tas = taNames.Select(n => new TAInfo { Name = n }).ToList();
+
+            for (int i = 1; i <= 8; i++)
+            {
+                var selectedTAs = tas.OrderBy(x => random.Next()).Take(2).ToList();
+                int range = i % 3;
+                int processingTime = range == 0 ? (5 + random.Next(0, 11)) : // 5-15
+                                     range == 1 ? (30 + random.Next(0, 21)) : // 30-50
+                                     (80 + random.Next(0, 41)); // 80-120
+
+                var task = new TaskInfo
+                {
+                    Name = $"Task{i}",
+                    EligibleTAs = selectedTAs,
+                    ProcessingTimes = new Dictionary<string, int>
+                    {
+                        { selectedTAs[0].Name, processingTime },
+                        { selectedTAs[1].Name, processingTime }
+                    }
+                };
+                tasks.Add(task);
+            }
+
+            return new ProblemInstance
+            {
+                Name = name,
+                Tasks = tasks,
+                TAs = tas,
+                Description = "Small instance: 8 tasks, 3 TAs, mixed ranges (5-15, 30-50, 80-120)"
+            };
+        }
+
+        /// <summary>
+        /// Creates a small instance with mixed ranges: 9 tasks, 4 TAs (mixed: 10-25, 40-65, 100-150)
+        /// </summary>
+        public static ProblemInstance Small_188(string name = "small_188", int seed = 42)
+        {
+            var random = new Random(seed);
+            var tasks = new List<TaskInfo>();
+            var taNames = new List<string> { "TA1", "TA2", "TA3", "TA4" };
+            var tas = taNames.Select(n => new TAInfo { Name = n }).ToList();
+
+            for (int i = 1; i <= 9; i++)
+            {
+                var selectedTAs = tas.OrderBy(x => random.Next()).Take(2).ToList();
+                int range = i % 3;
+                int processingTime = range == 0 ? (10 + random.Next(0, 16)) : // 10-25
+                                     range == 1 ? (40 + random.Next(0, 26)) : // 40-65
+                                     (100 + random.Next(0, 51)); // 100-150
+
+                var task = new TaskInfo
+                {
+                    Name = $"Task{i}",
+                    EligibleTAs = selectedTAs,
+                    ProcessingTimes = new Dictionary<string, int>
+                    {
+                        { selectedTAs[0].Name, processingTime },
+                        { selectedTAs[1].Name, processingTime }
+                    }
+                };
+                tasks.Add(task);
+            }
+
+            return new ProblemInstance
+            {
+                Name = name,
+                Tasks = tasks,
+                TAs = tas,
+                Description = "Small instance: 9 tasks, 4 TAs, mixed ranges (10-25, 40-65, 100-150)"
+            };
+        }
+
+        /// <summary>
+        /// Creates a small instance with mixed ranges: 10 tasks, 5 TAs (mixed: 15-30, 50-75, 120-180)
+        /// </summary>
+        public static ProblemInstance Small_189(string name = "small_189", int seed = 42)
+        {
+            var random = new Random(seed);
+            var tasks = new List<TaskInfo>();
+            var taNames = new List<string> { "TA1", "TA2", "TA3", "TA4", "TA5" };
+            var tas = taNames.Select(n => new TAInfo { Name = n }).ToList();
+
+            for (int i = 1; i <= 10; i++)
+            {
+                var selectedTAs = tas.OrderBy(x => random.Next()).Take(2).ToList();
+                int range = i % 3;
+                int processingTime = range == 0 ? (15 + random.Next(0, 16)) : // 15-30
+                                     range == 1 ? (50 + random.Next(0, 26)) : // 50-75
+                                     (120 + random.Next(0, 61)); // 120-180
+
+                var task = new TaskInfo
+                {
+                    Name = $"Task{i}",
+                    EligibleTAs = selectedTAs,
+                    ProcessingTimes = new Dictionary<string, int>
+                    {
+                        { selectedTAs[0].Name, processingTime },
+                        { selectedTAs[1].Name, processingTime }
+                    }
+                };
+                tasks.Add(task);
+            }
+
+            return new ProblemInstance
+            {
+                Name = name,
+                Tasks = tasks,
+                TAs = tas,
+                Description = "Small instance: 10 tasks, 5 TAs, mixed ranges (15-30, 50-75, 120-180)"
+            };
+        }
+
+        /// <summary>
+        /// Creates a small instance with mixed ranges: 11 tasks, 3 TAs (mixed: 8-20, 35-55, 90-130)
+        /// </summary>
+        public static ProblemInstance Small_190(string name = "small_190", int seed = 42)
+        {
+            var random = new Random(seed);
+            var tasks = new List<TaskInfo>();
+            var taNames = new List<string> { "TA1", "TA2", "TA3" };
+            var tas = taNames.Select(n => new TAInfo { Name = n }).ToList();
+
+            for (int i = 1; i <= 11; i++)
+            {
+                var selectedTAs = tas.OrderBy(x => random.Next()).Take(2).ToList();
+                int range = i % 3;
+                int processingTime = range == 0 ? (8 + random.Next(0, 13)) : // 8-20
+                                     range == 1 ? (35 + random.Next(0, 21)) : // 35-55
+                                     (90 + random.Next(0, 41)); // 90-130
+
+                var task = new TaskInfo
+                {
+                    Name = $"Task{i}",
+                    EligibleTAs = selectedTAs,
+                    ProcessingTimes = new Dictionary<string, int>
+                    {
+                        { selectedTAs[0].Name, processingTime },
+                        { selectedTAs[1].Name, processingTime }
+                    }
+                };
+                tasks.Add(task);
+            }
+
+            return new ProblemInstance
+            {
+                Name = name,
+                Tasks = tasks,
+                TAs = tas,
+                Description = "Small instance: 11 tasks, 3 TAs, mixed ranges (8-20, 35-55, 90-130)"
+            };
+        }
+
+        /// <summary>
+        /// Creates a small instance with mixed ranges: 12 tasks, 6 TAs (mixed: 12-28, 45-70, 110-160)
+        /// </summary>
+        public static ProblemInstance Small_191(string name = "small_191", int seed = 42)
+        {
+            var random = new Random(seed);
+            var tasks = new List<TaskInfo>();
+            var taNames = new List<string> { "TA1", "TA2", "TA3", "TA4", "TA5", "TA6" };
+            var tas = taNames.Select(n => new TAInfo { Name = n }).ToList();
+
+            for (int i = 1; i <= 12; i++)
+            {
+                var selectedTAs = tas.OrderBy(x => random.Next()).Take(2).ToList();
+                int range = i % 3;
+                int processingTime = range == 0 ? (12 + random.Next(0, 17)) : // 12-28
+                                     range == 1 ? (45 + random.Next(0, 26)) : // 45-70
+                                     (110 + random.Next(0, 51)); // 110-160
+
+                var task = new TaskInfo
+                {
+                    Name = $"Task{i}",
+                    EligibleTAs = selectedTAs,
+                    ProcessingTimes = new Dictionary<string, int>
+                    {
+                        { selectedTAs[0].Name, processingTime },
+                        { selectedTAs[1].Name, processingTime }
+                    }
+                };
+                tasks.Add(task);
+            }
+
+            return new ProblemInstance
+            {
+                Name = name,
+                Tasks = tasks,
+                TAs = tas,
+                Description = "Small instance: 12 tasks, 6 TAs, mixed ranges (12-28, 45-70, 110-160)"
+            };
+        }
+
+        /// <summary>
+        /// Creates a small instance with mixed ranges: 13 tasks, 4 TAs (mixed: 6-18, 38-58, 95-140)
+        /// </summary>
+        public static ProblemInstance Small_192(string name = "small_192", int seed = 42)
+        {
+            var random = new Random(seed);
+            var tasks = new List<TaskInfo>();
+            var taNames = new List<string> { "TA1", "TA2", "TA3", "TA4" };
+            var tas = taNames.Select(n => new TAInfo { Name = n }).ToList();
+
+            for (int i = 1; i <= 13; i++)
+            {
+                var selectedTAs = tas.OrderBy(x => random.Next()).Take(2).ToList();
+                int range = i % 3;
+                int processingTime = range == 0 ? (6 + random.Next(0, 13)) : // 6-18
+                                     range == 1 ? (38 + random.Next(0, 21)) : // 38-58
+                                     (95 + random.Next(0, 46)); // 95-140
+
+                var task = new TaskInfo
+                {
+                    Name = $"Task{i}",
+                    EligibleTAs = selectedTAs,
+                    ProcessingTimes = new Dictionary<string, int>
+                    {
+                        { selectedTAs[0].Name, processingTime },
+                        { selectedTAs[1].Name, processingTime }
+                    }
+                };
+                tasks.Add(task);
+            }
+
+            return new ProblemInstance
+            {
+                Name = name,
+                Tasks = tasks,
+                TAs = tas,
+                Description = "Small instance: 13 tasks, 4 TAs, mixed ranges (6-18, 38-58, 95-140)"
+            };
+        }
+
+        /// <summary>
+        /// Creates a small instance with mixed ranges: 14 tasks, 5 TAs (mixed: 20-35, 55-80, 130-190)
+        /// </summary>
+        public static ProblemInstance Small_193(string name = "small_193", int seed = 42)
+        {
+            var random = new Random(seed);
+            var tasks = new List<TaskInfo>();
+            var taNames = new List<string> { "TA1", "TA2", "TA3", "TA4", "TA5" };
+            var tas = taNames.Select(n => new TAInfo { Name = n }).ToList();
+
+            for (int i = 1; i <= 14; i++)
+            {
+                var selectedTAs = tas.OrderBy(x => random.Next()).Take(2).ToList();
+                int range = i % 3;
+                int processingTime = range == 0 ? (20 + random.Next(0, 16)) : // 20-35
+                                     range == 1 ? (55 + random.Next(0, 26)) : // 55-80
+                                     (130 + random.Next(0, 61)); // 130-190
+
+                var task = new TaskInfo
+                {
+                    Name = $"Task{i}",
+                    EligibleTAs = selectedTAs,
+                    ProcessingTimes = new Dictionary<string, int>
+                    {
+                        { selectedTAs[0].Name, processingTime },
+                        { selectedTAs[1].Name, processingTime }
+                    }
+                };
+                tasks.Add(task);
+            }
+
+            return new ProblemInstance
+            {
+                Name = name,
+                Tasks = tasks,
+                TAs = tas,
+                Description = "Small instance: 14 tasks, 5 TAs, mixed ranges (20-35, 55-80, 130-190)"
+            };
+        }
+
+        /// <summary>
+        /// Creates a small instance with mixed ranges: 15 tasks, 3 TAs (mixed: 3-12, 25-45, 70-110)
+        /// </summary>
+        public static ProblemInstance Small_194(string name = "small_194", int seed = 42)
+        {
+            var random = new Random(seed);
+            var tasks = new List<TaskInfo>();
+            var taNames = new List<string> { "TA1", "TA2", "TA3" };
+            var tas = taNames.Select(n => new TAInfo { Name = n }).ToList();
+
+            for (int i = 1; i <= 15; i++)
+            {
+                var selectedTAs = tas.OrderBy(x => random.Next()).Take(2).ToList();
+                int range = i % 3;
+                int processingTime = range == 0 ? (3 + random.Next(0, 10)) : // 3-12
+                                     range == 1 ? (25 + random.Next(0, 21)) : // 25-45
+                                     (70 + random.Next(0, 41)); // 70-110
+
+                var task = new TaskInfo
+                {
+                    Name = $"Task{i}",
+                    EligibleTAs = selectedTAs,
+                    ProcessingTimes = new Dictionary<string, int>
+                    {
+                        { selectedTAs[0].Name, processingTime },
+                        { selectedTAs[1].Name, processingTime }
+                    }
+                };
+                tasks.Add(task);
+            }
+
+            return new ProblemInstance
+            {
+                Name = name,
+                Tasks = tasks,
+                TAs = tas,
+                Description = "Small instance: 15 tasks, 3 TAs, mixed ranges (3-12, 25-45, 70-110)"
+            };
+        }
+
+        /// <summary>
+        /// Creates a small instance with mixed ranges: 8 tasks, 7 TAs (mixed: 18-32, 48-68, 105-155)
+        /// </summary>
+        public static ProblemInstance Small_195(string name = "small_195", int seed = 42)
+        {
+            var random = new Random(seed);
+            var tasks = new List<TaskInfo>();
+            var taNames = new List<string> { "TA1", "TA2", "TA3", "TA4", "TA5", "TA6", "TA7" };
+            var tas = taNames.Select(n => new TAInfo { Name = n }).ToList();
+
+            for (int i = 1; i <= 8; i++)
+            {
+                var selectedTAs = tas.OrderBy(x => random.Next()).Take(2).ToList();
+                int range = i % 3;
+                int processingTime = range == 0 ? (18 + random.Next(0, 15)) : // 18-32
+                                     range == 1 ? (48 + random.Next(0, 21)) : // 48-68
+                                     (105 + random.Next(0, 51)); // 105-155
+
+                var task = new TaskInfo
+                {
+                    Name = $"Task{i}",
+                    EligibleTAs = selectedTAs,
+                    ProcessingTimes = new Dictionary<string, int>
+                    {
+                        { selectedTAs[0].Name, processingTime },
+                        { selectedTAs[1].Name, processingTime }
+                    }
+                };
+                tasks.Add(task);
+            }
+
+            return new ProblemInstance
+            {
+                Name = name,
+                Tasks = tasks,
+                TAs = tas,
+                Description = "Small instance: 8 tasks, 7 TAs, mixed ranges (18-32, 48-68, 105-155)"
+            };
+        }
+
+        /// <summary>
+        /// Creates a small instance with mixed ranges: 9 tasks, 8 TAs (mixed: 22-38, 60-85, 140-200)
+        /// </summary>
+        public static ProblemInstance Small_196(string name = "small_196", int seed = 42)
+        {
+            var random = new Random(seed);
+            var tasks = new List<TaskInfo>();
+            var taNames = new List<string> { "TA1", "TA2", "TA3", "TA4", "TA5", "TA6", "TA7", "TA8" };
+            var tas = taNames.Select(n => new TAInfo { Name = n }).ToList();
+
+            for (int i = 1; i <= 9; i++)
+            {
+                var selectedTAs = tas.OrderBy(x => random.Next()).Take(2).ToList();
+                int range = i % 3;
+                int processingTime = range == 0 ? (22 + random.Next(0, 17)) : // 22-38
+                                     range == 1 ? (60 + random.Next(0, 26)) : // 60-85
+                                     (140 + random.Next(0, 61)); // 140-200
+
+                var task = new TaskInfo
+                {
+                    Name = $"Task{i}",
+                    EligibleTAs = selectedTAs,
+                    ProcessingTimes = new Dictionary<string, int>
+                    {
+                        { selectedTAs[0].Name, processingTime },
+                        { selectedTAs[1].Name, processingTime }
+                    }
+                };
+                tasks.Add(task);
+            }
+
+            return new ProblemInstance
+            {
+                Name = name,
+                Tasks = tasks,
+                TAs = tas,
+                Description = "Small instance: 9 tasks, 8 TAs, mixed ranges (22-38, 60-85, 140-200)"
+            };
+        }
+
+        /// <summary>
+        /// Creates a small instance with mixed ranges: 10 tasks, 6 TAs (mixed: 7-22, 42-62, 115-170)
+        /// </summary>
+        public static ProblemInstance Small_197(string name = "small_197", int seed = 42)
+        {
+            var random = new Random(seed);
+            var tasks = new List<TaskInfo>();
+            var taNames = new List<string> { "TA1", "TA2", "TA3", "TA4", "TA5", "TA6" };
+            var tas = taNames.Select(n => new TAInfo { Name = n }).ToList();
+
+            for (int i = 1; i <= 10; i++)
+            {
+                var selectedTAs = tas.OrderBy(x => random.Next()).Take(2).ToList();
+                int range = i % 3;
+                int processingTime = range == 0 ? (7 + random.Next(0, 16)) : // 7-22
+                                     range == 1 ? (42 + random.Next(0, 21)) : // 42-62
+                                     (115 + random.Next(0, 56)); // 115-170
+
+                var task = new TaskInfo
+                {
+                    Name = $"Task{i}",
+                    EligibleTAs = selectedTAs,
+                    ProcessingTimes = new Dictionary<string, int>
+                    {
+                        { selectedTAs[0].Name, processingTime },
+                        { selectedTAs[1].Name, processingTime }
+                    }
+                };
+                tasks.Add(task);
+            }
+
+            return new ProblemInstance
+            {
+                Name = name,
+                Tasks = tasks,
+                TAs = tas,
+                Description = "Small instance: 10 tasks, 6 TAs, mixed ranges (7-22, 42-62, 115-170)"
+            };
+        }
+
+        /// <summary>
+        /// Creates a small instance with mixed ranges: 11 tasks, 4 TAs (mixed: 14-26, 52-72, 125-180)
+        /// </summary>
+        public static ProblemInstance Small_198(string name = "small_198", int seed = 42)
+        {
+            var random = new Random(seed);
+            var tasks = new List<TaskInfo>();
+            var taNames = new List<string> { "TA1", "TA2", "TA3", "TA4" };
+            var tas = taNames.Select(n => new TAInfo { Name = n }).ToList();
+
+            for (int i = 1; i <= 11; i++)
+            {
+                var selectedTAs = tas.OrderBy(x => random.Next()).Take(2).ToList();
+                int range = i % 3;
+                int processingTime = range == 0 ? (14 + random.Next(0, 13)) : // 14-26
+                                     range == 1 ? (52 + random.Next(0, 21)) : // 52-72
+                                     (125 + random.Next(0, 56)); // 125-180
+
+                var task = new TaskInfo
+                {
+                    Name = $"Task{i}",
+                    EligibleTAs = selectedTAs,
+                    ProcessingTimes = new Dictionary<string, int>
+                    {
+                        { selectedTAs[0].Name, processingTime },
+                        { selectedTAs[1].Name, processingTime }
+                    }
+                };
+                tasks.Add(task);
+            }
+
+            return new ProblemInstance
+            {
+                Name = name,
+                Tasks = tasks,
+                TAs = tas,
+                Description = "Small instance: 11 tasks, 4 TAs, mixed ranges (14-26, 52-72, 125-180)"
+            };
+        }
+
+        /// <summary>
+        /// Creates a small instance with mixed ranges: 12 tasks, 5 TAs (mixed: 9-24, 58-78, 135-195)
+        /// </summary>
+        public static ProblemInstance Small_199(string name = "small_199", int seed = 42)
+        {
+            var random = new Random(seed);
+            var tasks = new List<TaskInfo>();
+            var taNames = new List<string> { "TA1", "TA2", "TA3", "TA4", "TA5" };
+            var tas = taNames.Select(n => new TAInfo { Name = n }).ToList();
+
+            for (int i = 1; i <= 12; i++)
+            {
+                var selectedTAs = tas.OrderBy(x => random.Next()).Take(2).ToList();
+                int range = i % 3;
+                int processingTime = range == 0 ? (9 + random.Next(0, 16)) : // 9-24
+                                     range == 1 ? (58 + random.Next(0, 21)) : // 58-78
+                                     (135 + random.Next(0, 61)); // 135-195
+
+                var task = new TaskInfo
+                {
+                    Name = $"Task{i}",
+                    EligibleTAs = selectedTAs,
+                    ProcessingTimes = new Dictionary<string, int>
+                    {
+                        { selectedTAs[0].Name, processingTime },
+                        { selectedTAs[1].Name, processingTime }
+                    }
+                };
+                tasks.Add(task);
+            }
+
+            return new ProblemInstance
+            {
+                Name = name,
+                Tasks = tasks,
+                TAs = tas,
+                Description = "Small instance: 12 tasks, 5 TAs, mixed ranges (9-24, 58-78, 135-195)"
+            };
+        }
+
+        /// <summary>
+        /// Creates a small instance with mixed ranges: 13 tasks, 6 TAs (mixed: 11-27, 65-90, 150-210)
+        /// </summary>
+        public static ProblemInstance Small_200(string name = "small_200", int seed = 42)
+        {
+            var random = new Random(seed);
+            var tasks = new List<TaskInfo>();
+            var taNames = new List<string> { "TA1", "TA2", "TA3", "TA4", "TA5", "TA6" };
+            var tas = taNames.Select(n => new TAInfo { Name = n }).ToList();
+
+            for (int i = 1; i <= 13; i++)
+            {
+                var selectedTAs = tas.OrderBy(x => random.Next()).Take(2).ToList();
+                int range = i % 3;
+                int processingTime = range == 0 ? (11 + random.Next(0, 17)) : // 11-27
+                                     range == 1 ? (65 + random.Next(0, 26)) : // 65-90
+                                     (150 + random.Next(0, 61)); // 150-210
+
+                var task = new TaskInfo
+                {
+                    Name = $"Task{i}",
+                    EligibleTAs = selectedTAs,
+                    ProcessingTimes = new Dictionary<string, int>
+                    {
+                        { selectedTAs[0].Name, processingTime },
+                        { selectedTAs[1].Name, processingTime }
+                    }
+                };
+                tasks.Add(task);
+            }
+
+            return new ProblemInstance
+            {
+                Name = name,
+                Tasks = tasks,
+                TAs = tas,
+                Description = "Small instance: 13 tasks, 6 TAs, mixed ranges (11-27, 65-90, 150-210)"
+            };
+        }
+
+        /// <summary>
+        /// Creates a small instance with mixed ranges: 14 tasks, 3 TAs (mixed: 4-16, 32-52, 85-125)
+        /// </summary>
+        public static ProblemInstance Small_201(string name = "small_201", int seed = 42)
+        {
+            var random = new Random(seed);
+            var tasks = new List<TaskInfo>();
+            var taNames = new List<string> { "TA1", "TA2", "TA3" };
+            var tas = taNames.Select(n => new TAInfo { Name = n }).ToList();
+
+            for (int i = 1; i <= 14; i++)
+            {
+                var selectedTAs = tas.OrderBy(x => random.Next()).Take(2).ToList();
+                int range = i % 3;
+                int processingTime = range == 0 ? (4 + random.Next(0, 13)) : // 4-16
+                                     range == 1 ? (32 + random.Next(0, 21)) : // 32-52
+                                     (85 + random.Next(0, 41)); // 85-125
+
+                var task = new TaskInfo
+                {
+                    Name = $"Task{i}",
+                    EligibleTAs = selectedTAs,
+                    ProcessingTimes = new Dictionary<string, int>
+                    {
+                        { selectedTAs[0].Name, processingTime },
+                        { selectedTAs[1].Name, processingTime }
+                    }
+                };
+                tasks.Add(task);
+            }
+
+            return new ProblemInstance
+            {
+                Name = name,
+                Tasks = tasks,
+                TAs = tas,
+                Description = "Small instance: 14 tasks, 3 TAs, mixed ranges (4-16, 32-52, 85-125)"
+            };
+        }
+
+        /// <summary>
+        /// Creates a small instance with mixed ranges: 15 tasks, 7 TAs (mixed: 16-31, 70-95, 160-220)
+        /// </summary>
+        public static ProblemInstance Small_202(string name = "small_202", int seed = 42)
+        {
+            var random = new Random(seed);
+            var tasks = new List<TaskInfo>();
+            var taNames = new List<string> { "TA1", "TA2", "TA3", "TA4", "TA5", "TA6", "TA7" };
+            var tas = taNames.Select(n => new TAInfo { Name = n }).ToList();
+
+            for (int i = 1; i <= 15; i++)
+            {
+                var selectedTAs = tas.OrderBy(x => random.Next()).Take(2).ToList();
+                int range = i % 3;
+                int processingTime = range == 0 ? (16 + random.Next(0, 16)) : // 16-31
+                                     range == 1 ? (70 + random.Next(0, 26)) : // 70-95
+                                     (160 + random.Next(0, 61)); // 160-220
+
+                var task = new TaskInfo
+                {
+                    Name = $"Task{i}",
+                    EligibleTAs = selectedTAs,
+                    ProcessingTimes = new Dictionary<string, int>
+                    {
+                        { selectedTAs[0].Name, processingTime },
+                        { selectedTAs[1].Name, processingTime }
+                    }
+                };
+                tasks.Add(task);
+            }
+
+            return new ProblemInstance
+            {
+                Name = name,
+                Tasks = tasks,
+                TAs = tas,
+                Description = "Small instance: 15 tasks, 7 TAs, mixed ranges (16-31, 70-95, 160-220)"
+            };
+        }
+
+        /// <summary>
+        /// Creates a small instance with mixed ranges: 8 tasks, 4 TAs (mixed: 13-29, 75-100, 145-205)
+        /// </summary>
+        public static ProblemInstance Small_203(string name = "small_203", int seed = 42)
+        {
+            var random = new Random(seed);
+            var tasks = new List<TaskInfo>();
+            var taNames = new List<string> { "TA1", "TA2", "TA3", "TA4" };
+            var tas = taNames.Select(n => new TAInfo { Name = n }).ToList();
+
+            for (int i = 1; i <= 8; i++)
+            {
+                var selectedTAs = tas.OrderBy(x => random.Next()).Take(2).ToList();
+                int range = i % 3;
+                int processingTime = range == 0 ? (13 + random.Next(0, 17)) : // 13-29
+                                     range == 1 ? (75 + random.Next(0, 26)) : // 75-100
+                                     (145 + random.Next(0, 61)); // 145-205
+
+                var task = new TaskInfo
+                {
+                    Name = $"Task{i}",
+                    EligibleTAs = selectedTAs,
+                    ProcessingTimes = new Dictionary<string, int>
+                    {
+                        { selectedTAs[0].Name, processingTime },
+                        { selectedTAs[1].Name, processingTime }
+                    }
+                };
+                tasks.Add(task);
+            }
+
+            return new ProblemInstance
+            {
+                Name = name,
+                Tasks = tasks,
+                TAs = tas,
+                Description = "Small instance: 8 tasks, 4 TAs, mixed ranges (13-29, 75-100, 145-205)"
+            };
+        }
+
+        /// <summary>
+        /// Creates a small instance with mixed ranges: 9 tasks, 5 TAs (mixed: 19-34, 62-87, 155-215)
+        /// </summary>
+        public static ProblemInstance Small_204(string name = "small_204", int seed = 42)
+        {
+            var random = new Random(seed);
+            var tasks = new List<TaskInfo>();
+            var taNames = new List<string> { "TA1", "TA2", "TA3", "TA4", "TA5" };
+            var tas = taNames.Select(n => new TAInfo { Name = n }).ToList();
+
+            for (int i = 1; i <= 9; i++)
+            {
+                var selectedTAs = tas.OrderBy(x => random.Next()).Take(2).ToList();
+                int range = i % 3;
+                int processingTime = range == 0 ? (19 + random.Next(0, 16)) : // 19-34
+                                     range == 1 ? (62 + random.Next(0, 26)) : // 62-87
+                                     (155 + random.Next(0, 61)); // 155-215
+
+                var task = new TaskInfo
+                {
+                    Name = $"Task{i}",
+                    EligibleTAs = selectedTAs,
+                    ProcessingTimes = new Dictionary<string, int>
+                    {
+                        { selectedTAs[0].Name, processingTime },
+                        { selectedTAs[1].Name, processingTime }
+                    }
+                };
+                tasks.Add(task);
+            }
+
+            return new ProblemInstance
+            {
+                Name = name,
+                Tasks = tasks,
+                TAs = tas,
+                Description = "Small instance: 9 tasks, 5 TAs, mixed ranges (19-34, 62-87, 155-215)"
+            };
+        }
+
+        /// <summary>
+        /// Creates a small instance with mixed ranges: 10 tasks, 3 TAs (mixed: 2-14, 28-48, 75-115)
+        /// </summary>
+        public static ProblemInstance Small_205(string name = "small_205", int seed = 42)
+        {
+            var random = new Random(seed);
+            var tasks = new List<TaskInfo>();
+            var taNames = new List<string> { "TA1", "TA2", "TA3" };
+            var tas = taNames.Select(n => new TAInfo { Name = n }).ToList();
+
+            for (int i = 1; i <= 10; i++)
+            {
+                var selectedTAs = tas.OrderBy(x => random.Next()).Take(2).ToList();
+                int range = i % 3;
+                int processingTime = range == 0 ? (2 + random.Next(0, 13)) : // 2-14
+                                     range == 1 ? (28 + random.Next(0, 21)) : // 28-48
+                                     (75 + random.Next(0, 41)); // 75-115
+
+                var task = new TaskInfo
+                {
+                    Name = $"Task{i}",
+                    EligibleTAs = selectedTAs,
+                    ProcessingTimes = new Dictionary<string, int>
+                    {
+                        { selectedTAs[0].Name, processingTime },
+                        { selectedTAs[1].Name, processingTime }
+                    }
+                };
+                tasks.Add(task);
+            }
+
+            return new ProblemInstance
+            {
+                Name = name,
+                Tasks = tasks,
+                TAs = tas,
+                Description = "Small instance: 10 tasks, 3 TAs, mixed ranges (2-14, 28-48, 75-115)"
+            };
+        }
+
+        /// <summary>
+        /// Creates a small instance with mixed ranges: 11 tasks, 8 TAs (mixed: 24-40, 68-93, 165-225)
+        /// </summary>
+        public static ProblemInstance Small_206(string name = "small_206", int seed = 42)
+        {
+            var random = new Random(seed);
+            var tasks = new List<TaskInfo>();
+            var taNames = new List<string> { "TA1", "TA2", "TA3", "TA4", "TA5", "TA6", "TA7", "TA8" };
+            var tas = taNames.Select(n => new TAInfo { Name = n }).ToList();
+
+            for (int i = 1; i <= 11; i++)
+            {
+                var selectedTAs = tas.OrderBy(x => random.Next()).Take(2).ToList();
+                int range = i % 3;
+                int processingTime = range == 0 ? (24 + random.Next(0, 17)) : // 24-40
+                                     range == 1 ? (68 + random.Next(0, 26)) : // 68-93
+                                     (165 + random.Next(0, 61)); // 165-225
+
+                var task = new TaskInfo
+                {
+                    Name = $"Task{i}",
+                    EligibleTAs = selectedTAs,
+                    ProcessingTimes = new Dictionary<string, int>
+                    {
+                        { selectedTAs[0].Name, processingTime },
+                        { selectedTAs[1].Name, processingTime }
+                    }
+                };
+                tasks.Add(task);
+            }
+
+            return new ProblemInstance
+            {
+                Name = name,
+                Tasks = tasks,
+                TAs = tas,
+                Description = "Small instance: 11 tasks, 8 TAs, mixed ranges (24-40, 68-93, 165-225)"
+            };
+        }
+
+        /// <summary>
+        /// Creates a small instance with mixed ranges: 12 tasks, 4 TAs (mixed: 17-33, 72-97, 170-230)
+        /// </summary>
+        public static ProblemInstance Small_207(string name = "small_207", int seed = 42)
+        {
+            var random = new Random(seed);
+            var tasks = new List<TaskInfo>();
+            var taNames = new List<string> { "TA1", "TA2", "TA3", "TA4" };
+            var tas = taNames.Select(n => new TAInfo { Name = n }).ToList();
+
+            for (int i = 1; i <= 12; i++)
+            {
+                var selectedTAs = tas.OrderBy(x => random.Next()).Take(2).ToList();
+                int range = i % 3;
+                int processingTime = range == 0 ? (17 + random.Next(0, 17)) : // 17-33
+                                     range == 1 ? (72 + random.Next(0, 26)) : // 72-97
+                                     (170 + random.Next(0, 61)); // 170-230
+
+                var task = new TaskInfo
+                {
+                    Name = $"Task{i}",
+                    EligibleTAs = selectedTAs,
+                    ProcessingTimes = new Dictionary<string, int>
+                    {
+                        { selectedTAs[0].Name, processingTime },
+                        { selectedTAs[1].Name, processingTime }
+                    }
+                };
+                tasks.Add(task);
+            }
+
+            return new ProblemInstance
+            {
+                Name = name,
+                Tasks = tasks,
+                TAs = tas,
+                Description = "Small instance: 12 tasks, 4 TAs, mixed ranges (17-33, 72-97, 170-230)"
+            };
+        }
+
+        /// <summary>
+        /// Creates a small instance with mixed ranges: 13 tasks, 5 TAs (mixed: 21-37, 78-103, 175-235)
+        /// </summary>
+        public static ProblemInstance Small_208(string name = "small_208", int seed = 42)
+        {
+            var random = new Random(seed);
+            var tasks = new List<TaskInfo>();
+            var taNames = new List<string> { "TA1", "TA2", "TA3", "TA4", "TA5" };
+            var tas = taNames.Select(n => new TAInfo { Name = n }).ToList();
+
+            for (int i = 1; i <= 13; i++)
+            {
+                var selectedTAs = tas.OrderBy(x => random.Next()).Take(2).ToList();
+                int range = i % 3;
+                int processingTime = range == 0 ? (21 + random.Next(0, 17)) : // 21-37
+                                     range == 1 ? (78 + random.Next(0, 26)) : // 78-103
+                                     (175 + random.Next(0, 61)); // 175-235
+
+                var task = new TaskInfo
+                {
+                    Name = $"Task{i}",
+                    EligibleTAs = selectedTAs,
+                    ProcessingTimes = new Dictionary<string, int>
+                    {
+                        { selectedTAs[0].Name, processingTime },
+                        { selectedTAs[1].Name, processingTime }
+                    }
+                };
+                tasks.Add(task);
+            }
+
+            return new ProblemInstance
+            {
+                Name = name,
+                Tasks = tasks,
+                TAs = tas,
+                Description = "Small instance: 13 tasks, 5 TAs, mixed ranges (21-37, 78-103, 175-235)"
+            };
+        }
+
+        /// <summary>
+        /// Creates a small instance with mixed ranges: 14 tasks, 6 TAs (mixed: 26-42, 82-107, 180-240)
+        /// </summary>
+        public static ProblemInstance Small_209(string name = "small_209", int seed = 42)
+        {
+            var random = new Random(seed);
+            var tasks = new List<TaskInfo>();
+            var taNames = new List<string> { "TA1", "TA2", "TA3", "TA4", "TA5", "TA6" };
+            var tas = taNames.Select(n => new TAInfo { Name = n }).ToList();
+
+            for (int i = 1; i <= 14; i++)
+            {
+                var selectedTAs = tas.OrderBy(x => random.Next()).Take(2).ToList();
+                int range = i % 3;
+                int processingTime = range == 0 ? (26 + random.Next(0, 17)) : // 26-42
+                                     range == 1 ? (82 + random.Next(0, 26)) : // 82-107
+                                     (180 + random.Next(0, 61)); // 180-240
+
+                var task = new TaskInfo
+                {
+                    Name = $"Task{i}",
+                    EligibleTAs = selectedTAs,
+                    ProcessingTimes = new Dictionary<string, int>
+                    {
+                        { selectedTAs[0].Name, processingTime },
+                        { selectedTAs[1].Name, processingTime }
+                    }
+                };
+                tasks.Add(task);
+            }
+
+            return new ProblemInstance
+            {
+                Name = name,
+                Tasks = tasks,
+                TAs = tas,
+                Description = "Small instance: 14 tasks, 6 TAs, mixed ranges (26-42, 82-107, 180-240)"
+            };
+        }
+
+        /// <summary>
+        /// Creates a small instance with mixed ranges: 15 tasks, 3 TAs (mixed: 1-10, 20-40, 65-105)
+        /// </summary>
+        public static ProblemInstance Small_210(string name = "small_210", int seed = 42)
+        {
+            var random = new Random(seed);
+            var tasks = new List<TaskInfo>();
+            var taNames = new List<string> { "TA1", "TA2", "TA3" };
+            var tas = taNames.Select(n => new TAInfo { Name = n }).ToList();
+
+            for (int i = 1; i <= 15; i++)
+            {
+                var selectedTAs = tas.OrderBy(x => random.Next()).Take(2).ToList();
+                int range = i % 3;
+                int processingTime = range == 0 ? (1 + random.Next(0, 10)) : // 1-10
+                                     range == 1 ? (20 + random.Next(0, 21)) : // 20-40
+                                     (65 + random.Next(0, 41)); // 65-105
+
+                var task = new TaskInfo
+                {
+                    Name = $"Task{i}",
+                    EligibleTAs = selectedTAs,
+                    ProcessingTimes = new Dictionary<string, int>
+                    {
+                        { selectedTAs[0].Name, processingTime },
+                        { selectedTAs[1].Name, processingTime }
+                    }
+                };
+                tasks.Add(task);
+            }
+
+            return new ProblemInstance
+            {
+                Name = name,
+                Tasks = tasks,
+                TAs = tas,
+                Description = "Small instance: 15 tasks, 3 TAs, mixed ranges (1-10, 20-40, 65-105)"
+            };
+        }
+
+        /// <summary>
+        /// Creates a small instance with mixed ranges: 8 tasks, 4 TAs (mixed: 27-43, 88-113, 185-245)
+        /// </summary>
+        public static ProblemInstance Small_211(string name = "small_211", int seed = 42)
+        {
+            var random = new Random(seed);
+            var tasks = new List<TaskInfo>();
+            var taNames = new List<string> { "TA1", "TA2", "TA3", "TA4" };
+            var tas = taNames.Select(n => new TAInfo { Name = n }).ToList();
+
+            for (int i = 1; i <= 8; i++)
+            {
+                var selectedTAs = tas.OrderBy(x => random.Next()).Take(2).ToList();
+                int range = i % 3;
+                int processingTime = range == 0 ? (27 + random.Next(0, 17)) : // 27-43
+                                     range == 1 ? (88 + random.Next(0, 26)) : // 88-113
+                                     (185 + random.Next(0, 61)); // 185-245
+
+                var task = new TaskInfo
+                {
+                    Name = $"Task{i}",
+                    EligibleTAs = selectedTAs,
+                    ProcessingTimes = new Dictionary<string, int>
+                    {
+                        { selectedTAs[0].Name, processingTime },
+                        { selectedTAs[1].Name, processingTime }
+                    }
+                };
+                tasks.Add(task);
+            }
+
+            return new ProblemInstance
+            {
+                Name = name,
+                Tasks = tasks,
+                TAs = tas,
+                Description = "Small instance: 8 tasks, 4 TAs, mixed ranges (27-43, 88-113, 185-245)"
+            };
+        }
+
+        /// <summary>
+        /// Creates a small instance with mixed ranges: 9 tasks, 5 TAs (mixed: 29-45, 92-117, 190-250)
+        /// </summary>
+        public static ProblemInstance Small_212(string name = "small_212", int seed = 42)
+        {
+            var random = new Random(seed);
+            var tasks = new List<TaskInfo>();
+            var taNames = new List<string> { "TA1", "TA2", "TA3", "TA4", "TA5" };
+            var tas = taNames.Select(n => new TAInfo { Name = n }).ToList();
+
+            for (int i = 1; i <= 9; i++)
+            {
+                var selectedTAs = tas.OrderBy(x => random.Next()).Take(2).ToList();
+                int range = i % 3;
+                int processingTime = range == 0 ? (29 + random.Next(0, 17)) : // 29-45
+                                     range == 1 ? (92 + random.Next(0, 26)) : // 92-117
+                                     (190 + random.Next(0, 61)); // 190-250
+
+                var task = new TaskInfo
+                {
+                    Name = $"Task{i}",
+                    EligibleTAs = selectedTAs,
+                    ProcessingTimes = new Dictionary<string, int>
+                    {
+                        { selectedTAs[0].Name, processingTime },
+                        { selectedTAs[1].Name, processingTime }
+                    }
+                };
+                tasks.Add(task);
+            }
+
+            return new ProblemInstance
+            {
+                Name = name,
+                Tasks = tasks,
+                TAs = tas,
+                Description = "Small instance: 9 tasks, 5 TAs, mixed ranges (29-45, 92-117, 190-250)"
+            };
+        }
+
+                /// <summary>
         /// Creates a small instance with few TAs (3) and wide load range (10-100)
         /// </summary>
         public static ProblemInstance Small_17(string name = "small_17", int seed = 42)
@@ -5154,6 +9125,111 @@ namespace TaskScheduling.DataGeneration
             yield return Small_109();
             yield return Small_110();
             yield return Small_111();
+            // Uniform distribution instances (25 instances)
+            yield return Small_112();
+            yield return Small_113();
+            yield return Small_114();
+            yield return Small_115();
+            yield return Small_116();
+            yield return Small_117();
+            yield return Small_118();
+            yield return Small_119();
+            yield return Small_120();
+            yield return Small_121();
+            yield return Small_122();
+            yield return Small_123();
+            yield return Small_124();
+            yield return Small_125();
+            yield return Small_126();
+            yield return Small_127();
+            yield return Small_128();
+            yield return Small_129();
+            yield return Small_130();
+            yield return Small_131();
+            yield return Small_132();
+            yield return Small_133();
+            yield return Small_134();
+            yield return Small_135();
+            yield return Small_136();
+            // Bimodal distribution instances (50 instances)
+            yield return Small_137();
+            yield return Small_138();
+            yield return Small_139();
+            yield return Small_140();
+            yield return Small_141();
+            yield return Small_142();
+            yield return Small_143();
+            yield return Small_144();
+            yield return Small_145();
+            yield return Small_146();
+            yield return Small_147();
+            yield return Small_148();
+            yield return Small_149();
+            yield return Small_150();
+            yield return Small_151();
+            yield return Small_152();
+            yield return Small_153();
+            yield return Small_154();
+            yield return Small_155();
+            yield return Small_156();
+            yield return Small_157();
+            yield return Small_158();
+            yield return Small_159();
+            yield return Small_160();
+            yield return Small_161();
+            yield return Small_162();
+            yield return Small_163();
+            yield return Small_164();
+            yield return Small_165();
+            yield return Small_166();
+            yield return Small_167();
+            yield return Small_168();
+            yield return Small_169();
+            yield return Small_170();
+            yield return Small_171();
+            yield return Small_172();
+            yield return Small_173();
+            yield return Small_174();
+            yield return Small_175();
+            yield return Small_176();
+            yield return Small_177();
+            yield return Small_178();
+            yield return Small_179();
+            yield return Small_180();
+            yield return Small_181();
+            yield return Small_182();
+            yield return Small_183();
+            yield return Small_184();
+            yield return Small_185();
+            yield return Small_186();
+            // Mixed ranges instances (26 instances)
+            yield return Small_187();
+            yield return Small_188();
+            yield return Small_189();
+            yield return Small_190();
+            yield return Small_191();
+            yield return Small_192();
+            yield return Small_193();
+            yield return Small_194();
+            yield return Small_195();
+            yield return Small_196();
+            yield return Small_197();
+            yield return Small_198();
+            yield return Small_199();
+            yield return Small_200();
+            yield return Small_201();
+            yield return Small_202();
+            yield return Small_203();
+            yield return Small_204();
+            yield return Small_205();
+            yield return Small_206();
+            yield return Small_207();
+            yield return Small_208();
+            yield return Small_209();
+            yield return Small_210();
+            yield return Small_211();
+            yield return Small_212();
+            
             yield return Big_1();
             yield return Big_2();
             yield return Big_3();
