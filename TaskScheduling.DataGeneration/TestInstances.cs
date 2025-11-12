@@ -9005,10 +9005,10 @@ namespace TaskScheduling.DataGeneration
         }
 
         /// <summary>
-        /// Generates 1000 instances based on Uniform distribution
+        /// Generates instances based on Uniform distribution
         /// Cycles through uniform distribution functions (Small_112 to Small_136) with different seeds
         /// </summary>
-        public static IEnumerable<ProblemInstance> GenerateUniformDistributionInstances(int count = 1000, int startSeed = 2000)
+        public static IEnumerable<ProblemInstance> GenerateUniformDistributionInstances(int count = 425, int startSeed = 2000)
         {
             var uniformFunctions = new Func<int, int, ProblemInstance>[]
             {
@@ -9048,10 +9048,10 @@ namespace TaskScheduling.DataGeneration
         }
 
         /// <summary>
-        /// Generates 1000 instances based on Bimodal distribution
+        /// Generates instances based on Bimodal distribution
         /// Cycles through bimodal distribution functions (Small_137 to Small_186) with different seeds
         /// </summary>
-        public static IEnumerable<ProblemInstance> GenerateBimodalDistributionInstances(int count = 1000, int startSeed = 3000)
+        public static IEnumerable<ProblemInstance> GenerateBimodalDistributionInstances(int count = 425, int startSeed = 3000)
         {
             var bimodalFunctions = new Func<int, int, ProblemInstance>[]
             {
@@ -9116,10 +9116,10 @@ namespace TaskScheduling.DataGeneration
         }
 
         /// <summary>
-        /// Generates 1000 instances based on Mixed ranges distribution
+        /// Generates instances based on Mixed ranges distribution
         /// Cycles through mixed ranges functions (Small_187 to Small_212) with different seeds
         /// </summary>
-        public static IEnumerable<ProblemInstance> GenerateMixedRangesInstances(int count = 1000, int startSeed = 4000)
+        public static IEnumerable<ProblemInstance> GenerateMixedRangesInstances(int count = 425, int startSeed = 4000)
         {
             var mixedRangesFunctions = new Func<int, int, ProblemInstance>[]
             {
@@ -9385,7 +9385,7 @@ namespace TaskScheduling.DataGeneration
             yield return Small_211();
             yield return Small_212();
             
-            // Generate 1000 instances for each distribution type using the new methods
+            // Generate 425 instances for each distribution type using the new methods (total ~1500 instances)
             foreach (var instance in GenerateUniformDistributionInstances())
             {
                 yield return instance;
